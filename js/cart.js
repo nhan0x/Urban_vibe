@@ -1,9 +1,4 @@
-/* ===== GIỎ HÀNG (kiểu elise.vn) =====
-   Việc: thêm / gỡ / đổi số lượng, lưu localStorage theo tài khoản, cập nhật số trên biểu tượng túi.
-         Trang giỏ hàng riêng (cart.html): "Thông tin giỏ hàng", sửa số lượng rồi bấm "Cập nhật giỏ hàng".
-   Mỗi dòng trong giỏ: { id, size, qty } — cùng sản phẩm khác size là 2 dòng.
-   Dùng: products (products.js); Utils (utils.js); auth (auth.js); orders (orders.js, tính phí ship).
-   Giao diện: id="cart-count" trên header; id="cart-page" trong cart.html. */
+// Giỏ hàng: thêm / gỡ / đổi số lượng theo size, lưu theo tài khoản và vẽ trang cart.html.
 
 class Cart {
     constructor(allProducts) {
@@ -11,14 +6,13 @@ class Cart {
         this.defaultSize = "M";
     }
 
-    // Mỗi tài khoản có giỏ riêng; chưa đăng nhập thì không có khóa (giỏ trống, không ghi được)
     key() { return auth.userKey("cart"); }
 
     get() {
         if (!this.key()) return [];
         try {
             const items = JSON.parse(localStorage.getItem(this.key())) || [];
-            return items.map(i => ({ ...i, size: i.size || this.defaultSize })); // giỏ cũ chưa có size
+            return items.map(i => ({ ...i, size: i.size || this.defaultSize }));
         } catch (e) { return []; }
     }
 
@@ -30,7 +24,6 @@ class Cart {
 
     same(a, id, size) { return a.id === id && a.size === size; }
 
-    // Trả về true nếu đã thêm được (false khi chưa đăng nhập)
     add(id, qty = 1, size = this.defaultSize) {
         if (!auth.requireLogin("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng")) return false;
         const items = this.get();
@@ -42,14 +35,12 @@ class Cart {
         return true;
     }
 
-    // Nút "Gỡ"
     remove(id, size) {
         if (!auth.requireLogin()) return;
         this.save(this.get().filter(x => !this.same(x, id, size)));
         Utils.showToast("Đã gỡ sản phẩm khỏi giỏ hàng");
     }
 
-    // Nút − / + trên trang giỏ: chỉ đổi số trong ô, bấm "Cập nhật giỏ hàng" mới lưu (giống elise.vn)
     stepQty(btn, delta) {
         const input = btn.parentNode.querySelector("input");
         input.value = Math.max(1, (parseInt(input.value, 10) || 1) + delta);
@@ -58,7 +49,6 @@ class Cart {
 
     markDirty() { Utils.$("cart-update-btn").classList.add("dirty"); }
 
-    // Lưu số lượng đang nhập trong các ô; trả về true nếu có thay đổi
     applyInputs(silent) {
         const items = this.get();
         let changed = false;
@@ -72,7 +62,6 @@ class Cart {
         return changed;
     }
 
-    // Các dòng trong giỏ kèm thông tin sản phẩm (dùng cho trang giỏ & thanh toán)
     lines() {
         return this.get()
             .map(i => ({ product: this.products.find(p => p.id === i.id), size: i.size, qty: i.qty }))
@@ -89,10 +78,8 @@ class Cart {
         this.render();
     }
 
-    // Biểu tượng túi trên header: sang trang giỏ hàng
     open() { location.href = "cart.html"; }
 
-    // Số trên biểu tượng túi + (nếu đang ở cart.html) vẽ lại trang giỏ
     render() {
         Utils.setText("cart-count", this.count());
         if (Utils.$("cart-page")) this.renderPage();
@@ -104,7 +91,8 @@ class Cart {
             root.innerHTML = `
                 <h1 class="cart-title">Thông tin giỏ hàng</h1>
                 <p class="cart-sub">Bạn cần đăng nhập để xem giỏ hàng.</p>
-                <button class="cart-btn cart-btn-dark" onclick="accountModal.open('login')">Đăng nhập</button>`;
+                <button class="cart-btn cart-btn-dark" onclick="accountModal.open('login')">Đăng nhập</button>
+                ${this.ordersHTML()}`;
             return;
         }
         const lines = this.lines();
@@ -112,7 +100,8 @@ class Cart {
             root.innerHTML = `
                 <h1 class="cart-title">Thông tin giỏ hàng</h1>
                 <p class="cart-sub">Bạn chưa có sản phẩm nào trong giỏ.</p>
-                <a class="cart-btn cart-btn-dark" href="index.html">Tiếp tục mua hàng</a>`;
+                <a class="cart-btn cart-btn-dark" href="index.html">Tiếp tục mua hàng</a>
+                ${this.ordersHTML()}`;
             return;
         }
         root.innerHTML = `
@@ -136,6 +125,7 @@ class Cart {
                         <div class="cart-row-total">${Utils.formatPrice(l.product.price * l.qty)}</div>
                     </div>`).join("")}
             </div>
+            ${this.ordersHTML()}
             <div class="cart-bar">
                 <div class="cart-bar-inner">
                     <a class="cart-btn" href="index.html">Tiếp tục mua hàng</a>
@@ -151,7 +141,36 @@ class Cart {
             </div>`;
     }
 
-    // Nút "Thanh toán": lưu số lượng đang sửa (nếu có) rồi sang trang thanh toán
+    ordersHTML() {
+        const list = auth.isLoggedIn() ? orders.all() : [];
+        const recent = list.slice(0, 5);
+        return `
+            <section class="cart-orders">
+                <div class="cart-orders-head">
+                    <h2>Đơn hàng của bạn</h2>
+                    <div class="cart-orders-links">
+                        ${list.length > recent.length ? '<a href="account.html#orders">Xem tất cả đơn hàng</a>' : ""}
+                        <a href="tracking.html">Tra cứu đơn hàng bằng mã đơn</a>
+                    </div>
+                </div>
+                ${recent.length ? `
+                <table class="tk-table">
+                    <thead><tr><th>Mã đơn</th><th>Ngày đặt</th><th>Sản phẩm</th><th>Tổng tiền</th><th>Trạng thái</th><th></th></tr></thead>
+                    <tbody>${recent.map(o => `
+                        <tr>
+                            <td>${o.code}</td>
+                            <td>${Utils.formatDateTime(o.createdAt)}</td>
+                            <td>${orders.count(o)}</td>
+                            <td>${Utils.formatPrice(orders.total(o))}</td>
+                            <td>${orders.statusLabel(o)}</td>
+                            <td><a href="tracking.html?code=${o.code}">Theo dõi đơn hàng</a></td>
+                        </tr>`).join("")}
+                    </tbody>
+                </table>`
+                : `<p class="cart-sub">${auth.isLoggedIn() ? "Bạn chưa có đơn hàng nào." : "Đăng nhập để xem các đơn đã đặt, hoặc tra cứu bằng mã đơn hàng."}</p>`}
+            </section>`;
+    }
+
     checkout() {
         if (!auth.requireLogin("Vui lòng đăng nhập để đặt hàng")) return;
         if (Utils.$("cart-page")) this.applyInputs(true);
