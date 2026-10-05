@@ -236,6 +236,7 @@ class CheckoutPage {
         return `
             <form class="co-form" onsubmit="checkoutPage.submitShipping(event)" novalidate>
                 <h2 class="co-title">Địa chỉ giao hàng</h2>
+                <button type="button" class="co-locate" onclick="checkoutPage.useMyLocation(this)">Dùng vị trí hiện tại</button>
                 <div class="co-grid">
                     ${field("firstName", "Tên", true)}
                     ${field("lastName", "Họ", true)}
@@ -258,6 +259,29 @@ class CheckoutPage {
                 ${shippingOptions}
                 <div class="co-actions"><button type="submit" class="cart-btn cart-btn-dark">Tiếp tục</button></div>
             </form>`;
+    }
+
+    // Bấm "Dùng vị trí hiện tại": định vị rồi điền tỉnh / quận / phường / địa chỉ vào form (chỉ ô nào tìm được).
+    // Các ô khác (tên, điện thoại, ghi chú) giữ nguyên; người dùng vẫn sửa được kết quả.
+    async useMyLocation(button) {
+        const f = button.closest("form").elements;
+        const label = button.textContent;
+        button.disabled = true;
+        button.textContent = "Đang xác định vị trí...";
+        try {
+            const found = await GeoLocator.locate();
+            for (const name of ["province", "district", "ward", "address"]) {
+                if (!found[name]) continue;
+                f[name].value = found[name];
+                this.check(f[name], "");
+            }
+            if (found.province && found.address) Utils.showToast("Đã điền địa chỉ theo vị trí của bạn");
+            else Utils.showToast("Chỉ lấy được một phần địa chỉ, vui lòng kiểm tra lại");
+        } catch (err) {
+            Utils.showToast(err.message || "Không thể xác định vị trí của bạn");
+        }
+        button.disabled = false;
+        button.textContent = label;
     }
 
     // Người dùng chọn một phương thức giao hàng: ghi nhớ vị trí đã chọn rồi vẽ lại CHỈ khung tóm tắt bên phải

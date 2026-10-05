@@ -9,7 +9,7 @@
         --dark: #111111;
         --text-color: #222222;
         --font-main: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-        --header-h: 100px; --header-h-compact: 76px; --flash-h: 34px;
+        --header-h: 100px; --header-h-compact: 76px; --flash-h: 0px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 button, input, textarea, select { font-family: inherit; }
@@ -870,6 +870,13 @@ footer {
 .co-phone span { width: 80px; font-size: 16px; border-right: 1px solid #eee; }
 .co-phone input { flex: 1; border-bottom: none !important; padding-left: 20px; }
 .co-hint { font-size: 15px; color: #555; margin: -6px 0 0 calc(50% + 15px); }
+.co-locate {
+        margin: -6px 0 22px; padding: 0 0 2px; background: none; border: 0; border-bottom: 1px solid #000; color: #000;
+        font-family: inherit; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer;
+        transition: color 0.2s, border-color 0.2s;
+    }
+.co-locate:hover { color: #a68242; border-bottom-color: #a68242; }
+.co-locate:disabled { opacity: 0.6; cursor: wait; }
 .co-account { font-size: 14px; color: #555; margin: 4px 0 26px; }
 .co-account a { color: #000; text-decoration: underline; }
 .co-radio { display: flex; align-items: center; gap: 14px; font-size: 16px; text-transform: none; cursor: pointer; margin-bottom: 8px; }
@@ -1146,23 +1153,3 @@ footer {
     .wl-bar-inner .wl-btn { width: 100%; }
 }
 
-
-/* Dải Flash Sale nằm trên header: một dòng chữ nhỏ + đồng hồ đếm ngược */
-.flash-bar {
-        position: fixed; top: 0; left: 0; right: 0; height: var(--flash-h); z-index: 1001;
-        display: flex; align-items: center; justify-content: center; gap: 14px;
-        background: #000; color: #fff; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
-    }
-.flash-bar > span + span::before, .flash-bar-link::before { content: "·"; margin-right: 14px; color: #777; }
-.flash-bar-label { color: #c9a465; font-weight: 700; }
-.flash-bar-text { color: #ddd; }
-.flash-bar-clock b { display: inline-block; min-width: 22px; margin: 0 1px; font-weight: 700; text-align: center; font-variant-numeric: tabular-nums; }
-.flash-bar-link { color: #fff; }
-.flash-bar-link:hover { color: #c9a465; }
-@media (max-width: 767px) {
-    :root { --flash-h: 30px; }
-    .flash-bar { gap: 10px; font-size: 11px; letter-spacing: 0.03em; }
-    .flash-bar > span + span::before, .flash-bar-link::before { margin-right: 10px; }
-    .flash-bar-text { display: none; }
-}

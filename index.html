@@ -17,16 +17,6 @@
 </head>
 <body>
 
-<!-- Dải Flash Sale trên header: đồng hồ đếm ngược (js/countdown.js) -->
-<div class="flash-bar" id="flash-bar">
-    <span class="flash-bar-label">Flash Sale</span>
-    <span class="flash-bar-text">Giảm 20% sản phẩm Sale</span>
-    <span class="flash-bar-clock">Kết thúc sau
-        <b id="cd-hours">00</b>:<b id="cd-minutes">00</b>:<b id="cd-seconds">00</b>
-    </span>
-    <a class="flash-bar-link" href="index.html?cat=sale">Xem ngay ›</a>
-</div>
-
 <!-- Header: ☰ + logo | TÌM KIẾM ____ | Gọi Ngay, Tài Khoản, túi hàng, yêu thích -->
 <header class="site-header" id="main-header">
     <div class="site-header-inner">
@@ -263,22 +253,21 @@
 <div id="toast"></div>
 
 <!-- Thứ tự nạp quan trọng: dữ liệu -> tiện ích -> các component -> app.js (khởi động) cuối cùng -->
-<script src="js/products.js"></script>      <!-- Dữ liệu sản phẩm -->
-<script src="js/mock-data.js"></script>     <!-- Dữ liệu giả: trạng thái vận chuyển, đơn mẫu -->
-<script src="js/utils.js"></script>         <!-- Hàm dùng chung, thông báo toast -->
-<script src="js/auth.js"></script>          <!-- Đăng ký / đăng nhập, chặn thao tác khi chưa đăng nhập -->
-<script src="js/header.js"></script>        <!-- Header thu gọn khi cuộn, menu trượt -->
-<script src="js/countdown.js"></script>     <!-- Đồng hồ đếm ngược Flash Sale -->
-<script src="js/slider.js"></script>        <!-- Slider banner -->
-<script src="js/wishlist.js"></script>      <!-- Yêu thích -->
-<script src="js/product-list.js"></script>  <!-- Lưới sản phẩm, lọc, tìm kiếm -->
-<script src="js/staff-data.js"></script>    <!-- Dữ liệu nhân viên & Snap -->
-<script src="js/staff-widgets.js"></script> <!-- Snap & Xếp hạng nhân viên trên trang chủ -->
-<script src="js/account-modal.js"></script> <!-- Cửa sổ tài khoản -->
-<script src="js/cart.js"></script>          <!-- Giỏ hàng -->
-<script src="js/orders.js"></script>        <!-- Đơn hàng (dữ liệu giả, localStorage) -->
-<script src="js/form.js"></script>          <!-- Kiểm tra form (bạn tự viết) -->
-<script src="js/app.js"></script>           <!-- Khởi động -->
+<script src="js/data/products.js"></script>      <!-- Dữ liệu sản phẩm -->
+<script src="js/data/mock-data.js"></script>     <!-- Dữ liệu giả: trạng thái vận chuyển, đơn mẫu -->
+<script src="js/core/utils.js"></script>         <!-- Hàm dùng chung, thông báo toast -->
+<script src="js/core/auth.js"></script>          <!-- Đăng ký / đăng nhập, chặn thao tác khi chưa đăng nhập -->
+<script src="js/core/header.js"></script>        <!-- Header thu gọn khi cuộn, menu trượt -->
+<script src="js/widgets/slider.js"></script>        <!-- Slider banner -->
+<script src="js/features/wishlist.js"></script>      <!-- Yêu thích -->
+<script src="js/features/product-list.js"></script>  <!-- Lưới sản phẩm, lọc, tìm kiếm -->
+<script src="js/data/staff-data.js"></script>    <!-- Dữ liệu nhân viên & Snap -->
+<script src="js/widgets/staff-widgets.js"></script> <!-- Snap & Xếp hạng nhân viên trên trang chủ -->
+<script src="js/core/account-modal.js"></script> <!-- Cửa sổ tài khoản -->
+<script src="js/features/cart.js"></script>          <!-- Giỏ hàng -->
+<script src="js/features/orders.js"></script>        <!-- Đơn hàng (dữ liệu giả, localStorage) -->
+<script src="js/widgets/form.js"></script>          <!-- Kiểm tra form (bạn tự viết) -->
+<script src="js/core/app.js"></script>           <!-- Khởi động -->
 
 
 </body>

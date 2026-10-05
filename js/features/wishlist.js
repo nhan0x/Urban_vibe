@@ -43,6 +43,7 @@ class Wishlist {
         }
         this.save(list);
     }
+   
 
     // Xoá một sản phẩm khỏi danh sách yêu thích (giữ lại các id khác id này).
     remove(id) {

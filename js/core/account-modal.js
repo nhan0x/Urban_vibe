@@ -9,6 +9,7 @@ class AccountModal {
         Utils.$("account-overlay").classList.add("active");
         document.body.style.overflow = "hidden";
     }
+    
 
     // Đóng khung: làm ngược lại open(). Nếu khung không tồn tại hoặc đang đóng thì thoát luôn.
     close() {
