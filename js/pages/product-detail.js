@@ -113,10 +113,9 @@ class ProductDetail {
         else { event.stopPropagation(); Utils.showToast("Sản phẩm đã có trong danh sách yêu thích"); }
     }
 
-    // Sao chép địa chỉ trang hiện tại vào bộ nhớ tạm (clipboard) và báo cho người dùng.
+    // Hiện hộp thoại prompt chứa địa chỉ trang hiện tại để người dùng tự sao chép và chia sẻ.
     share() {
-        if (navigator.clipboard) navigator.clipboard.writeText(location.href);
-        Utils.showToast("Đã sao chép liên kết");
+        prompt("Sao chép liên kết để chia sẻ:", location.href);
     }
 }
 

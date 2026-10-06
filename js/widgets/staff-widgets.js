@@ -115,7 +115,7 @@ class SnapWidget {
     // Vuốt quá 40px mới tính: vuốt sang trái (dx < 0) thì tới cột sau, sang phải thì về cột trước.
     bindSwipe() {
         let startX = null;
-        this.viewport.addEventListener("touchstart", e => { startX = e.touches[0].clientX; }, { passive: true });
+        this.viewport.addEventListener("touchstart", e => { startX = e.touches[0].clientX; });
         this.viewport.addEventListener("touchend", e => {
             if (startX === null) return;
             const dx = e.changedTouches[0].clientX - startX;
@@ -229,7 +229,7 @@ class StaffRanking {
     // rồi bật tự trượt trở lại.
     bindSwipe() {
         let startX = null;
-        this.viewport.addEventListener("touchstart", e => { startX = e.touches[0].clientX; this.stop(); }, { passive: true });
+        this.viewport.addEventListener("touchstart", e => { startX = e.touches[0].clientX; this.stop(); });
         this.viewport.addEventListener("touchend", e => {
             if (startX !== null) {
                 const dx = e.changedTouches[0].clientX - startX;

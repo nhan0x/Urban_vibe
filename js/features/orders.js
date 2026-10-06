@@ -7,10 +7,9 @@ class OrderService {
         this.mock = MOCK_ORDERS;
     }
 
-    // Đọc TOÀN BỘ đơn đã lưu (của mọi tài khoản). Chưa có hoặc dữ liệu hỏng thì trả [].
+    // Đọc TOÀN BỘ đơn đã lưu (của mọi tài khoản). Chưa có thì trả [].
     raw() {
-        try { return JSON.parse(localStorage.getItem(this.key)) || []; }
-        catch (e) { return []; }
+        return JSON.parse(localStorage.getItem(this.key)) || [];
     }
 
     // Đơn hàng của người đang đăng nhập (lọc theo trường owner = email). Chưa đăng nhập thì trả [].
@@ -63,10 +62,14 @@ class OrderService {
         const c0 = String(code).trim().toUpperCase();
         const order = this.raw().find(o => o.code === c0) || this.mock.find(o => o.code === c0);
         if (!order) return null;
-        const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+        const norm = s => String(s || "").trim().toLowerCase().split(" ").filter(x => x).join(" ");
         const c = order.customer;
         if (!norm(c.name).includes(norm(name))) return null;
-        const phone = s => norm(s).replace(/\s/g, "").replace(/^\+84/, "0");
+        const phone = s => {
+            const p = norm(s).split(" ").join("");
+            if (p.startsWith("+84")) return "0" + p.slice(3);
+            return p;
+        };
         if (by === "phone") {
             if (phone(c.phone) === phone(value)) return order;
             return null;

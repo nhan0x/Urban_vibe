@@ -7,7 +7,7 @@ class AccountModal {
         this.switchTab(tab);
         Utils.$("account-modal").classList.add("active");
         Utils.$("account-overlay").classList.add("active");
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow ="hidden";
     }
     
 
@@ -31,7 +31,7 @@ class AccountModal {
     }
 
     // Bấm "Quên mật khẩu?": chỉ hiện thông báo hướng dẫn gọi hotline (chưa có chức năng khôi phục thật).
-    forgot() { Utils.showToast("Vui lòng liên hệ hotline 0900 000 001 để lấy lại mật khẩu"); }
+    forgot() { Utils.showToast("Em chưa làm chức  năng này cô ơi"); }
 }
 
 const accountModal = new AccountModal();

@@ -10,11 +10,9 @@ class Auth {
         this.sessionKey = "currentUser";
     }
 
-    // Đọc danh sách tài khoản. Chưa có dữ liệu thì trả mảng rỗng; dữ liệu hỏng (JSON.parse lỗi) cũng trả mảng rỗng
-    // để trang không bị sập.
+    // Đọc danh sách tài khoản. Chưa có dữ liệu thì trả mảng rỗng.
     users() {
-        try { return JSON.parse(localStorage.getItem(this.usersKey)) || []; }
-        catch (e) { return []; }
+        return JSON.parse(localStorage.getItem(this.usersKey)) || [];
     }
 
     // Lấy tài khoản đang đăng nhập: đọc email đã lưu, rồi tìm tài khoản có email đó trong danh sách.
@@ -26,6 +24,7 @@ class Auth {
         if (found) return found;
         return null;
     }
+
 
     // Đã đăng nhập chưa? (true / false)
     isLoggedIn() { return this.current() !== null; }
@@ -47,29 +46,50 @@ class Auth {
         return false;
     }
 
-    // Kiểm tra định dạng email bằng regex: có dạng "chữ@chữ.chữ", không có khoảng trắng.
-    // static vì không cần dữ liệu của đối tượng, gọi là Auth.isEmail(x).
-    static isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+    // Kiểm tra chuỗi chỉ gồm chữ số 0-9 (và không rỗng).
+    // static vì không cần dữ liệu của đối tượng, gọi là Auth.allDigits(x).
+    static allDigits(v) {
+        if (v.length === 0) return false;
+        for (let i = 0; i < v.length; i++) {
+            if (!"0123456789".includes(v[i])) return false;
+        }
+        return true;
+    }
+
+    // Kiểm tra email: không có khoảng trắng, đúng một dấu "@", sau "@" có dấu "." và sau dấu "." còn ký tự.
+    static isEmail(v) {
+        if (v.includes(" ")) return false;
+        const at = v.indexOf("@");
+        const dot = v.lastIndexOf(".");
+        if (at < 1 || at !== v.lastIndexOf("@")) return false;
+        return dot > at + 1 && dot < v.length - 1;
+    }
+
     // Kiểm tra số điện thoại: bắt đầu bằng 0 hoặc +84, theo sau đúng 9 chữ số.
-    static isPhone(v) { return /^(0|\+84)\d{9}$/.test(v); }
+    static isPhone(v) {
+        let rest = "";
+        if (v.startsWith("+84")) rest = v.slice(3);
+        else if (v.startsWith("0")) rest = v.slice(1);
+        return rest.length === 9 && Auth.allDigits(rest);
+    }
 
     // Xử lý form đăng ký (gắn ở onsubmit của form).
-    // 1) Chặn trình duyệt tải lại trang  2) Đọc các ô theo thuộc tính name bằng FormData
+    // 1) Chặn trình duyệt tải lại trang  2) Đọc các ô theo thuộc tính name qua form.elements
     // 3) Kiểm tra từng điều kiện, sai chỗ nào thì báo và dừng (return)  4) Kiểm tra trùng email / số điện thoại
     // 5) Hợp lệ thì thêm vào danh sách, lưu lại, xoá form và đăng nhập luôn.
     register(e) {
         e.preventDefault();
-        const d = new FormData(e.target);
-        const name = d.get("name").trim();
-        const email = d.get("email").trim().toLowerCase();
-        const phone = d.get("phone").trim();
-        const password = d.get("password");
+        const f = e.target.elements;
+        const name = f.name.value.trim();
+        const email = f.email.value.trim().toLowerCase();
+        const phone = f.phone.value.trim();
+        const password = f.password.value;
 
         if (!name) return Utils.showToast("Vui lòng nhập họ và tên");
         if (!Auth.isEmail(email)) return Utils.showToast("Email không hợp lệ");
         if (!Auth.isPhone(phone)) return Utils.showToast("Số điện thoại gồm 10 số, bắt đầu bằng 0 hoặc +84");
         if (password.length < 6) return Utils.showToast("Mật khẩu tối thiểu 6 ký tự");
-        if (password !== d.get("confirm")) return Utils.showToast("Mật khẩu nhập lại không khớp");
+        if (password !== f.confirm.value) return Utils.showToast("Mật khẩu nhập lại không khớp");
 
         const list = this.users();
         if (list.some(u => u.email === email)) return Utils.showToast("Email này đã được đăng ký");
@@ -86,10 +106,10 @@ class Auth {
     // Đúng thì xoá form và bắt đầu phiên đăng nhập.
     login(e) {
         e.preventDefault();
-        const d = new FormData(e.target);
-        const id = d.get("identity").trim().toLowerCase();
+        const f = e.target.elements;
+        const id = f.identity.value.trim().toLowerCase();
         const user = this.users().find(u => u.email === id || u.phone === id);
-        if (!user || user.password !== d.get("password")) return Utils.showToast("Sai tài khoản hoặc mật khẩu");
+        if (!user || user.password !== f.password.value) return Utils.showToast("Sai tài khoản hoặc mật khẩu");
         e.target.reset();
         this.startSession(user.email, `Đăng nhập thành công! Chào ${user.name}`);
     }
@@ -164,8 +184,3 @@ class Auth {
 }
 
 const auth = new Auth();
-
-// Sự kiện "storage" chỉ bắn ở CÁC TAB KHÁC khi localStorage đổi. Ví dụ đăng xuất ở tab A thì tab B tự cập nhật theo.
-window.addEventListener("storage", e => {
-    if (e.key === auth.sessionKey) auth.refreshUI();
-});

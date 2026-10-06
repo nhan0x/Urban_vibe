@@ -29,33 +29,35 @@ const PAYMENT_METHODS = {
 // Danh sách tỉnh / thành phố cho ô chọn trong form địa chỉ.
 const PROVINCES = ["Thành phố Hà Nội","Thành phố Hồ Chí Minh","Tỉnh An Giang","Tỉnh Bà Rịa - Vũng Tàu","Tỉnh Bắc Giang","Tỉnh Bắc Kạn","Tỉnh Bạc Liêu","Tỉnh Bắc Ninh","Tỉnh Bến Tre","Tỉnh Bình Định","Tỉnh Bình Dương","Tỉnh Bình Phước","Tỉnh Bình Thuận","Tỉnh Cà Mau","Thành phố Cần Thơ","Tỉnh Cao Bằng","Thành phố Đà Nẵng","Tỉnh Đắk Lắk","Tỉnh Đắk Nông","Tỉnh Điện Biên","Tỉnh Đồng Nai","Tỉnh Đồng Tháp","Tỉnh Gia Lai","Tỉnh Hà Giang","Tỉnh Hà Nam","Tỉnh Hà Tĩnh","Tỉnh Hải Dương","Thành phố Hải Phòng","Tỉnh Hậu Giang","Tỉnh Hoà Bình","Tỉnh Hưng Yên","Tỉnh Khánh Hòa","Tỉnh Kiên Giang","Tỉnh Kon Tum","Tỉnh Lai Châu","Tỉnh Lâm Đồng","Tỉnh Lạng Sơn","Tỉnh Lào Cai","Tỉnh Long An","Tỉnh Nam Định","Tỉnh Nghệ An","Tỉnh Ninh Bình","Tỉnh Ninh Thuận","Tỉnh Phú Thọ","Tỉnh Phú Yên","Tỉnh Quảng Bình","Tỉnh Quảng Nam","Tỉnh Quảng Ngãi","Tỉnh Quảng Ninh","Tỉnh Quảng Trị","Tỉnh Sóc Trăng","Tỉnh Sơn La","Tỉnh Tây Ninh","Tỉnh Thái Bình","Tỉnh Thái Nguyên","Tỉnh Thanh Hóa","Tỉnh Thừa Thiên Huế","Tỉnh Tiền Giang","Tỉnh Trà Vinh","Tỉnh Tuyên Quang","Tỉnh Vĩnh Long","Tỉnh Vĩnh Phúc","Tỉnh Yên Bái"];
 
-// Các đơn hàng mẫu để thử tra cứu (ví dụ mã LN100002). Hàm này chạy ngay một lần ( (function () {...})() ) và trả về mảng đơn.
-// H = 1 giờ tính bằng mili giây. Các mốc thời gian được tính lùi từ lúc hiện tại nên đơn luôn trông "mới đặt".
-const MOCK_ORDERS = (function () {
-    const H = 3600 * 1000;
-    const now = Date.now();
-    // Tạo mảng mốc thời gian các bước: mốc đầu = start + khoảng cách đầu, mỗi mốc sau = mốc trước + khoảng cách kế tiếp (cộng dồn).
-    const events = (start, gaps) => gaps.reduce((arr, g) => {
-        let last = start;
-        if (arr.length) last = arr[arr.length - 1];
-        arr.push(last + g);
-        return arr;
-    }, []);
-    return [
-        {
-            code: "LN100001", createdAt: now - 72 * H, payment: "cod",
-            customer: { name: "Nguyễn Minh Anh", phone: "0901234567", email: "minhanh@example.com", address: "12 Lê Lợi", ward: "Phường 1", district: "TP. Vũng Tàu", province: "Tỉnh Bà Rịa - Vũng Tàu", note: "" },
-            items: [{ id: 2, name: "QUẦN SUÔNG RỘNG NÂU BÈO CẠP", image: "image/products/2-card0.jpg", price: 1498000, qty: 1, size: "M" }],
-            events: events(now - 72 * H, [0, 1 * H, 8 * H, 3 * H, 14 * H, 20 * H, 6 * H]).slice(0, 7)
-        },
-        {
-            code: "LN100002", createdAt: now - 30 * H, payment: "cod",
-            customer: { name: "Trần Quốc Bảo", phone: "0912345678", email: "quocbao@example.com", address: "45 Nguyễn Huệ", ward: "Phường Bến Nghé", district: "Quận 1", province: "Thành phố Hồ Chí Minh", note: "Giao giờ hành chính" },
-            items: [
-                { id: 1, name: "ĐẦM THUN ĐEN NHÚN EO", image: "image/products/1-card0.jpg", price: 1998000, qty: 2, size: "S" },
-                { id: 3, name: "QUẦN SUÔNG DENIM NÂU", image: "image/products/3-card0.jpg", price: 1298000, qty: 1, size: "L" }
-            ],
-            events: events(now - 30 * H, [0, 1 * H, 6 * H, 2 * H, 12 * H])
-        }
-    ];
-})();
+// Các đơn hàng mẫu để thử tra cứu (ví dụ mã LN100002). Các mốc thời gian được tính lùi từ lúc hiện tại nên đơn luôn trông "mới đặt".
+const MOCK_HOUR = 3600 * 1000; // 1 giờ tính bằng mili giây
+const MOCK_NOW = Date.now();
+
+// Tạo mảng mốc thời gian các bước: mốc đầu = start + khoảng cách đầu, mỗi mốc sau = mốc trước + khoảng cách kế tiếp (cộng dồn).
+function buildEvents(start, gaps) {
+    const result = [];
+    let last = start;
+    for (let i = 0; i < gaps.length; i++) {
+        last = last + gaps[i];
+        result.push(last);
+    }
+    return result;
+}
+
+const MOCK_ORDERS = [
+    {
+        code: "LN100001", createdAt: MOCK_NOW - 72 * MOCK_HOUR, payment: "cod",
+        customer: { name: "Nguyễn Minh Anh", phone: "0901234567", email: "minhanh@example.com", address: "12 Lê Lợi", ward: "Phường 1", district: "TP. Vũng Tàu", province: "Tỉnh Bà Rịa - Vũng Tàu", note: "" },
+        items: [{ id: 2, name: "QUẦN SUÔNG RỘNG NÂU BÈO CẠP", image: "image/products/2-card0.jpg", price: 1498000, qty: 1, size: "M" }],
+        events: buildEvents(MOCK_NOW - 72 * MOCK_HOUR, [0, 1 * MOCK_HOUR, 8 * MOCK_HOUR, 3 * MOCK_HOUR, 14 * MOCK_HOUR, 20 * MOCK_HOUR, 6 * MOCK_HOUR]).slice(0, 7)
+    },
+    {
+        code: "LN100002", createdAt: MOCK_NOW - 30 * MOCK_HOUR, payment: "cod",
+        customer: { name: "Trần Quốc Bảo", phone: "0912345678", email: "quocbao@example.com", address: "45 Nguyễn Huệ", ward: "Phường Bến Nghé", district: "Quận 1", province: "Thành phố MOCK_HOURồ Chí Minh", note: "Giao giờ hành chính" },
+        items: [
+            { id: 1, name: "ĐẦM THUN ĐEN NHÚN EO", image: "image/products/1-card0.jpg", price: 1998000, qty: 2, size: "S" },
+            { id: 3, name: "QUẦN SUÔNG DENIM NÂU", image: "image/products/3-card0.jpg", price: 1298000, qty: 1, size: "L" }
+        ],
+        events: buildEvents(MOCK_NOW - 30 * MOCK_HOUR, [0, 1 * MOCK_HOUR, 6 * MOCK_HOUR, 2 * MOCK_HOUR, 12 * MOCK_HOUR])
+    }
+];

@@ -62,7 +62,8 @@ class CheckoutPage {
             else if (n < this.step) cls = "done";
 
             const canGo = n < this.step && this.step < 4;
-            const num = String(n).padStart(2, "0");
+            let num = "" + n;
+            if (n < 10) num = "0" + n;
 
             let stepHTML = `<span>${num}.${label}</span>`;
             if (canGo) stepHTML = `<a href="javascript:void(0)" onclick="checkoutPage.go(${n})">${num}.${label}</a>`;
@@ -196,20 +197,25 @@ class CheckoutPage {
     stepShipping() {
         const u = auth.current();
         const saved = (u.addresses || []).find(a => a.isDefault) || {};
-        const parts = (saved.name || u.name).trim().split(/\s+/);
+        const parts = (saved.name || u.name).trim().split(" ").filter(p => p);
+        let savedPhone = saved.phone || u.phone;
+        if (savedPhone.startsWith("+84")) savedPhone = savedPhone.slice(3);
+        else if (savedPhone.startsWith("0")) savedPhone = savedPhone.slice(1);
         const s = this.ship || {
             firstName: parts.pop(), lastName: parts.join(" "),
             province: saved.province || "", district: saved.district || "", ward: saved.ward || "",
             address: saved.address || "", note: "",
-            phone: (saved.phone || u.phone).replace(/^(\+84|0)/, "")
+            phone: savedPhone
         };
         const v = k => Utils.escapeHTML(s[k] || "");
-        const field = (name, label, req, input) => {
+        const field = (name, label, req, input, extra) => {
             let reqMark = "";
             if (req) reqMark = ' <span class="req">*</span>';
+            let labelHTML = `<label>${label}${reqMark}</label>`;
+            if (extra) labelHTML = `<div class="co-label-row">${labelHTML}${extra}</div>`;
             return `
             <div class="co-field">
-                <label>${label}${reqMark}</label>
+                ${labelHTML}
                 ${input || `<input type="text" name="${name}" value="${v(name)}">`}
                 <small class="co-error"></small>
             </div>`;
@@ -236,7 +242,6 @@ class CheckoutPage {
         return `
             <form class="co-form" onsubmit="checkoutPage.submitShipping(event)" novalidate>
                 <h2 class="co-title">Địa chỉ giao hàng</h2>
-                <button type="button" class="co-locate" onclick="checkoutPage.useMyLocation(this)">Dùng vị trí hiện tại</button>
                 <div class="co-grid">
                     ${field("firstName", "Tên", true)}
                     ${field("lastName", "Họ", true)}
@@ -247,7 +252,8 @@ class CheckoutPage {
                         </select>`)}
                     ${field("district", "Quận/Huyện", false)}
                     ${field("ward", "Phường/Xã", false)}
-                    ${field("address", "Địa chỉ", true)}
+                    ${field("address", "Địa chỉ", true, "",
+                        `<button type="button" class="co-locate" onclick="checkoutPage.useMyLocation(this)">Dùng vị trí hiện tại</button>`)}
                     ${field("note", "Ghi chú", false, `<input type="text" name="note" placeholder="Ghi chú đơn hàng" value="${v("note")}">`)}
                     ${field("phone", "Điện thoại", true, `
                         <div class="co-phone"><span>+84</span><input type="tel" name="phone" value="${v("phone")}" placeholder="987986689"></div>`)}
@@ -261,27 +267,27 @@ class CheckoutPage {
             </form>`;
     }
 
-    // Bấm "Dùng vị trí hiện tại": định vị rồi điền tỉnh / quận / phường / địa chỉ vào form (chỉ ô nào tìm được).
-    // Các ô khác (tên, điện thoại, ghi chú) giữ nguyên; người dùng vẫn sửa được kết quả.
-    async useMyLocation(button) {
+    // Bấm "Dùng vị trí hiện tại": định vị, tìm cửa hàng gần nhất rồi chọn sẵn tỉnh / thành của cửa hàng đó.
+    // Người dùng vẫn đổi lại được ô tỉnh / thành nếu địa chỉ giao hàng khác.
+    useMyLocation(button) {
         const f = button.closest("form").elements;
-        const label = button.textContent;
+        const labelText = button.textContent;
         button.disabled = true;
-        button.textContent = "Đang xác định vị trí...";
-        try {
-            const found = await GeoLocator.locate();
-            for (const name of ["province", "district", "ward", "address"]) {
-                if (!found[name]) continue;
-                f[name].value = found[name];
-                this.check(f[name], "");
+        button.textContent = "Đang xác định...";
+        GeoLocator.locate(
+            store => {
+                f.province.value = store.province;
+                this.check(f.province, "");
+                Utils.showToast("Cửa hàng gần bạn nhất: " + store.name);
+                button.disabled = false;
+                button.textContent = labelText;
+            },
+            message => {
+                Utils.showToast(message);
+                button.disabled = false;
+                button.textContent = labelText;
             }
-            if (found.province && found.address) Utils.showToast("Đã điền địa chỉ theo vị trí của bạn");
-            else Utils.showToast("Chỉ lấy được một phần địa chỉ, vui lòng kiểm tra lại");
-        } catch (err) {
-            Utils.showToast(err.message || "Không thể xác định vị trí của bạn");
-        }
-        button.disabled = false;
-        button.textContent = label;
+        );
     }
 
     // Người dùng chọn một phương thức giao hàng: ghi nhớ vị trí đã chọn rồi vẽ lại CHỈ khung tóm tắt bên phải
@@ -297,10 +303,12 @@ class CheckoutPage {
         e.preventDefault();
         const f = e.target.elements;
         const val = n => f[n].value.trim();
-        const phone = val("phone").replace(/\s/g, "").replace(/^(\+84|0)/, "");
+        let phone = val("phone").split(" ").join("");
+        if (phone.startsWith("+84")) phone = phone.slice(3);
+        else if (phone.startsWith("0")) phone = phone.slice(1);
         let phoneError = "";
         if (!phone) phoneError = "Đây là trường bắt buộc";
-        else if (!/^\d{9}$/.test(phone)) phoneError = "Số điện thoại không hợp lệ";
+        else if (phone.length !== 9 || !Auth.allDigits(phone)) phoneError = "Số điện thoại không hợp lệ";
         const checks = [
             this.check(f.firstName, Utils.required(val("firstName"))),
             this.check(f.lastName, Utils.required(val("lastName"))),

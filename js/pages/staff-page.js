@@ -58,15 +58,12 @@ class StaffPage {
         this.sort = "time";
         this.root.querySelectorAll(".staffstart-tab").forEach(li => li.classList.toggle("active", li.dataset.tab === tab));
 
-        let url = location.pathname;
         let title = "Nhân viên";
         let sorterOptions = '<option value="time">Sắp xếp theo nhân viên mới nhất</option><option value="pv">Sắp xếp theo lượt xem nhiều nhất</option>';
         if (tab === "snap") {
-            url = "?tab=snap";
             title = "Snap";
             sorterOptions = '<option value="time">Sắp xếp theo snap mới nhất</option><option value="pv">Sắp xếp theo snap phổ biến</option>';
         }
-        try { history.replaceState(null, "", url); } catch (e) {}
         document.title = title + " | Luna";
 
         Utils.$("staff-sorter").innerHTML = sorterOptions;
@@ -130,12 +127,15 @@ class StaffPage {
     }
 
     // Danh sách snap: ghép "mới nhất" và "phổ biến" (cái nào ưu tiên thì đứng trước theo cách sắp xếp),
-    // dùng Set ghi nhớ id đã gặp để bỏ các snap trùng nhau.
+    // chỉ thêm snap vào kết quả nếu id chưa có, để bỏ các snap trùng nhau.
     snapList() {
         let source = [...SNAPS_LATEST, ...SNAPS_POPULAR];
         if (this.sort === "pv") source = [...SNAPS_POPULAR, ...SNAPS_LATEST];
-        const seen = new Set();
-        return source.filter(s => !seen.has(s.id) && seen.add(s.id));
+        const result = [];
+        source.forEach(s => {
+            if (!result.some(r => r.id === s.id)) result.push(s);
+        });
+        return result;
     }
 
     // HTML một thẻ nhân viên: ảnh đại diện, tên, chiều cao, nơi làm việc.

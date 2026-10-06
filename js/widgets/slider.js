@@ -55,10 +55,6 @@ class Slider {
 
         this.root.addEventListener("mouseenter", () => this.stop());
         this.root.addEventListener("mouseleave", () => this.start());
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) this.stop();
-            else this.start();
-        });
 
     }
 }

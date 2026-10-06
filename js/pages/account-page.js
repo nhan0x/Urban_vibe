@@ -243,6 +243,8 @@ class AccountPage {
     // Bấm Sửa / Thêm: ghi nhớ id đang sửa, vẽ lại (để hiện form) và cuộn lên đầu trang.
     editAddress(id) { this.editing = id; this.render(); window.scrollTo({ top: 0 }); }
 
+    
+
     // Lưu form địa chỉ: kiểm tra các ô bắt buộc (sai thì dừng). Thêm mới thì push, sửa thì thay đúng địa chỉ đó.
     // Nếu địa chỉ này là mặc định thì bỏ mặc định của các địa chỉ khác (chỉ một địa chỉ mặc định);
     // địa chỉ đầu tiên luôn tự thành mặc định; nếu không còn địa chỉ nào mặc định thì lấy địa chỉ đầu.

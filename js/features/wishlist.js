@@ -4,11 +4,10 @@ class Wishlist {
     // Key lưu danh sách yêu thích riêng cho từng tài khoản ("wishlist:email"). Chưa đăng nhập thì là null.
     key() { return auth.userKey("wishlist"); }
 
-    // Đọc danh sách yêu thích: một mảng chứa id các sản phẩm, ví dụ [3, 7, 12]. Chưa đăng nhập hoặc dữ liệu hỏng thì trả [].
+    // Đọc danh sách yêu thích: một mảng chứa id các sản phẩm, ví dụ [3, 7, 12]. Chưa đăng nhập hoặc chưa có dữ liệu thì trả [].
     get() {
         if (!this.key()) return [];
-        try { return JSON.parse(localStorage.getItem(this.key())) || []; }
-        catch (e) { return []; }
+        return JSON.parse(localStorage.getItem(this.key())) || [];
     }
 
     // Lưu danh sách xuống localStorage, cập nhật số trên header và vẽ lại lưới sản phẩm (để trái tim đổi màu ngay).

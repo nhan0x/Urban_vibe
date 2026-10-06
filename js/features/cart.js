@@ -11,14 +11,12 @@ class Cart {
     // Key lưu giỏ trong localStorage, riêng cho từng tài khoản ("cart:email"). Chưa đăng nhập thì là null.
     key() { return auth.userKey("cart"); }
 
-    // Đọc giỏ hàng của người đang đăng nhập (mảng các dòng). Chưa đăng nhập hoặc dữ liệu hỏng thì trả mảng rỗng.
+    // Đọc giỏ hàng của người đang đăng nhập (mảng các dòng). Chưa đăng nhập hoặc chưa có dữ liệu thì trả mảng rỗng.
     // Dòng nào thiếu size thì gán size mặc định.
     get() {
         if (!this.key()) return [];
-        try {
-            const items = JSON.parse(localStorage.getItem(this.key())) || [];
-            return items.map(i => ({ ...i, size: i.size || this.defaultSize }));
-        } catch (e) { return []; }
+        const items = JSON.parse(localStorage.getItem(this.key())) || [];
+        return items.map(i => ({ ...i, size: i.size || this.defaultSize }));
     }
 
     // Ghi giỏ hàng xuống localStorage rồi vẽ lại (cập nhật số lượng trên header và trang giỏ).
