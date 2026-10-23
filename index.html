@@ -149,6 +149,11 @@
     </li>
 </ul>
 
+<!-- GIỎ HÀNG NHANH có thành tiền / tổng tiền (js/features/mini-cart.js) -->
+<section class="mini-cart-section">
+    <div class="mini-cart" id="mini-cart"></div>
+</section>
+
 <!-- NEW ARRIVAL: lưới sản phẩm + nút Xem thêm -->
 <section class="new-arrival" id="product-section">
     <h3 class="new-arrival-title">New Arrival</h3>
@@ -210,6 +215,7 @@
     </div>
     <div class="footer-bottom">
         &copy; 2026 Luna Fashion. Đồ án môn Lập trình cơ sở với JavaScript (Web1044).
+        <a href="javascript:void(0)" class="footer-student-link" onclick="studentPopup.open()">Thông tin sinh viên</a>
     </div>
 </footer>
 
@@ -260,6 +266,8 @@
 <script src="js/widgets/staff-widgets.js"></script> <!-- Snap & Xếp hạng nhân viên trên trang chủ -->
 <script src="js/core/account-modal.js"></script> <!-- Cửa sổ tài khoản -->
 <script src="js/features/cart.js"></script>          <!-- Giỏ hàng -->
+<script src="js/features/mini-cart.js"></script>     <!-- Giỏ hàng nhanh trên trang chủ (Lab 6) -->
+<script src="js/widgets/student-popup.js"></script> <!-- Cửa sổ thông tin sinh viên (Lab 6) -->
 <script src="js/features/orders.js"></script>        <!-- Đơn hàng (dữ liệu giả, localStorage) -->
 <script src="js/widgets/form.js"></script>          <!-- Kiểm tra form (bạn tự viết) -->
 <script src="js/core/app.js"></script>           <!-- Khởi động -->

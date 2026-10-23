@@ -49,6 +49,17 @@ class Cart {
         Utils.showToast("Đã gỡ sản phẩm khỏi giỏ hàng");
     }
 
+    // Đổi số lượng một dòng đi delta (-1 hoặc +1) rồi lưu ngay (dùng cho giỏ hàng nhanh ở trang chủ).
+    // Số lượng giảm về 0 thì dòng đó bị gỡ khỏi giỏ.
+    changeQty(id, size, delta) {
+        if (!auth.requireLogin()) return;
+        const items = this.get();
+        const item = items.find(x => this.same(x, id, size));
+        if (!item) return;
+        item.qty += delta;
+        this.save(items.filter(x => x.qty > 0));
+    }
+
     // Bấm nút − / + cạnh ô số lượng: delta là -1 hoặc +1. Số lượng không bao giờ nhỏ hơn 1,
     // nhập chữ hay để trống thì coi là 1. Chỉ đổi trên màn hình, chưa lưu cho tới khi bấm "Cập nhật giỏ hàng".
     stepQty(btn, delta) {
@@ -102,10 +113,12 @@ class Cart {
     // Chuyển sang trang giỏ hàng.
     open() { location.href = "cart.html"; }
 
-    // Cập nhật số trên header; nếu đang ở trang giỏ hàng (có #cart-page) thì vẽ lại cả trang.
+    // Cập nhật số trên header; nếu đang ở trang giỏ hàng (có #cart-page) thì vẽ lại cả trang,
+    // nếu đang ở trang chủ (có giỏ hàng nhanh #mini-cart) thì vẽ lại giỏ hàng nhanh.
     render() {
         Utils.setText("cart-count", this.count());
         if (Utils.$("cart-page")) this.renderPage();
+        if (Utils.$("mini-cart")) miniCart.render();
     }
 
     // Vẽ trang giỏ hàng, có 3 trường hợp (mỗi trường hợp vẽ xong là return):

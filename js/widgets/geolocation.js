@@ -1,46 +1,58 @@
-// Định vị: lấy tọa độ của trình duyệt rồi tìm cửa hàng gần nhất để gợi ý tỉnh/thành khi giao hàng.
-
-// Danh sách cửa hàng (mảng object). province phải trùng đúng tên trong PROVINCES để chọn được trong ô tỉnh/thành.
-const STORES = [
-    { name: "Luna Hà Nội", province: "Thành phố Hà Nội", lat: 21.0285, lng: 105.8542 },
-    { name: "Luna Hải Phòng", province: "Thành phố Hải Phòng", lat: 20.8449, lng: 106.6881 },
-    { name: "Luna Đà Nẵng", province: "Thành phố Đà Nẵng", lat: 16.0544, lng: 108.2022 },
-    { name: "Luna Hồ Chí Minh", province: "Thành phố Hồ Chí Minh", lat: 10.7769, lng: 106.7009 },
-    { name: "Luna Cần Thơ", province: "Thành phố Cần Thơ", lat: 10.0452, lng: 105.7469 }
-];
+// Định vị: lấy tọa độ của trình duyệt rồi đổi ra địa chỉ (reverse geocoding bằng OpenStreetMap Nominatim)
+// để điền sẵn vào form giao hàng.
 
 class GeoLocator {
-    // Khoảng cách giữa hai tọa độ (tính gần đúng theo định lý Pythagoras, đủ để so sánh xa / gần).
-    static distance(lat1, lng1, lat2, lng2) {
-        const dLat = lat1 - lat2;
-        const dLng = lng1 - lng2;
-        return Math.sqrt(dLat * dLat + dLng * dLng);
+    // Bỏ dấu, chữ thường, bỏ các tiền tố "Thành phố / Tỉnh" để so sánh tên tỉnh dễ hơn.
+    static normalize(text) {
+        return (text || "")
+            .normalize("NFD").replace(/[̀-ͯ]/g, "")
+            .replace(/đ/g, "d").replace(/Đ/g, "D")
+            .toLowerCase()
+            .replace(/thanh pho |tinh |city|province/g, "")
+            .trim();
     }
 
-    // Duyệt mảng STORES, trả về cửa hàng có khoảng cách nhỏ nhất.
-    static findNearestStore(lat, lng) {
-        let nearest = STORES[0];
-        let min = GeoLocator.distance(lat, lng, nearest.lat, nearest.lng);
-        for (let i = 1; i < STORES.length; i++) {
-            const d = GeoLocator.distance(lat, lng, STORES[i].lat, STORES[i].lng);
-            if (d < min) {
-                min = d;
-                nearest = STORES[i];
-            }
+    // Tìm tên tỉnh/thành trong danh sách PROVINCES khớp với tên Nominatim trả về (trả "" nếu không có).
+    static matchProvince(name) {
+        const target = GeoLocator.normalize(name);
+        if (!target) return "";
+        for (let i = 0; i < PROVINCES.length; i++) {
+            if (GeoLocator.normalize(PROVINCES[i]) === target) return PROVINCES[i];
         }
-        return nearest;
+        return "";
     }
 
-    // Hỏi trình duyệt vị trí hiện tại (Geolocation API). Thành công thì gọi onSuccess(cửa hàng gần nhất),
-    // thất bại (từ chối quyền, quá hạn...) thì gọi onError(thông báo).
+    // Đổi tọa độ thành địa chỉ: { province, district, ward, address }.
+    static async reverse(lat, lng) {
+        const url = "https://nominatim.openstreetmap.org/reverse?format=jsonv2&accept-language=vi&zoom=18&addressdetails=1"
+            + "&lat=" + lat + "&lon=" + lng;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Không tra được địa chỉ");
+        const a = (await res.json()).address || {};
+        const street = [a.house_number, a.road].filter(p => p).join(" ");
+        return {
+            province: GeoLocator.matchProvince(a.city || a.state || a.province),
+            district: a.city_district || a.county || a.district || a.town || "",
+            ward: a.suburb || a.quarter || a.neighbourhood || a.village || "",
+            address: street
+        };
+    }
+
+    // Hỏi trình duyệt vị trí hiện tại (Geolocation API) rồi đổi ra địa chỉ. Thành công thì gọi onSuccess(địa chỉ),
+    // thất bại (từ chối quyền, quá hạn, mất mạng...) thì gọi onError(thông báo).
     static locate(onSuccess, onError) {
         if (!navigator.geolocation) {
             onError("Trình duyệt không hỗ trợ định vị");
             return;
         }
         navigator.geolocation.getCurrentPosition(
-            pos => onSuccess(GeoLocator.findNearestStore(pos.coords.latitude, pos.coords.longitude)),
-            () => onError("Không thể xác định vị trí của bạn")
+            pos => {
+                GeoLocator.reverse(pos.coords.latitude, pos.coords.longitude)
+                    .then(onSuccess)
+                    .catch(() => onError("Không tra được địa chỉ từ vị trí của bạn"));
+            },
+            () => onError("Không thể xác định vị trí của bạn"),
+            { enableHighAccuracy: true, timeout: 10000 }
         );
     }
 }

@@ -267,18 +267,22 @@ class CheckoutPage {
             </form>`;
     }
 
-    // Bấm "Dùng vị trí hiện tại": định vị, tìm cửa hàng gần nhất rồi chọn sẵn tỉnh / thành của cửa hàng đó.
-    // Người dùng vẫn đổi lại được ô tỉnh / thành nếu địa chỉ giao hàng khác.
+    // Bấm "Dùng vị trí hiện tại": định vị người dùng rồi điền sẵn tỉnh / quận / phường / địa chỉ vào form.
+    // Người dùng vẫn sửa lại được các ô nếu địa chỉ giao hàng khác.
     useMyLocation(button) {
         const f = button.closest("form").elements;
         const labelText = button.textContent;
         button.disabled = true;
         button.textContent = "Đang xác định...";
         GeoLocator.locate(
-            store => {
-                f.province.value = store.province;
+            place => {
+                if (place.province) f.province.value = place.province;
+                if (place.district) f.district.value = place.district;
+                if (place.ward) f.ward.value = place.ward;
+                if (place.address) f.address.value = place.address;
                 this.check(f.province, "");
-                Utils.showToast("Cửa hàng gần bạn nhất: " + store.name);
+                if (place.address) this.check(f.address, "");
+                Utils.showToast("Đã điền địa chỉ theo vị trí của bạn");
                 button.disabled = false;
                 button.textContent = labelText;
             },
