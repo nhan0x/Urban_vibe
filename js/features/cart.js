@@ -1,4 +1,4 @@
-// Giỏ hàng: thêm / gỡ / đổi số lượng theo size, lưu theo tài khoản và vẽ trang cart.html.
+// Giỏ hàng: thêm / gỡ / đổi số lượng theo size, lưu theo tài khoản và vẽ trang pages/shop/cart.html.
 
 class Cart {
     // Nhận danh sách sản phẩm (từ products.js) để tra thông tin theo id. Size mặc định là "M".
@@ -47,17 +47,6 @@ class Cart {
         if (!auth.requireLogin()) return;
         this.save(this.get().filter(x => !this.same(x, id, size)));
         Utils.showToast("Đã gỡ sản phẩm khỏi giỏ hàng");
-    }
-
-    // Đổi số lượng một dòng đi delta (-1 hoặc +1) rồi lưu ngay (dùng cho giỏ hàng nhanh ở trang chủ).
-    // Số lượng giảm về 0 thì dòng đó bị gỡ khỏi giỏ.
-    changeQty(id, size, delta) {
-        if (!auth.requireLogin()) return;
-        const items = this.get();
-        const item = items.find(x => this.same(x, id, size));
-        if (!item) return;
-        item.qty += delta;
-        this.save(items.filter(x => x.qty > 0));
     }
 
     // Bấm nút − / + cạnh ô số lượng: delta là -1 hoặc +1. Số lượng không bao giờ nhỏ hơn 1,
@@ -111,14 +100,12 @@ class Cart {
     }
 
     // Chuyển sang trang giỏ hàng.
-    open() { location.href = "cart.html"; }
+    open() { location.href = "pages/shop/cart.html"; }
 
-    // Cập nhật số trên header; nếu đang ở trang giỏ hàng (có #cart-page) thì vẽ lại cả trang,
-    // nếu đang ở trang chủ (có giỏ hàng nhanh #mini-cart) thì vẽ lại giỏ hàng nhanh.
+    // Cập nhật số trên header; nếu đang ở trang giỏ hàng (có #cart-page) thì vẽ lại cả trang.
     render() {
         Utils.setText("cart-count", this.count());
         if (Utils.$("cart-page")) this.renderPage();
-        if (Utils.$("mini-cart")) miniCart.render();
     }
 
     // Vẽ trang giỏ hàng, có 3 trường hợp (mỗi trường hợp vẽ xong là return):
@@ -149,9 +136,9 @@ class Cart {
             <div class="cart-list">
                 ${lines.map(l => `
                     <div class="cart-row" data-id="${l.product.id}" data-size="${l.size}">
-                        <a class="cart-row-img" href="product.html?id=${l.product.id}"><img src="${l.product.image}" alt="${l.product.name}"></a>
+                        <a class="cart-row-img" href="pages/shop/product.html?id=${l.product.id}"><img src="${l.product.image}" alt="${l.product.name}"></a>
                         <div class="cart-row-info">
-                            <a class="cart-row-name" href="product.html?id=${l.product.id}">${l.product.name}</a>
+                            <a class="cart-row-name" href="pages/shop/product.html?id=${l.product.id}">${l.product.name}</a>
                             <div class="cart-row-price">${Utils.formatPrice(l.product.price)}</div>
                             <div class="cart-row-size">${l.size}</div>
                             <div class="cart-qty">
@@ -188,7 +175,7 @@ class Cart {
         const recent = list.slice(0, 5);
 
         let allOrdersLink = "";
-        if (list.length > recent.length) allOrdersLink = '<a href="account.html#orders">Xem tất cả đơn hàng</a>';
+        if (list.length > recent.length) allOrdersLink = '<a href="pages/account/account.html#orders">Xem tất cả đơn hàng</a>';
 
         let ordersBody = "";
         if (recent.length) {
@@ -202,7 +189,7 @@ class Cart {
                             <td>${orders.count(o)}</td>
                             <td>${Utils.formatPrice(orders.total(o))}</td>
                             <td>${orders.statusLabel(o)}</td>
-                            <td><a href="tracking.html?code=${o.code}">Theo dõi đơn hàng</a></td>
+                            <td><a href="pages/account/tracking.html?code=${o.code}">Theo dõi đơn hàng</a></td>
                         </tr>`).join("")}
                     </tbody>
                 </table>`;
@@ -218,7 +205,7 @@ class Cart {
                     <h2>Đơn hàng của bạn</h2>
                     <div class="cart-orders-links">
                         ${allOrdersLink}
-                        <a href="tracking.html">Tra cứu đơn hàng bằng mã đơn</a>
+                        <a href="pages/account/tracking.html">Tra cứu đơn hàng bằng mã đơn</a>
                     </div>
                 </div>
                 ${ordersBody}
@@ -231,7 +218,7 @@ class Cart {
         if (!auth.requireLogin("Vui lòng đăng nhập để đặt hàng")) return;
         if (Utils.$("cart-page")) this.applyInputs(true);
         if (!this.lines().length) { Utils.showToast("Giỏ hàng của bạn đang trống!"); return; }
-        location.href = "checkout.html";
+        location.href = "pages/shop/checkout.html";
     }
 }
 

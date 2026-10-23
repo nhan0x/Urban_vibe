@@ -1,4 +1,4 @@
-// Trang thanh toán 4 bước (checkout.html): chi tiết, vận chuyển, thanh toán khi nhận hàng, hoàn thành.
+// Trang thanh toán 4 bước (pages/shop/checkout.html): chi tiết, vận chuyển, thanh toán khi nhận hàng, hoàn thành.
 
 // Tên 4 bước hiện ở thanh tiến trình phía trên.
 const CHECKOUT_STEPS = ["Chi tiết", "Vận chuyển", "Thanh toán", "Hoàn thành"];
@@ -398,16 +398,16 @@ class CheckoutPage {
     // Bước 4 - Hoàn thành: hiện mã đơn và thông tin đơn vừa đặt, kèm link tra cứu. Chưa có đơn (vào thẳng bước này) thì về trang giỏ.
     stepDone() {
         const o = this.order;
-        if (!o) { location.href = "cart.html"; return ""; }
+        if (!o) { location.href = "pages/shop/cart.html"; return ""; }
         const c = o.customer;
-        const query = `tracking.html?code=${o.code}&name=${encodeURIComponent(c.name)}&email=${encodeURIComponent(c.email)}`;
+        const query = `pages/account/tracking.html?code=${o.code}&name=${encodeURIComponent(c.name)}&email=${encodeURIComponent(c.email)}`;
         return `
             <div class="co-done">
                 <div class="co-done-icon"><i class="fa-solid fa-check"></i></div>
                 <h2 class="co-title">Cảm ơn bạn đã đặt hàng!</h2>
                 <p class="co-desc">Mã đơn hàng của bạn là <strong class="co-code">${o.code}</strong></p>
                 <p class="co-desc">Thông tin đơn hàng đã được gửi tới <strong>${Utils.escapeHTML(c.email)}</strong>.
-                   Luna sẽ gọi số <strong>${Utils.escapeHTML(c.phone)}</strong> để xác nhận trước khi giao.</p>
+                   Urban Vibe sẽ gọi số <strong>${Utils.escapeHTML(c.phone)}</strong> để xác nhận trước khi giao.</p>
                 <ul class="co-done-info">
                     <li><span>Người nhận</span><span>${Utils.escapeHTML(c.name)}</span></li>
                     <li><span>Địa chỉ</span><span>${Utils.escapeHTML(orders.address(o))}</span></li>
@@ -423,7 +423,7 @@ class CheckoutPage {
     }
 }
 
-// Chỉ tạo trang thanh toán khi trang hiện tại có #checkout-page (checkout.html).
+// Chỉ tạo trang thanh toán khi trang hiện tại có #checkout-page (pages/shop/checkout.html).
 const checkoutRoot = document.getElementById("checkout-page");
 let checkoutPage = null;
 if (checkoutRoot) checkoutPage = new CheckoutPage(checkoutRoot);

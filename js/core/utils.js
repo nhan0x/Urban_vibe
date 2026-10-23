@@ -16,6 +16,7 @@ class Utils {
 
     // Giá gốc để gạch ngang. Chỉ sản phẩm nhóm "sale" mới có (giá hiện tại x 1.25), còn lại trả 0 (nghĩa là không có giá gốc).
     static getOriginalPrice(p) {
+        if (p.oldPrice) return p.oldPrice;
         if (p.category === "sale") return Math.round(p.price * 1.25);
         return 0;
     }

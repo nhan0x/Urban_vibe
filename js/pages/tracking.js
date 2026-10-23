@@ -1,4 +1,4 @@
-// Trang tra cứu đơn hàng (tracking.html): form tra cứu và chi tiết đơn.
+// Trang tra cứu đơn hàng (pages/account/tracking.html): form tra cứu và chi tiết đơn.
 
 // 4 chặng hiện trên thanh tiến trình. "from" là bước nhỏ nhất (trong TRACKING_STEPS) để chặng đó được coi là đã tới.
 const TRACK_STAGES = [
@@ -89,7 +89,7 @@ class TrackingPage {
             <form class="tk-form" onsubmit="trackingPage.search(event)" novalidate>
                 <div class="co-field">
                     <label>ID đặt hàng <span class="req">*</span></label>
-                    <input type="text" name="code" value="${v(f.code)}" placeholder="Ví dụ: LN100002" autocomplete="off">
+                    <input type="text" name="code" value="${v(f.code)}" placeholder="Ví dụ: UV100002" autocomplete="off">
                     <small class="co-error"></small>
                 </div>
                 <div class="co-field">
@@ -110,7 +110,7 @@ class TrackingPage {
                     <small class="co-error"></small>
                 </div>
                 <button type="submit" class="cart-btn cart-btn-dark">Tiếp tục</button>
-                <p class="tk-hint">Thử với đơn mẫu: mã <strong>LN100002</strong>, tên <strong>Trần Quốc Bảo</strong>, số điện thoại <strong>0912345678</strong>.</p>
+                <p class="tk-hint">Thử với đơn mẫu: mã <strong>UV100002</strong>, tên <strong>Trần Quốc Bảo</strong>, số điện thoại <strong>0912345678</strong>.</p>
             </form>
             ${minesHTML}`;
     }
@@ -262,7 +262,7 @@ class TrackingPage {
     }
 }
 
-// Chỉ tạo trang tra cứu khi trang hiện tại có #tracking-page (tracking.html).
+// Chỉ tạo trang tra cứu khi trang hiện tại có #tracking-page (pages/account/tracking.html).
 const trackingRoot = document.getElementById("tracking-page");
 let trackingPage = null;
 if (trackingRoot) trackingPage = new TrackingPage(trackingRoot);

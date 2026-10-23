@@ -1,4 +1,4 @@
-// Trang chi tiết sản phẩm (product.html?id=...): ảnh, giá, size, số lượng, thêm giỏ / yêu thích.
+// Trang chi tiết sản phẩm (pages/shop/product.html?id=...): ảnh, giá, size, số lượng, thêm giỏ / yêu thích.
 
 class ProductDetail {
     // Nhận danh sách sản phẩm; current là sản phẩm đang xem (chưa có thì null).
@@ -7,7 +7,7 @@ class ProductDetail {
         this.current = null;
     }
 
-    // Vẽ trang chi tiết: đọc id từ địa chỉ (product.html?id=5), tìm sản phẩm, không thấy thì báo "Không tìm thấy".
+    // Vẽ trang chi tiết: đọc id từ địa chỉ (pages/shop/product.html?id=5), tìm sản phẩm, không thấy thì báo "Không tìm thấy".
     // Thấy thì đổi tiêu đề tab và dựng HTML gồm ảnh, giá (kèm giá gốc nếu là hàng sale), chọn size, số lượng, nút thêm giỏ / yêu thích.
     render() {
         const root = Utils.$("pd-page");
@@ -18,7 +18,7 @@ class ProductDetail {
             return;
         }
         this.current = p;
-        document.title = `${p.name} | Luna`;
+        document.title = `${p.name} | Urban Vibe`;
         const originalPrice = Utils.getOriginalPrice(p);
         const sizes = ["S", "M", "L", "XL"].map((s, i) => {
             let activeClass = "";

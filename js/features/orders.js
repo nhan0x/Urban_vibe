@@ -78,10 +78,10 @@ class OrderService {
         return null;
     }
 
-    // Sinh mã đơn mới dạng "LN" + 6 chữ số ngẫu nhiên; lặp lại nếu trùng với mã đã có.
+    // Sinh mã đơn mới dạng "UV" + 6 chữ số ngẫu nhiên; lặp lại nếu trùng với mã đã có.
     newCode() {
         let code;
-        do { code = "LN" + Math.floor(100000 + Math.random() * 900000); } while (this.find(code));
+        do { code = "UV" + Math.floor(100000 + Math.random() * 900000); } while (this.find(code));
         return code;
     }
 
@@ -146,8 +146,8 @@ class OrderService {
         return d.toLocaleDateString("vi-VN");
     }
 
-    // Mã vận đơn giả, tạo từ mã đơn: "LN123456" thành "LE123456VN".
-    trackingNumber(order) { return "LE" + order.code.replace("LN", "") + "VN"; }
+    // Mã vận đơn giả, tạo từ mã đơn: "UV123456" thành "UV123456VN".
+    trackingNumber(order) { return order.code + "VN"; }
 }
 
 // Một đối tượng quản lý đơn hàng dùng chung cho cả site.

@@ -41,13 +41,13 @@ class SnapWidget {
         if (s.height) heightText = s.height + "cm";
         return `
             <div class="media-item">
-                <a class="media-snap-wrapper" href="staff.html?tab=snap">
+                <a class="media-snap-wrapper" href="pages/staff/staff.html?tab=snap">
                     <img src="${snap.image}" alt="Snap ${s.name || ""}" class="media-image" loading="lazy">
                 </a>
                 <div class="staff-info">
-                    <a class="staff-avatar-wrapper" href="staff.html">${staffAvatarHTML(s, "staff-avatar")}</a>
+                    <a class="staff-avatar-wrapper" href="pages/staff/staff.html">${staffAvatarHTML(s, "staff-avatar")}</a>
                     <div class="staff-details">
-                        <h3 class="staff-name"><a href="staff.html">${s.name || ""}</a></h3>
+                        <h3 class="staff-name"><a href="pages/staff/staff.html">${s.name || ""}</a></h3>
                         <p class="staff-height">${heightText}</p>
                         <p class="staff-location">${s.location || ""}</p>
                     </div>
@@ -70,7 +70,7 @@ class SnapWidget {
                     <button class="snap-arrow snap-next" aria-label="Sau"></button>
                 </div>
                 <div class="staff-media-actions">
-                    <a href="staff.html?tab=snap" class="btn-view-all">Xem thêm</a>
+                    <a href="pages/staff/staff.html?tab=snap" class="btn-view-all">Xem thêm</a>
                 </div>
             </div>`;
         this.track = this.root.querySelector(".snap-track");
@@ -152,12 +152,12 @@ class StaffRanking {
     itemHTML(s, rank) {
         return `
             <div class="staff-item">
-                <a class="staff-avatar" href="staff.html">
+                <a class="staff-avatar" href="pages/staff/staff.html">
                     ${staffAvatarHTML(s, "")}
                     <span class="staff-rank" data-rank="${rank}">${rank}</span>
                 </a>
                 <div class="staff-info">
-                    <h3 class="staff-name"><a href="staff.html">${s.name}</a></h3>
+                    <h3 class="staff-name"><a href="pages/staff/staff.html">${s.name}</a></h3>
                     <p class="staff-height">${s.height}cm</p>
                     <p class="staff-location">${s.location}</p>
                 </div>
@@ -176,7 +176,7 @@ class StaffRanking {
                 </div>
                 <ul class="ranking-dots"></ul>
                 <div class="staff-actions">
-                    <a href="staff.html" class="btn-view-all">Xem danh sách nhân viên</a>
+                    <a href="pages/staff/staff.html" class="btn-view-all">Xem danh sách nhân viên</a>
                 </div>
             </div>`;
         this.track = this.root.querySelector(".ranking-track");

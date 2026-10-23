@@ -1,0 +1,83 @@
+/* =====================================================================
+   MENU TÀI KHOẢN TRÊN HEADER + TRANG TÀI KHOẢN (account.html)
+   ===================================================================== */
+/* Rê chuột vào "Tài Khoản" khi đã đăng nhập: khung viền đen lật xuống (rotateX) */
+.header-account { position: relative; display: flex; align-items: center; }
+.account-dropdown {
+        position: absolute; top: 100%; left: 50%; margin-left: -90px; min-width: 180px; padding: 18px 15px;
+        background: #fff; border: 1px solid #000; z-index: 1100;
+        display: flex; flex-direction: column; gap: 6px;
+        transform-origin: center top; transform: rotateX(90deg); opacity: 0; visibility: hidden;
+        transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s;
+    }
+/* Cầu nối vô hình để chuột đi từ nút xuống khung không bị mất hover */
+.header-account::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px; }
+.account-dropdown { margin-top: 14px; }
+.header-account.logged-in:hover .account-dropdown,
+.header-account.logged-in:focus-within .account-dropdown { transform: rotateX(0deg); opacity: 1; visibility: visible; }
+.account-dropdown a { font-size: 15px; color: #000; line-height: 1.7; white-space: nowrap; }
+
+/* Trang tài khoản: menu trái, nội dung ở giữa */
+.account-page {
+        display: grid; grid-template-columns: minmax(200px, 1fr) minmax(0, 740px) 1fr; gap: 40px;
+        padding: 30px 40px 100px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #000;
+    }
+.ac-menu-toggle {
+        background: none; border: none; padding: 0; font-family: inherit; font-size: 14px; font-weight: 700;
+        text-transform: uppercase; color: #000; cursor: default; margin-bottom: 32px;
+    }
+.ac-menu { list-style: none; padding: 0; margin: 0; }
+.ac-menu li { margin-bottom: 12px; }
+.ac-menu a { font-size: 14px; text-transform: uppercase; color: #000; }
+.ac-menu li.active a { color: #a68242; }
+.ac-main { padding-top: 40px; min-width: 0; }
+.ac-title { font-size: 22px; font-weight: 500; text-transform: uppercase; margin: 0 0 34px; }
+.ac-block { margin-bottom: 30px; }
+.ac-block-title { font-size: 17px; font-weight: 500; text-transform: uppercase; margin: 0 0 14px; }
+.ac-desc { font-size: 13px; color: #555; line-height: 1.65; margin-bottom: 20px; }
+.ac-logout { min-width: 120px; height: 34px; font-size: 12px; font-weight: 700; margin-top: 6px; }
+.ac-guest { grid-column: 2; padding-top: 40px; }
+.ac-form { max-width: 460px; }
+.ac-check { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; line-height: 1.5; margin: 6px 0 4px; cursor: pointer; }
+.ac-check input { width: 17px; height: 17px; margin-top: 2px; accent-color: #000; flex: none; }
+.ac-field-hint { font-size: 12px; color: #777; margin-top: 6px; }
+.ac-field-hint a { text-decoration: underline; }
+.ac-note { font-size: 13px; color: #666; margin-top: 18px; line-height: 1.6; }
+.ac-order-actions { white-space: nowrap; }
+.ac-order-actions a + a { margin-left: 14px; color: #c0392b; }
+.ac-addresses { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; margin-bottom: 26px; }
+.ac-address { position: relative; border: 1px solid #ddd; padding: 18px 18px 14px; font-size: 14px; line-height: 1.6; }
+.ac-address.default { border-color: #000; }
+.ac-badge { position: absolute; top: -10px; right: 12px; background: #000; color: #fff; font-size: 11px; padding: 2px 8px; text-transform: uppercase; }
+.ac-address-actions { display: flex; gap: 14px; margin-top: 10px; font-size: 13px; }
+.ac-address-actions a { text-decoration: underline; color: #555; }
+.tk-cancelled { color: #c0392b; margin: 20px 0 10px; }
+
+@media (max-width: 991px) {
+    .account-page { grid-template-columns: 1fr; gap: 10px; padding: 20px 16px 80px; }
+    .ac-menu-toggle { cursor: pointer; margin-bottom: 14px; }
+    .ac-menu { display: none; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+    .ac-menu.open { display: block; }
+    .ac-main { padding-top: 10px; }
+    .ac-guest { grid-column: 1; }
+    .account-dropdown { display: none; }
+}
+
+/* Footer luôn nằm dưới đáy: trang ít nội dung vẫn cao ít nhất bằng màn hình (không còn khoảng trắng dưới footer) */
+.cart-page, .checkout-page, .tracking-page, .account-page, .staffstart-page, .pd-page, .wishlist-page {
+        min-height: calc(100vh - var(--header-h) - var(--flash-h));
+    }
+/* Trang giỏ hàng: chừa chỗ cho thanh "Tổng đơn / Thanh toán" cố định ở đáy */
+.cart-page { padding-bottom: 150px; }
+
+/* Mục "Đơn hàng của bạn" trong trang giỏ hàng */
+.cart-orders { margin-top: 60px; padding-top: 30px; border-top: 1px solid #eee; }
+.cart-orders-head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; }
+.cart-orders-head h2 { font-size: 20px; font-weight: 700; text-transform: uppercase; margin: 0; }
+.cart-orders-links { display: flex; gap: 22px; font-size: 14px; }
+.cart-orders-links a { text-decoration: underline; color: #333; }
+.cart-orders .cart-sub { margin-bottom: 0; }
+@media (max-width: 767px) {
+    .cart-orders-head h2 { font-size: 17px; }
+    .cart-orders-links { gap: 14px; font-size: 13px; }
+}

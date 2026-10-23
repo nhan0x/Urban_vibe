@@ -1,0 +1,30 @@
+/* Footer */
+footer {
+        background: #111111; color: #aaa; padding: 50px 20px 25px; font-size: 0.85rem;
+    }
+.footer-grid {
+        max-width: 1280px; margin: 0 auto 35px; display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 30px;
+    }
+.footer-col h4 {
+        color: #fff; font-size: 0.9rem; font-weight: 700;
+        letter-spacing: 0.3px; margin-bottom: 16px;
+    }
+.footer-col p { line-height: 1.7; margin-bottom: 10px; }
+.footer-col ul li { margin-bottom: 8px; }
+.footer-col ul li a { color: #aaa; transition: color 0.2s; }
+.footer-col ul li a:hover { color: #fff; }
+.footer-bottom {
+        border-top: 1px solid #222; padding-top: 25px; text-align: center;
+        font-size: 0.8rem; color: #666; letter-spacing: 0.3px;
+    }
+
+/* Toast */
+#toast {
+        position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+        background: #111111; color: #fff; padding: 12px 24px;
+        font-weight: 600; font-size: 0.85rem; z-index: 2000; opacity: 0;
+        transition: all 0.2s ease-out;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

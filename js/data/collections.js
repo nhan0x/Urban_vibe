@@ -1,0 +1,31 @@
+// Dữ liệu các bộ sưu tập (trang pages/collection/collection.html và pages/collection/collection-detail.html).
+// items: danh sách [id sản phẩm trong products.js, 1 nếu thẻ rộng hết hàng (ảnh to ở giữa), 0 nếu thẻ nửa hàng].
+const collections = [
+    { slug: "for-her", title: "FOR HER", sub: "URBAN VIBE PREMIUM", date: "October 2026", tag: "#FORHER#URBANVIBE",
+      hero: "image/lookbook/for-her.jpg", heroMobile: "image/lookbook/for-her-mb.jpg",
+      items: [[101,0],[102,0],[103,1],[104,0],[105,0],[106,0],[107,0],[108,1],[109,0],[110,0],[111,0],[112,0],[113,1],[114,0],[115,0],[116,0],[117,0],[118,1],[119,0],[120,0],[121,0],[122,0],[123,1],[124,0],[125,0],[126,0],[127,0],[128,1]] },
+    { slug: "polka-dot-charm", title: "POLKA DOT CHARM", sub: "URBAN VIBE", date: "October 2026", tag: "#POLKADOTCHARM#URBANVIBE",
+      hero: "image/lookbook/polka-dot-charm.jpg", heroMobile: "image/lookbook/polka-dot-charm-mb.jpg",
+      items: [[129,0],[130,0],[131,1],[132,0],[133,0],[134,0],[135,0],[136,1],[137,0],[138,0],[139,0],[140,0],[141,1],[142,0],[143,0],[144,0],[145,0],[146,1],[147,0],[148,0],[149,0],[150,0],[151,1],[152,0],[153,0],[154,0],[155,0]] },
+    { slug: "modern-living", title: "MODERN LIVING", sub: "URBAN VIBE STREET", date: "September 2026", tag: "#MODERNLIVING#URBANVIBESTREET",
+      hero: "image/lookbook/modern-living.jpg", heroMobile: "image/lookbook/modern-living-mb.jpg",
+      items: [[156,0],[157,0],[158,1],[159,0],[160,0],[161,0],[162,0],[163,1],[164,0],[165,0],[166,0],[167,0],[168,1],[169,0],[170,0],[171,0],[172,0],[173,1],[174,0],[175,0],[176,0],[177,0],[178,1]] },
+    { slug: "just-move-on", title: "JUST MOVE ON", sub: "URBAN VIBE STREET", date: "September 2026", tag: "#JUSTMOVEON#URBANVIBESTREET",
+      hero: "image/lookbook/just-move-on.jpg", heroMobile: "image/lookbook/just-move-on-mb.jpg",
+      items: [[179,0],[180,0],[181,1],[182,0],[183,0],[184,0],[185,0],[186,1],[187,0],[188,0],[189,0],[190,0],[191,1],[192,0],[193,0],[194,0],[195,0],[196,1],[197,0],[198,0],[199,0],[200,0]] },
+    { slug: "moments-of-heritage", title: "MOMENTS OF HERITAGE", sub: "URBAN VIBE", date: "September 2026", tag: "#MOMENTSOFHERITAGE#URBANVIBE",
+      hero: "image/lookbook/moments-of-heritage.jpg", heroMobile: "image/lookbook/moments-of-heritage-mb.jpg",
+      items: [[201,0],[202,0],[203,1],[204,0],[205,0],[206,0],[207,0],[208,1],[209,0],[210,0],[211,0],[212,0],[213,1],[214,0],[215,0],[216,0],[217,0],[218,1],[219,0]] },
+    { slug: "autumn-breeze", title: "AUTUMN BREEZE", sub: "URBAN VIBE", date: "September 2026", tag: "#AUTUMNBREEZE#URBANVIBE",
+      hero: "image/lookbook/autumn-breeze.jpg", heroMobile: "image/lookbook/autumn-breeze-mb.jpg",
+      items: [[220,0],[221,0],[222,1],[223,0],[224,0],[225,0],[226,0],[227,1],[228,0],[229,0],[230,0],[231,0],[232,1],[233,0],[234,0],[235,0],[236,0],[237,1],[238,0],[239,0],[240,0],[241,0],[242,1]] },
+    { slug: "the-monochromes", title: "THE MONOCHROMES", sub: "URBAN VIBE STREET", date: "August 2026", tag: "#THEMONOCHROMES#URBANVIBESTREET",
+      hero: "image/lookbook/the-monochromes.jpg", heroMobile: "image/lookbook/the-monochromes-mb.jpg",
+      items: [[243,0],[244,0],[245,1],[246,0],[247,0],[248,0],[249,0],[250,1],[251,0],[252,0],[253,0],[254,0],[255,1],[256,0],[257,0],[258,0],[259,0],[260,1],[261,0]] },
+    { slug: "over-the-breeze", title: "OVER THE BREEZE", sub: "URBAN VIBE STREET", date: "August 2026", tag: "#OVERTHEBREEZE#URBANVIBESTREET",
+      hero: "image/lookbook/over-the-breeze.jpg", heroMobile: "image/lookbook/over-the-breeze-mb.jpg",
+      items: [[262,0],[263,0],[264,1],[265,0],[266,0],[267,0],[268,0],[269,1],[270,0],[271,0],[272,0],[273,0],[274,1],[275,0],[276,0],[277,0],[278,0],[279,1],[280,0],[281,0]] },
+    { slug: "romanza-a-como", title: "ROMANZA A COMO", sub: "URBAN VIBE", date: "August 2026", tag: "#ROMANZAACOMO#URBANVIBE",
+      hero: "image/lookbook/romanza-a-como.jpg", heroMobile: "image/lookbook/romanza-a-como-mb.jpg",
+      items: [[282,0],[283,0],[284,1],[285,0],[286,0],[287,0],[288,0],[289,1],[290,0],[291,0],[292,0],[293,0],[294,1],[295,0],[296,0],[297,0],[298,0],[299,1],[300,0],[301,0],[302,0],[303,0],[304,1],[305,0],[306,0],[307,0],[308,0],[309,1],[310,0],[311,0]] }
+];

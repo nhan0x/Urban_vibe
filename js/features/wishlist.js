@@ -1,4 +1,4 @@
-// Sản phẩm yêu thích: lưu theo tài khoản, cập nhật số trên header và vẽ trang wishlist.html.
+// Sản phẩm yêu thích: lưu theo tài khoản, cập nhật số trên header và vẽ trang pages/shop/wishlist.html.
 
 class Wishlist {
     // Key lưu danh sách yêu thích riêng cho từng tài khoản ("wishlist:email"). Chưa đăng nhập thì là null.
@@ -87,11 +87,11 @@ class Wishlist {
             <div class="wl-grid">
                 ${items.map(p => `
                     <div class="wl-item">
-                        <a class="wl-img" href="product.html?id=${p.id}">
+                        <a class="wl-img" href="pages/shop/product.html?id=${p.id}">
                             <img src="${p.image}" alt="${p.name}" class="product-image-photo">
                             <img src="${p.image2 || p.image}" alt="${p.name}" class="product-image-photo-hover">
                         </a>
-                        <a class="wl-name" href="product.html?id=${p.id}">${p.name}</a>
+                        <a class="wl-name" href="pages/shop/product.html?id=${p.id}">${p.name}</a>
                         <div class="wl-price">${Utils.formatPrice(p.price)}</div>
                         <div class="wl-row">
                             <label>Kích cỡ</label>
@@ -115,7 +115,7 @@ class Wishlist {
                 <div class="wl-bar-inner">
                     <a class="wl-btn" href="index.html">Tiếp tục mua hàng</a>
                     <div class="wl-bar-count">${items.length} &nbsp;Mục trong danh sách yêu thích của bạn</div>
-                    <a class="wl-btn wl-btn-dark" href="cart.html">Xem giỏ hàng</a>
+                    <a class="wl-btn wl-btn-dark" href="pages/shop/cart.html">Xem giỏ hàng</a>
                 </div>
             </div>`;
     }

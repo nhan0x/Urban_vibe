@@ -10,44 +10,16 @@ class ProductList {
         this.expanded = false;
     }
 
-    // Tạo HTML cho MỘT thẻ sản phẩm: nhãn Mới / Hot / Sale theo nhóm, trái tim (đỏ nếu đã yêu thích),
-    // ảnh (có ảnh thứ 2 hiện khi rê chuột), tên, giá và giá gốc gạch ngang (chỉ hàng sale).
+    // Tạo HTML cho MỘT thẻ sản phẩm: ảnh (có ảnh thứ 2 hiện khi rê chuột), tên, giá
+    // và giá gốc gạch ngang (chỉ hàng sale).
     cardHTML(p) {
-        const isWishlist = wishlist.has(p.id);
-        let badgeClass = "badge-sale";
-        let badgeText = "Sale";
-        if (p.category === "new") {
-            badgeClass = "badge-new";
-            badgeText = "Mới";
-        } else if (p.category === "hot") {
-            badgeClass = "badge-hot";
-            badgeText = "Hot";
-        }
-
-        let saleBadge = "";
-        if (p.category === "sale") saleBadge = '<span class="badge badge-sale">-20%</span>';
-
-        let wishClass = "";
-        let heart = "🤍";
-        if (isWishlist) {
-            wishClass = "active";
-            heart = "❤️";
-        }
-
         const originalPrice = Utils.getOriginalPrice(p);
         let oldPriceHTML = "";
         if (originalPrice) oldPriceHTML = `<span class="old-price">${Utils.formatPrice(originalPrice)}</span>`;
 
         return `
-            <div class="product-item" onclick="location.href='product.html?id=${p.id}'">
+            <div class="product-item" onclick="location.href='pages/shop/product.html?id=${p.id}'">
                 <div class="product-top">
-                    <div class="badge-group">
-                        <span class="badge ${badgeClass}">${badgeText}</span>
-                        ${saleBadge}
-                    </div>
-                    <button class="btn-wishlist ${wishClass}" onclick="wishlist.toggle(${p.id}, event)" title="Yêu thích">
-                        ${heart}
-                    </button>
                     <div class="product-image-wrapper">
                         <img src="${p.image}" alt="${p.name}" class="product-image-photo" loading="lazy">
                         <img src="${p.image2 || p.image}" alt="${p.name}" class="product-image-photo-hover" loading="lazy">
@@ -55,14 +27,14 @@ class ProductList {
                 </div>
                 <div class="product-details">
                     <h5 class="product-item-name">
-                        <a href="product.html?id=${p.id}" onclick="event.stopPropagation()">${p.name}</a>
+                        <a href="pages/shop/product.html?id=${p.id}" onclick="event.stopPropagation()">${p.name}</a>
                     </h5>
                     <div class="price-box">
                         <span class="price">${Utils.formatPrice(p.price)}</span>
                         ${oldPriceHTML}
                     </div>
                     <div class="product-actions-mobile">
-                        <button class="btn btn-outline" onclick="event.stopPropagation(); location.href='product.html?id=${p.id}'">Chi tiết</button>
+                        <button class="btn btn-outline" onclick="event.stopPropagation(); location.href='pages/shop/product.html?id=${p.id}'">Chi tiết</button>
                         <button class="btn btn-primary" onclick="event.stopPropagation(); cart.add(${p.id})">Thêm giỏ</button>
                     </div>
                 </div>
@@ -95,10 +67,9 @@ class ProductList {
         this.render(this.current);
     }
 
-    // Bỏ lọc: về lại trạng thái đầu, gỡ trạng thái chọn của các nút lọc, ẩn dòng ghi chú và vẽ lại toàn bộ sản phẩm.
+    // Bỏ lọc: về lại trạng thái đầu, ẩn dòng ghi chú và vẽ lại toàn bộ sản phẩm.
     reset() {
         this.expanded = false;
-        document.querySelectorAll(".filter-tab-btn").forEach(b => b.classList.remove("active"));
         Utils.$("product-filter-note").classList.remove("show");
         this.render(this.all);
     }
@@ -115,9 +86,8 @@ class ProductList {
         Utils.scrollToSection("product-section");
     }
 
-    // Lọc theo nhóm ("all", "new", "hot", "sale"): đánh dấu nút vừa bấm là active rồi hiện sản phẩm thuộc nhóm đó.
-    filterCategory(cat, btn) {
-        document.querySelectorAll(".filter-tab-btn").forEach(b => b.classList.toggle("active", b === btn));
+    // Lọc theo nhóm ("all", "new", "hot", "sale"): hiện sản phẩm thuộc nhóm đó.
+    filterCategory(cat) {
         let list = this.all;
         if (cat !== "all") list = this.all.filter(p => p.category === cat);
         this.show(list, `Hiển thị ${list.length} sản phẩm`, "cat=" + cat);
@@ -143,4 +113,5 @@ class ProductList {
 }
 
 // Một đối tượng danh sách sản phẩm dùng chung cho cả site.
-const productList = new ProductList(products);
+// Sản phẩm của các bộ sưu tập (nhóm "lookbook") chỉ hiện ở trang bộ sưu tập, không đưa vào lưới New Arrival.
+const productList = new ProductList(products.filter(p => p.category !== "lookbook"));

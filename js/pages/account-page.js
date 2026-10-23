@@ -1,6 +1,6 @@
-// Trang tài khoản (account.html): tổng quan, đơn hàng và đổi trả, sổ địa chỉ, thông tin cá nhân, thông tin truy cập, bản tin.
+// Trang tài khoản (pages/account/account.html): tổng quan, đơn hàng và đổi trả, sổ địa chỉ, thông tin cá nhân, thông tin truy cập, bản tin.
 
-// Các mục của trang tài khoản. id chính là phần sau dấu # trên địa chỉ (account.html#orders); id "" là trang tổng quan.
+// Các mục của trang tài khoản. id chính là phần sau dấu # trên địa chỉ (pages/account/account.html#orders); id "" là trang tổng quan.
 const ACCOUNT_SECTIONS = [
     { id: "",           label: "Tài khoản" },
     { id: "orders",     label: "Đơn hàng và đổi trả",
@@ -55,7 +55,7 @@ class AccountPage {
             "": this.dashboard, orders: this.ordersView, address: this.addressView,
             info: this.infoView, access: this.accessView, newsletter: this.newsletterView
         }[current].call(this, u);
-        document.title = (ACCOUNT_SECTIONS.find(s => s.id === current).label) + " | Luna";
+        document.title = (ACCOUNT_SECTIONS.find(s => s.id === current).label) + " | Urban Vibe";
 
         let toggleIcon = "+";
         let openClass = "";
@@ -111,7 +111,7 @@ class AccountPage {
                         <td>${Utils.formatPrice(orders.total(o))}</td>
                         <td>${status(o)}</td>
                         <td class="ac-order-actions">
-                            <a href="tracking.html?code=${o.code}">Xem đơn hàng</a>
+                            <a href="pages/account/tracking.html?code=${o.code}">Xem đơn hàng</a>
                             ${cancelLink}
                         </td>
                     </tr>`;
@@ -415,7 +415,7 @@ class AccountPage {
             <h1 class="ac-title">Bản tin</h1>
             <form class="ac-form" onsubmit="accountPage.saveNewsletter(event)">
                 <label class="ac-check"><input type="checkbox" name="newsletter"${checked}>
-                    Đăng ký nhận bản tin Luna (sản phẩm mới, ưu đãi, sự kiện) qua email <strong>${Utils.escapeHTML(u.email)}</strong></label>
+                    Đăng ký nhận bản tin Urban Vibe (sản phẩm mới, ưu đãi, sự kiện) qua email <strong>${Utils.escapeHTML(u.email)}</strong></label>
                 <div class="co-actions"><button type="submit" class="cart-btn cart-btn-dark">Lưu</button></div>
             </form>`;
     }
@@ -439,7 +439,7 @@ class AccountPage {
     }
 }
 
-// Chỉ tạo trang tài khoản khi trang hiện tại có #account-page (account.html).
+// Chỉ tạo trang tài khoản khi trang hiện tại có #account-page (pages/account/account.html).
 const accountPageRoot = document.getElementById("account-page");
 let accountPage = null;
 if (accountPageRoot) accountPage = new AccountPage(accountPageRoot);

@@ -132,7 +132,7 @@ class Auth {
     // Bấm nút "Tài Khoản" ở header: chưa đăng nhập thì mở khung đăng nhập, đã đăng nhập thì sang trang tài khoản.
     onAccountClick() {
         if (!this.current()) { accountModal.open("login"); return; }
-        location.href = "account.html";
+        location.href = "pages/account/account.html";
     }
 
     // Cập nhật thông tin tài khoản đang đăng nhập; changes chỉ cần chứa các trường muốn đổi, ví dụ { phone: "09..." }.

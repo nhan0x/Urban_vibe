@@ -1,20 +1,10 @@
-// Khởi động ứng dụng khi trang tải xong (vẽ lần đầu, phím tắt chung) - phải nạp cuối cùng.
+// Khởi động ứng dụng khi trang tải xong (vẽ lần đầu) - phải nạp cuối cùng.
 // Nạp cuối vì nó dùng auth, productList, productDetail... nên các file đó phải có sẵn trước.
 
 class App {
-    // Điểm vào: gắn phím tắt rồi vẽ giao diện lần đầu.
+    // Điểm vào: vẽ giao diện lần đầu.
     init() {
-        this.bindShortcuts();
         this.renderFirstTime();
-    }
-
-    // Phím tắt chung toàn site: nhấn Esc thì đóng khung đăng nhập.
-    bindShortcuts() {
-        document.addEventListener("keydown", e => {
-            if (e.key === "Escape") {
-                accountModal.close();
-            }
-        });
     }
 
     // Vẽ lần đầu tuỳ theo đang ở trang nào:
@@ -24,7 +14,7 @@ class App {
     renderFirstTime() {
         if (Utils.$("pd-page")) productDetail.render();
         else {
-            productList.render(products);
+            productList.render(productList.all);
             this.applyUrlFilter();
         }
         auth.refreshUI();

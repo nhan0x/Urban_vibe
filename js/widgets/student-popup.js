@@ -10,7 +10,7 @@ class StudentPopup {
             ["Họ và tên", "Nguyễn Thiện Nhân"],
             ["Ngành học", "Phát triển phần mềm"],
             ["Lớp học", "WEB1044"],
-            ["Đồ án", "Luna - Website bán hàng thời trang"]
+            ["Đồ án", "Urban Vibe - Website bán hàng thời trang"]
         ];
     }
 

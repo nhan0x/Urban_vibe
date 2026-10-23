@@ -1,0 +1,11 @@
+.account-input {
+        width: 100%; padding: 11px 14px; border: 1px solid var(--brand-border);
+        margin-bottom: 12px; font-size: 0.88rem; font-family: inherit;
+    }
+
+.account-sub { font-size: 0.85rem; color: #666; margin-bottom: 20px; }
+.account-submit { width: 100%; padding: 12px; margin-top: 8px; }
+.account-pane { display: none; }
+.account-pane.active { display: block; }
+.account-switch { margin-top: 16px; font-size: 0.82rem; color: var(--brand-gray); }
+.account-switch a { color: var(--dark); font-weight: 600; text-decoration: underline; cursor: pointer; }

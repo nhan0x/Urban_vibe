@@ -1,4 +1,4 @@
-// Trang nhân viên (staff.html): 2 tab Snap / Staff, sắp xếp và lọc theo chiều cao.
+// Trang nhân viên (pages/staff/staff.html): 2 tab Snap / Staff, sắp xếp và lọc theo chiều cao.
 
 class StaffPage {
     // tab: "snap" hoặc "staff" (đọc từ ?tab=... trên URL, mặc định "staff"). sort: cách sắp xếp ("time" mới nhất / "pv" lượt xem).
@@ -64,7 +64,7 @@ class StaffPage {
             title = "Snap";
             sorterOptions = '<option value="time">Sắp xếp theo snap mới nhất</option><option value="pv">Sắp xếp theo snap phổ biến</option>';
         }
-        document.title = title + " | Luna";
+        document.title = title + " | Urban Vibe";
 
         Utils.$("staff-sorter").innerHTML = sorterOptions;
         if (tab === "staff") Utils.$("staff-filter-toggle").style.display = "";
@@ -192,7 +192,7 @@ class StaffPage {
     }
 }
 
-// Chỉ tạo trang nhân viên khi trang hiện tại có #staff-page (staff.html).
+// Chỉ tạo trang nhân viên khi trang hiện tại có #staff-page (pages/staff/staff.html).
 const staffPageRoot = document.getElementById("staff-page");
 let staffPage = null;
 if (staffPageRoot) staffPage = new StaffPage(staffPageRoot);

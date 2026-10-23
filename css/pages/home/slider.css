@@ -1,0 +1,25 @@
+/* Banner (giống elise.vn): ảnh trượt ngang, không có nút trước/sau, chấm tròn 10px màu đen mờ */
+.slider {
+    position: relative; width: 100%; overflow: hidden;
+    aspect-ratio: 1920 / 729; background: #f4f4f4;
+}
+.slide {
+    position: absolute; inset: 0; pointer-events: none;
+    transform: translateX(100%); transition: transform 0.5s ease;
+}
+.slide.is-prev { transform: translateX(-100%); }
+.slide.active { transform: translateX(0); pointer-events: auto; z-index: 1; }
+.slide.no-anim { transition: none; }
+.slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.slider-dots {
+    position: absolute; bottom: 10px; left: 0; right: 0; z-index: 2;
+    display: flex; justify-content: center; line-height: 1;
+}
+.slider-dot {
+    width: 10px; height: 10px; margin: 0 6px 5px; padding: 0; border: none; border-radius: 50%;
+    background: rgba(0,0,0,0.3); cursor: pointer; transition: background 0.4s;
+}
+.slider-dot:hover, .slider-dot.active { background: #000; }
+.product-counter {
+        font-size: 0.85rem; color: var(--brand-gray); font-weight: 500;
+    }

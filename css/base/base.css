@@ -1,0 +1,29 @@
+/* Urban Vibe - giao diện */
+/* Font Helvetica Neue (cùng bộ chữ với elise.vn); các độ đậm: 100 mảnh, 400 thường, 500 vừa, 600 đậm */
+@font-face { font-family: 'Helvetica Neue'; src: url('../../fonts/helvetica-neue-light.ttf') format('truetype'); font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Helvetica Neue'; src: url('../../fonts/helvetica-neue-regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Helvetica Neue'; src: url('../../fonts/helvetica-neue-medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Helvetica Neue'; src: url('../../fonts/helvetica-neue-bold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+:root {
+        --brand-gold: #b38b59;
+        --brand-red: #d32f2f;
+        --brand-gray: #666666;
+        --brand-light: #f7f7f7;
+        --brand-border: #e8e8e8;
+        --white: #ffffff;
+        --dark: #111111;
+        --text-color: #222222;
+        --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        --header-h: 100px; --header-h-compact: 76px; --flash-h: 0px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+button, input, textarea, select { font-family: inherit; }
+body {
+        font-family: var(--font-main);
+        background: #ffffff;
+        color: var(--text-color);
+        line-height: 1.5;
+    }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }

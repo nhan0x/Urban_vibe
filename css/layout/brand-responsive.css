@@ -1,0 +1,55 @@
+/* Tên thương hiệu: chữ Urban Vibe in đậm (Playfair Display), không viết hoa, không có biểu tượng */
+.brand-logo { display: inline-flex; align-items: center; gap: 10px; color: #231f20; font-family: 'Playfair Display', Georgia, serif; }
+.brand-name {
+        font-size: 34px; font-weight: 800; letter-spacing: 0.02em; line-height: 1; transition: font-size 0.15s ease-out;
+    }
+.site-header.header-compact .brand-name { font-size: 28px; }
+/* Tên thương hiệu nhỏ trong menu trượt */
+.brand-logo-sm { gap: 8px; font-size: 1.5rem; font-weight: 800; letter-spacing: 0.02em; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    :root { --header-h: 76px; --header-h-compact: 60px; }
+    .site-header-inner { padding: 0 24px; }
+    .header-action-item span { display: none; }
+    .header-right { gap: 22px; }
+}
+@media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    :root { --header-h: 64px; --header-h-compact: 56px; }
+    .site-header-inner { padding: 0 18px; grid-template-columns: auto 1fr; }
+    .header-center { display: none; }
+    .brand-name { font-size: 28px; }
+    .site-header.header-compact .brand-name { font-size: 24px; }
+}
+@media (hover: none) or (max-width: 768px) {
+    .product-actions-mobile { display: flex; }
+}
+@media (max-width: 650px) {
+    .pd-grid { grid-template-columns: 1fr; gap: 20px; }
+    .pd-info { position: static; }
+}
+@media (max-width: 550px) {
+    .footer-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    :root { --header-h: 58px; --header-h-compact: 52px; }
+    .site-header-inner { padding: 0 14px; }
+    .header-left { gap: 14px; }
+    .header-right { gap: 18px; }
+    .brand-name { font-size: 24px; }
+}
+
+@media (max-width: 767px) {
+    .slider { aspect-ratio: 2 / 3; }
+}
+
+/* Trang chi tiết: đường dẫn + sản phẩm không tìm thấy */
+.pd-breadcrumb { font-size: 0.75rem; color: var(--brand-gray); margin-bottom: 20px; }
+.pd-notfound { text-align: center; padding: 80px 0; color: var(--brand-gray); }
+.pd-notfound a { color: var(--dark); text-decoration: underline; }
