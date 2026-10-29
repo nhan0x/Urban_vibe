@@ -51,7 +51,9 @@
 .header-link:hover { opacity: 0.65; }
 /* Logo nằm giữa thanh header; các nút bên phải chỉ hiện icon, không hiện chữ */
 .site-header-bar .site-logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-#account-label { display: none; }
+/* Chưa đăng nhập: chỉ icon. Đã đăng nhập: hiện họ/tên cuối (auth.js gắn class logged-in) */
+.header-account:not(.logged-in) #account-label { display: none; }
+.header-account.logged-in #account-label { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .header-link .icon { width: 22px; height: 22px; stroke-width: 1.5px; }
 .icon-btn {
     position: relative; display: inline-flex; align-items: center; justify-content: center;
@@ -139,5 +141,6 @@
     .site-logo { height: 28px; font-size: 20px; }
     .header-tools { gap: 12px; }
     .icon-btn, .header-account .header-link { width: 28px; height: 28px; justify-content: center; }
+    #account-label { display: none; }
     .mini-menu { right: -8px; }
 }
