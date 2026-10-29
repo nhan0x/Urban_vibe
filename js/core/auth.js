@@ -129,7 +129,7 @@ class Auth {
         Utils.showToast(message);
     }
 
-    // Bấm nút "Tài Khoản" ở header: chưa đăng nhập thì mở khung đăng nhập, đã đăng nhập thì sang trang tài khoản.
+    // Bấm nút tài khoản ở header: chưa đăng nhập thì sang trang đăng nhập, đã đăng nhập thì sang trang tài khoản.
     onAccountClick() {
         if (!this.current()) { accountModal.open("login"); return; }
         location.href = "pages/account/account.html";
@@ -167,9 +167,9 @@ class Auth {
         return true;
     }
 
-    // Làm mới toàn bộ giao diện theo trạng thái đăng nhập hiện tại: đổi chữ nút tài khoản (hiện từ cuối của tên),
-    // bật/tắt class "logged-in", vẽ lại giỏ hàng, số yêu thích, lưới sản phẩm,
-    // rồi phát tín hiệu "authchange" để các trang khác tự cập nhật (auth.js không cần biết chúng là ai).
+    // Làm mới giao diện theo trạng thái đăng nhập hiện tại: đổi chữ nút tài khoản (hiện từ cuối của tên),
+    // bật/tắt class "logged-in" cho menu tài khoản, cập nhật số giỏ hàng / yêu thích,
+    // rồi phát tín hiệu "authchange" để các trang khác tự vẽ lại (auth.js không cần biết chúng là ai).
     refreshUI() {
         const u = this.current();
         if (u) Utils.setText("account-label", u.name.split(" ").pop());
@@ -178,7 +178,6 @@ class Auth {
         if (box) box.classList.toggle("logged-in", !!u);
         cart.render();
         wishlist.updateBadge();
-        productList.render(productList.current);
         window.dispatchEvent(new Event("authchange"));
     }
 }

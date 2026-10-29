@@ -1,0 +1,64 @@
+/* =====================================================================
+   LƯỚI + THẺ SẢN PHẨM (theo số đo của theciu.vn)
+   Thẻ rộng 286px (ở khung 1216px, 4 cột, cách nhau 24px): viền 1px #ece9e9, bo 20px, đệm 14px;
+   ảnh vuông bo 14px; nhãn "New" góc trái, nút tim góc phải; tên 2 dòng; giá đậm; mẫu màu tròn 30px; nút "Mua ngay".
+   ===================================================================== */
+.product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 899px) { .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 599px) { .product-grid { gap: 8px; } }
+
+.product-card {
+    position: relative; display: flex; flex-direction: column; padding: 14px;
+    background: var(--c-surface); border: 1px solid var(--c-card-line); border-radius: var(--r-card); box-shadow: var(--shadow-card);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(26, 20, 20, 0.13); }
+
+/* Nhãn góc trái ảnh: New (xanh), Hot (cam), Sale (đỏ) */
+.product-badge {
+    position: absolute; top: 18px; left: 18px; z-index: 1; display: flex; align-items: center; justify-content: center;
+    min-height: 24px; padding: 4px 8px; background: var(--c-badge); color: #fff; border-radius: 4px;
+    font-size: 10px; font-weight: 700; line-height: 12px; letter-spacing: 0.2px;
+}
+.product-badge.hot { background: #ff8a3d; }
+.product-badge.sale { background: var(--c-sale); }
+.wish-btn { position: absolute; top: 22px; right: 22px; z-index: 2; }
+
+/* Ảnh vuông 1:1, khi rê chuột ảnh phóng nhẹ */
+.product-media { position: relative; display: block; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; background: var(--c-image-bg); border-radius: var(--r-image); }
+.product-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.3s ease-in-out, opacity 0.3s; }
+.product-media .img-hover { opacity: 0; }
+.product-card:hover .product-media img { transform: scale(1.05); }
+.product-card:hover .product-media .img-hover { opacity: 1; }
+
+.product-body { display: flex; flex: 1; flex-direction: column; margin-top: 16px; padding: 0 2px; }
+.product-name {
+    display: -webkit-box; min-height: 37.8px; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    font-size: 14px; line-height: 18.9px; color: #171717; transition: color 0.2s;
+}
+.product-name:hover { text-decoration: underline; }
+.product-price { display: flex; align-items: baseline; gap: 8px; margin-top: 12px; font-size: 16px; font-weight: 700; line-height: 20px; }
+.product-price s { font-size: 12px; font-weight: 400; color: var(--c-text-mute); }
+
+/* Mẫu màu: vòng tròn 30px chứa ảnh nhỏ của sản phẩm */
+.product-swatches { display: flex; gap: 8px; min-height: 51px; margin-top: 12px; padding: 4px; }
+.swatch {
+    flex: none; width: 30px; height: 30px; background-color: var(--c-image-bg); background-size: cover; background-position: center top;
+    border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 0 1px #e6e6e6, 0 2px 6px rgba(0, 0, 0, 0.12); transition: box-shadow 0.2s;
+}
+.swatch.active, .swatch:hover { box-shadow: 0 0 0 1.5px var(--c-text), 0 2px 6px rgba(0, 0, 0, 0.12); }
+
+.product-actions { padding-top: 8px; }
+.product-actions .btn { width: 100%; }
+
+/* Không có sản phẩm nào phù hợp */
+.empty-hint { grid-column: 1 / -1; padding: 48px 24px; text-align: center; color: var(--c-text-mute); }
+
+@media (max-width: 599px) {
+    .product-card { padding: 10px; border-radius: 16px; }
+    .product-badge { top: 14px; left: 14px; }
+    .wish-btn { top: 16px; right: 16px; width: 34px; height: 34px; }
+    .wish-btn .icon { width: 17px; height: 17px; }
+    .product-name { font-size: 13px; }
+    .product-price { font-size: 14px; }
+}

@@ -1,0 +1,134 @@
+/* =====================================================================
+   TRANG CHI TIẾT SẢN PHẨM (theo số đo của theciu.vn/product/<tên>)
+   Khối trên nền #f9f9f9: đường dẫn → ảnh lớn 540px + cột ảnh nhỏ 88px | thông tin 540px → dòng yêu thích.
+   Khối dưới nền trắng: tab mô tả → cửa hàng còn hàng → sản phẩm liên quan.
+   ===================================================================== */
+.pd-hero { padding: 16px; background: #f9f9f9; }
+.pd-inner { padding: 0 24px; }
+.pd-hero .breadcrumb { margin-bottom: 16px; }
+.pd-top { display: flex; gap: 32px; }
+
+/* ---------- Thư viện ảnh ---------- */
+.pd-gallery { display: flex; flex: none; align-items: flex-start; gap: 32px; width: 660px; }
+.pd-main-img { position: relative; flex: none; width: 540px; height: 540px; cursor: zoom-in; }
+.pd-main-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 8px; background: var(--c-image-bg); }
+.pd-zoom {
+    position: absolute; right: 12px; bottom: 12px; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;
+    background: rgba(255, 255, 255, 0.92); border-radius: 50%; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18); color: var(--c-text-soft);
+}
+.pd-zoom .icon { width: 22px; height: 22px; }
+.pd-thumbs { display: flex; flex: none; flex-direction: column; align-items: stretch; gap: 28px; width: 88px; }
+.pd-thumb { position: relative; display: flex; align-items: center; justify-content: center; width: 88px; height: 88px; overflow: hidden; background: #f6f6f6; border: 2px solid transparent; border-radius: 8px; transition: border-color 0.2s; }
+.pd-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.pd-thumb:hover { border-color: #bdbdbd; }
+.pd-thumb.active { border-color: #000; }
+.pd-thumb-nav { display: flex; align-items: center; justify-content: center; height: 24px; margin-top: -12px; color: var(--c-text-soft); }
+.pd-thumb-nav .icon { width: 22px; height: 22px; }
+
+/* ---------- Cột thông tin ---------- */
+.pd-info { display: flex; flex: none; flex-direction: column; width: 540px; }
+.pd-info > * + * { margin-top: 16px; }
+.pd-name { font-size: 20px; font-weight: 700; line-height: 30px; }
+.pd-facts { display: grid; gap: 12px 24px; padding: 6px 0; }
+.pd-facts dt { margin-bottom: 4px; font-size: 11px; font-weight: 500; line-height: 13.2px; letter-spacing: 1.54px; text-transform: uppercase; color: rgba(0, 0, 0, 0.45); }
+.pd-facts dd { font-size: 15px; font-weight: 500; line-height: 20px; }
+.pd-price { display: flex; align-items: baseline; gap: 12px; font-size: 24px; font-weight: 700; line-height: 30px; }
+.pd-old-price { font-size: 16px; font-weight: 400; color: var(--c-text-mute); }
+.pd-block { display: flex; flex-direction: column; gap: 16px; }
+.pd-label { font-size: 16px; line-height: 24px; }
+.pd-color { width: 58px; height: 58px; background: #f6f6f6 center top / cover no-repeat; border: 1px solid #000; border-radius: 8px; }
+.size-pills { display: flex; align-items: center; gap: 16px; }
+.size-pill { min-width: 32px; height: 28px; padding: 0 8px; background: #f3f3f3; border: 1.5px solid transparent; border-radius: 14px; font-size: 14px; line-height: 24px; transition: border-color 0.2s, background 0.2s; }
+.size-pill:hover { border-color: #bdbdbd; }
+.size-pill.active { background: #fff; border-color: #000; font-weight: 700; }
+.pd-size-link { display: inline-flex; align-items: center; align-self: flex-start; gap: 6px; margin-top: -4px; font-size: 16px; text-decoration: underline; }
+.pd-size-link .icon { width: 16px; height: 16px; }
+.pd-stock { font-size: 12px; line-height: 20px; color: var(--c-text-mute); }
+.pd-qty-row { display: flex; align-items: center; gap: 16px; height: 24px; font-size: 16px; }
+.pd-qty { display: flex; align-items: center; gap: 16px; }
+.pd-qty button { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; color: var(--c-text-soft); }
+.pd-qty input { width: 48px; height: 24px; border: 1px solid #000; border-radius: 12px; text-align: center; font-size: 14px; outline: none; -moz-appearance: textfield; }
+.pd-qty input::-webkit-outer-spin-button, .pd-qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.pd-actions { display: flex; gap: 16px; }
+.btn-action { height: 48px; min-width: 160px; border-radius: 16px; font-size: 14px; font-weight: 600; }
+.btn-outline.btn-action { padding: 8px 12px; line-height: 22px; font-weight: 400; }
+.btn-gray.btn-action { font-weight: 400; }
+.btn-buy { width: 220px; }
+.pd-where { display: flex; align-items: center; gap: 4px; margin-left: -4px; font-size: 14px; font-weight: 500; text-decoration: underline; }
+.pd-where .icon { width: 20px; height: 20px; }
+.pd-wish-row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.pd-wish-btn { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; background: #fff; border-radius: 50%; color: #47423f; transition: color 0.2s, transform 0.2s; }
+.pd-wish-btn .icon { width: 22px; height: 22px; }
+.pd-wish-btn:hover { transform: scale(1.08); }
+.pd-wish-btn.active { color: var(--c-sale); }
+
+/* ---------- Tab mô tả ---------- */
+.pd-more { padding: 16px; background: var(--c-surface); }
+.pd-more-inner { padding: 32px 24px 0; }
+.pd-tabs { display: flex; height: 48px; }
+.pd-tab { position: relative; padding: 0 16px; font-size: 16px; line-height: 20px; color: rgba(0, 0, 0, 0.5); transition: color 0.2s; }
+.pd-tab:hover { color: #000; }
+.pd-tab.active { font-weight: 700; color: #000; }
+.pd-tab.active::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 80px; height: 2px; margin-left: -40px; background: #000; border-radius: 128px; }
+.pd-tab-panel { display: none; padding: 24px 8px; }
+.pd-tab-panel.active { display: block; }
+.pd-tab-panel p { font-size: 14px; line-height: 20px; }
+.pd-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.pd-table th, .pd-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--c-line); }
+.pd-table th { width: 200px; font-weight: 600; }
+.pd-size-table th, .pd-size-table td { text-align: center; width: auto; }
+
+/* ---------- Cửa hàng còn hàng ---------- */
+#branch_stock { padding-top: 32px; scroll-margin-top: 100px; }
+.pd-heading { font-size: 40px; font-weight: 700; line-height: 48px; text-align: center; }
+.pd-stores { margin-top: 32px; }
+.pd-store { display: flex; align-items: center; justify-content: space-between; height: 111px; border-top: 1px solid #7d7d7d; }
+.pd-store h4 { font-size: 25px; font-weight: 600; line-height: 30px; }
+.stock-pill { display: inline-flex; align-items: center; justify-content: center; width: 147px; height: 46px; border: 1px solid #87bd5e; border-radius: 32px; font-size: 21px; font-weight: 600; color: #87bd5e; }
+.stock-pill.out { border-color: #f4533d; color: #f4533d; }
+
+/* ---------- Sản phẩm liên quan ---------- */
+.pd-rule { width: 56px; height: 2px; margin-top: 32px; background: #000; }
+.pd-related-title { margin-top: 32px; font-size: 30px; font-weight: 700; line-height: 36px; }
+.pd-related { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.pd-related-more { display: flex; justify-content: center; margin: 24px 0 60px; }
+.btn-more { min-width: 300px; height: 44px; gap: 12px; line-height: 42px; }
+.btn-more .icon { width: 18px; height: 18px; }
+
+.pd-notfound { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 120px 16px; text-align: center; }
+
+/* ---------- Phóng to ảnh + hộp thoại ---------- */
+.lightbox { position: fixed; inset: 0; z-index: 1500; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.88); cursor: zoom-out; }
+.lightbox img { max-width: 92vw; max-height: 92vh; border-radius: 8px; object-fit: contain; }
+.lightbox-close { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; color: #fff; }
+.lightbox-close .icon { width: 28px; height: 28px; }
+.modal-overlay { position: fixed; inset: 0; z-index: 1500; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, 0.5); }
+.modal-overlay.open { display: flex; }
+.modal-box { position: relative; width: 100%; max-width: 560px; padding: 28px 24px 24px; background: #fff; border-radius: var(--r-panel); }
+.modal-box h3 { margin-bottom: 16px; font-size: 20px; }
+.modal-close { position: absolute; top: 12px; right: 12px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; }
+.modal-close:hover { background: var(--c-bg); }
+.modal-close .icon { width: 18px; height: 18px; }
+
+/* ---------- Màn hình nhỏ ---------- */
+@media (max-width: 1099px) {
+    .pd-top { flex-direction: column; }
+    .pd-gallery { width: 100%; flex-direction: column; gap: 16px; }
+    .pd-main-img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+    .pd-thumbs { flex-direction: row; width: 100%; gap: 12px; overflow-x: auto; }
+    .pd-thumb { flex: none; width: 72px; height: 72px; }
+    .pd-thumb-nav { display: none; }
+    .pd-info { width: 100%; }
+    .pd-related { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+    .pd-hero { padding: 12px 8px; }
+    .pd-inner, .pd-more-inner { padding-left: 8px; padding-right: 8px; }
+    .pd-actions { flex-wrap: wrap; }
+    .btn-buy, .btn-action { flex: 1; width: auto; min-width: 140px; }
+    .pd-heading { font-size: 26px; line-height: 34px; }
+    .pd-store h4 { font-size: 17px; }
+    .stock-pill { width: 110px; height: 38px; font-size: 16px; }
+    .pd-store { height: 84px; }
+    .pd-breadcrumb, .pd-hero .breadcrumb { flex-wrap: wrap; height: auto; }
+}

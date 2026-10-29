@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<base href="../../">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng nhập - Urban Vibe | Tài khoản của bạn</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400&display=swap&subset=vietnamese" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="image/favicon.svg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="auth-body">
+
+<main class="auth-page">
+    <!-- Cột trái: ảnh trượt tự động + chấm tròn -->
+    <aside class="auth-visual">
+        <div class="auth-slides" id="auth-slides">
+            <img class="active" src="image/slider/slide-1-mb.jpg" alt="">
+            <img src="image/slider/slide-2-mb.jpg" alt="">
+            <img src="image/slider/slide-3-mb.jpg" alt="">
+            <img src="image/slider/slide-4-mb.jpg" alt="">
+            <img src="image/slider/slide-5-mb.jpg" alt="">
+            <img src="image/slider/slide-6-mb.jpg" alt="">
+        </div>
+        <div class="auth-dots" id="auth-dots"></div>
+    </aside>
+
+    <!-- Cột phải: biểu mẫu đăng nhập / đăng ký -->
+    <section class="auth-form-col">
+        <div class="auth-form-wrap">
+            <a class="site-logo auth-logo" href="index.html" aria-label="Urban Vibe - Trang chủ"><span class="logo-text">urban vibe</span></a>
+            <h1 class="auth-title">Welcome to Urban Vibe!</h1>
+
+            <!-- ===== Đăng nhập ===== -->
+            <div class="auth-pane" data-auth-pane="login">
+                <p class="auth-sub">Đăng nhập ngay để có trải nghiệm mua sắm tuyệt vời cùng chúng tôi.</p>
+                <p class="auth-quick-title">Đăng nhập nhanh với</p>
+                <div class="auth-social">
+                    <button type="button" class="social-fb" onclick="signIn.social('Facebook')" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></button>
+                    <button type="button" class="social-google" onclick="signIn.social('Google')" aria-label="Google"><span>G</span></button>
+                </div>
+                <p class="auth-or">Hoặc</p>
+                <div class="auth-tabs">
+                    <button type="button" onclick="signIn.otp()">OTP</button>
+                    <button type="button" class="active" data-auth-tab="login">Mật khẩu</button>
+                </div>
+                <form id="login-form" class="auth-form" onsubmit="auth.login(event)">
+                    <div class="field">
+                        <label for="login-identity">Số điện thoại hoặc email</label>
+                        <div class="input-wrap" id="ico-user-1"><input id="login-identity" type="text" name="identity" placeholder="Nhập số điện thoại hoặc email của bạn" autocomplete="username" required></div>
+                    </div>
+                    <div class="field">
+                        <label for="login-password">Mật khẩu</label>
+                        <div class="input-wrap" id="ico-lock-1"><input id="login-password" type="password" name="password" placeholder="Nhập mật khẩu của bạn" autocomplete="current-password" required><button type="button" class="eye-btn" onclick="signIn.toggleEye(this)" aria-label="Hiện mật khẩu"></button></div>
+                    </div>
+                    <div class="auth-row">
+                        <label class="auth-check"><input type="checkbox" name="remember"><span>Nhớ đăng nhập</span></label>
+                        <a href="javascript:void(0)" class="auth-link-underline" onclick="accountModal.forgot()">Quên mật khẩu</a>
+                    </div>
+                    <button type="submit" class="auth-submit" id="login-submit" disabled>Đăng nhập</button>
+                </form>
+                <p class="auth-switch">Bạn chưa có tài khoản? <a href="javascript:void(0)" onclick="signIn.setTab('register')">Đăng ký ngay</a></p>
+            </div>
+
+            <!-- ===== Đăng ký ===== -->
+            <div class="auth-pane" data-auth-pane="register">
+                <p class="auth-sub">Đăng kí ngay để có trải nghiệm mua sắm tuyệt vời với chúng mình.</p>
+                <ol class="auth-steps">
+                    <li class="done"><span>1</span><b>Nhập thông tin</b></li>
+                    <li><span>2</span><b>Xác thực OTP</b></li>
+                    <li><span>3</span><b>Đăng nhập</b></li>
+                </ol>
+                <form id="register-form" class="auth-form" onsubmit="signIn.register(event)">
+                    <input type="hidden" name="name">
+                    <div class="field"><label for="reg-last">Họ</label><div class="input-wrap" id="ico-user-2"><input id="reg-last" type="text" name="lastName" placeholder="Nhập họ" autocomplete="family-name" required></div></div>
+                    <div class="field"><label for="reg-first">Tên</label><div class="input-wrap" id="ico-user-3"><input id="reg-first" type="text" name="firstName" placeholder="Nhập tên" autocomplete="given-name" required></div></div>
+                    <div class="field"><label for="reg-email">Email</label><div class="input-wrap" id="ico-user-4"><input id="reg-email" type="email" name="email" placeholder="Nhập email của bạn" autocomplete="email" required></div></div>
+                    <div class="field"><label for="reg-phone">Số điện thoại</label><div class="input-wrap" id="ico-user-5"><input id="reg-phone" type="tel" name="phone" placeholder="Nhập số điện thoại của bạn" autocomplete="tel" required></div></div>
+                    <div class="field"><label for="reg-pass">Mật khẩu</label><div class="input-wrap" id="ico-lock-2"><input id="reg-pass" type="password" name="password" placeholder="Nhập mật khẩu của bạn (tối thiểu 6 ký tự)" autocomplete="new-password" required><button type="button" class="eye-btn" onclick="signIn.toggleEye(this)" aria-label="Hiện mật khẩu"></button></div></div>
+                    <div class="field"><label for="reg-confirm">Nhập lại mật khẩu</label><div class="input-wrap" id="ico-lock-3"><input id="reg-confirm" type="password" name="confirm" placeholder="Nhập lại mật khẩu" autocomplete="new-password" required><button type="button" class="eye-btn" onclick="signIn.toggleEye(this)" aria-label="Hiện mật khẩu"></button></div></div>
+                    <button type="submit" class="auth-submit" id="register-submit" disabled>Đăng kí</button>
+                </form>
+                <p class="auth-switch">Bạn đã có tài khoản? <a href="javascript:void(0)" onclick="signIn.setTab('login')">Đăng nhập ngay</a></p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div id="toast"></div>
+
+<script src="js/data/products.js"></script>
+<script src="js/data/mock-data.js"></script>
+<script src="js/core/icons.js"></script>
+<script src="js/core/utils.js"></script>
+<script src="js/core/auth.js"></script>
+<script src="js/core/account-modal.js"></script>
+<script src="js/features/wishlist.js"></script>
+<script src="js/features/cart.js"></script>
+<script src="js/features/orders.js"></script>
+<script src="js/pages/sign-in.js"></script>
+
+</body>
+</html>

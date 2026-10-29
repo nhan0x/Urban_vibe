@@ -109,7 +109,7 @@ class TrackingPage {
                     <input type="${valueType}" name="value" value="${v(f.value)}">
                     <small class="co-error"></small>
                 </div>
-                <button type="submit" class="cart-btn cart-btn-dark">Tiếp tục</button>
+                <button type="submit" class="btn btn-gray">Tiếp tục</button>
                 <p class="tk-hint">Thử với đơn mẫu: mã <strong>UV100002</strong>, tên <strong>Trần Quốc Bảo</strong>, số điện thoại <strong>0912345678</strong>.</p>
             </form>
             ${minesHTML}`;

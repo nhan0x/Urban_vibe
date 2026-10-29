@@ -1,97 +1,141 @@
-/* Header: chữ mảnh, biểu tượng nét mảnh, ô tìm kiếm ở giữa */
-html { scroll-padding-top: calc(var(--header-h-compact) + var(--flash-h)); scrollbar-gutter: stable; }
-body { padding-top: calc(var(--header-h) + var(--flash-h)); }
-.site-header {
-        position: fixed; top: var(--flash-h); left: 0; right: 0; height: var(--header-h); z-index: 1000;
-        background: var(--white); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        transition: height 0.15s ease-out, box-shadow 0.15s ease-out;
-    }
-.site-header-inner {
-        height: 100%; padding: 0 54px;
-        display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;
-    }
-/* Cuộn xuống: thu gọn. Cuộn lên: trở lại kích thước đầy đủ */
-.site-header.header-compact { height: var(--header-h-compact); box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+/* =====================================================================
+   HEADER GỌN (theo elise.vn) + NGĂN KÉO MENU + NGĂN KÉO TÌM KIẾM
+   - Thanh cao 76px, dính trên cùng, nền trắng, đổ bóng nhẹ phía dưới.
+   - Trái: nút hamburger + logo | phải: Gọi Ngay, Tài Khoản, giỏ hàng, yêu thích. Tìm kiếm là nút nổi ở góc phải (floating.css).
+   - Toàn bộ menu (Collections, Sản phẩm, Black Friday, Giới thiệu) nằm trong ngăn kéo mở bằng nút hamburger.
+   ===================================================================== */
+.site-top-chrome { position: sticky; top: 0; z-index: 999; }
+.site-header { position: relative; z-index: 1; }
+.site-header-bar {
+    position: relative; display: flex; align-items: center; justify-content: space-between;
+    height: var(--header-h); padding: 0 max(var(--gutter), calc((100% - 1440px) / 2));
+    background: var(--c-surface); box-shadow: var(--shadow-header); backdrop-filter: blur(6px);
+}
 
-.hd-icon { width: 24px; height: 24px; display: block; flex: none; }
+/* ---------- Logo: bông hoa + chữ "urban vibe" nghiêng (Playfair Display) ----------
+   Hoa và khoảng cách tính theo em nên chỉ cần đổi font-size là cả logo co giãn theo (header, menu điện thoại, footer, trang đăng nhập). */
+.site-logo {
+    display: inline-flex; align-items: center; gap: 0.36em; flex: none; height: 34px;
+    font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 26px; font-weight: 400;
+    letter-spacing: 0.01em; line-height: 1; white-space: nowrap; color: var(--c-text);
+}
+.site-logo .logo-mark { flex: none; width: 1.1em; height: 1.1em; color: var(--c-brand); }
 
-/* Trái: ☰ + logo */
-.header-left { display: flex; align-items: center; gap: 28px; }
-.hamburger-btn {
-        background: none; border: none; padding: 2px; cursor: pointer; color: #000;
-        display: flex; align-items: center; transition: color 0.2s;
-    }
-.hamburger-btn .hd-icon { width: 26px; height: 26px; }
-.hamburger-btn, .hamburger-btn * { cursor: pointer; }
-.logo-link { display: flex; align-items: center; }
+/* Black Friday: chữ đỏ có vệt sáng quét ngang rồi nghỉ + quầng sáng đỏ nhấp nháy (keyframes lấy từ theciu.vn) */
+.bf-text {
+    display: inline-block; font-weight: 800; letter-spacing: 0.03em; line-height: 20px;
+    background-image: linear-gradient(110deg, #e50914 0%, #e50914 38%, #ff4500 44%, #ffb703 48%, #ffffff 50%, #ffb703 52%, #ff4500 56%, #e50914 62%, #e50914 100%);
+    background-size: 350% 100%; background-position: 100% 0;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 2px rgba(229, 9, 20, 0.45)) drop-shadow(0 0 6px rgba(255, 69, 0, 0.25));
+    animation: bfFlashWave 2.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite, bfTextGlow 2.8s ease-in-out infinite;
+}
+@keyframes bfFlashWave { 0% { background-position: 100% 0; } 60%, 100% { background-position: 0% 0; } }
+@keyframes bfTextGlow {
+    0%, 60%, 100% { filter: drop-shadow(0 0 2px rgba(229, 9, 20, 0.45)) drop-shadow(0 0 6px rgba(255, 69, 0, 0.25)); }
+    30% { filter: drop-shadow(0 0 8px rgba(229, 9, 20, 0.9)) drop-shadow(0 0 16px rgba(255, 120, 0, 0.65)); }
+}
 
-/* Giữa: TÌM KIẾM ________ 🔍 */
-.header-center { display: flex; justify-content: center; }
-.brand-search-box { display: flex; align-items: center; }
-.brand-search-label {
-        font-size: 18px; font-weight: 500; text-transform: uppercase; color: #000;
-        white-space: nowrap; margin-right: 15px; position: relative; top: 3px;
-    }
-.brand-search-input {
-        width: 172px; height: 30px; border: none; border-bottom: 1px solid #000; background: transparent;
-        font-family: inherit; font-size: 15px; color: #000; padding: 0 4px; outline: none;
-    }
-.brand-search-btn {
-        background: none; border: none; cursor: pointer; color: #000; padding: 2px; margin-left: 12px;
-        display: flex; align-items: center; transition: color 0.2s;
-    }
-.brand-search-btn .hd-icon { width: 22px; height: 22px; }
+/* ---------- Nhóm con "Chính sách & điều khoản" trong menu Giới thiệu ---------- */
+.nav-sub-toggle .icon { width: 18px; height: 18px; transition: transform 0.25s; }
+.nav-sub.open .nav-sub-toggle .icon { transform: rotate(180deg); }
+.nav-sub-list { display: none; }
+.nav-sub.open .nav-sub-list { display: block; }
 
-/* Phải: Tài Khoản, túi hàng, yêu thích */
-.header-right { display: flex; align-items: center; justify-content: flex-end; gap: 30px; }
-.header-action-item {
-        display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 400;
-        color: #000; white-space: nowrap; transition: color 0.2s;
-    }
-.header-icon-item { position: relative; display: flex; color: #000; transition: color 0.2s; }
-.badge-number {
-        position: absolute; top: -10px; right: -9px; font-size: 13px; font-weight: 400; line-height: 1; color: #000;
-    }
+/* ---------- Cụm trái: hamburger + logo ---------- */
+.header-left { display: flex; align-items: center; gap: 14px; flex: none; }
 
-/* Menu trượt bên trái (giống elise.vn): rê chuột vào ☰ là trượt ra chậm 0.9s, chữ Helvetica Neue, không có biểu tượng */
-.menu-drawer-overlay { display: none; position: fixed; inset: 0; background: transparent; z-index: 1200; }
-.menu-drawer-overlay.active { display: block; }
-.menu-drawer {
-        position: fixed; top: 0; bottom: 0; left: -440px; z-index: 1201; overflow-y: auto;
-        width: max-content; min-width: 345px; max-width: min(435px, 90vw); padding: 128px 28px 40px 55px;
-        background: var(--white); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        transition: left 0.9s ease, box-shadow 0.9s ease; box-shadow: none;
-    }
-.menu-drawer.active { left: 0; box-shadow: 0 5px 10px rgba(0,0,0,0.5); }
-.menu-drawer-header { position: static; }
-.menu-drawer-header .brand-logo { position: absolute; top: 40px; left: 55px; }
-.menu-drawer-header .brand-logo-sm { font-size: 2rem; }
-/* Nút đóng: dấu × vẽ bằng CSS */
-.menu-close-btn {
-        position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; background: none; border: none; cursor: pointer;
-    }
-.menu-close-btn::before, .menu-close-btn::after {
-        content: ""; position: absolute; top: 50%; left: 50%; width: 16px; height: 2px; background: #000;
-        transform: translate(-50%, -50%) rotate(45deg);
-    }
-.menu-close-btn::after { transform: translate(-50%, -50%) rotate(-45deg); }
-.drawer-nav-list { padding: 0; }
-.drawer-nav-item { margin-bottom: 7px; }
-.drawer-nav-item > a {
-        display: flex; align-items: center; justify-content: space-between; gap: 30px;
-        font-size: 18px; font-weight: 500; line-height: normal; text-transform: uppercase; color: #000; cursor: pointer;
-    }
-/* Mũi tên › chỉ hiện ở mục có menu con, vẽ bằng CSS, xoay xuống khi mở */
-.drawer-nav-item:has(> .drawer-sub-list) > a::after {
-        content: ""; flex: none; width: 7px; height: 7px; margin-right: 6px;
-        border-right: 2px solid #000; border-top: 2px solid #000; transform: rotate(45deg); transition: transform 0.4s;
-    }
-.drawer-nav-item:has(> .drawer-sub-list.open) > a::after { transform: rotate(135deg); }
-.drawer-sub-list { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-.drawer-sub-list.open { max-height: 320px; }
-.drawer-sub-list li a {
-        display: block; padding: 4px 0; font-size: 14px; font-weight: 400; text-transform: uppercase; color: #000; cursor: pointer;
-    }
-.drawer-sub-list li:first-child { padding-top: 7px; }
-.drawer-sub-list li:last-child { padding-bottom: 7px; }
-@media (hover: none) { .menu-drawer-overlay.active { background: rgba(0,0,0,0.4); } }
+/* ---------- Cụm phải: Gọi Ngay, Tài Khoản, giỏ hàng, yêu thích (cách nhau 24px) ---------- */
+.header-tools { display: flex; align-items: center; gap: 24px; flex: none; margin-left: auto; }
+.header-link { display: flex; align-items: center; gap: 8px; font-size: 14px; line-height: 20px; color: #141414; transition: opacity 0.2s; }
+.header-link:hover { opacity: 0.65; }
+.header-link .icon { width: 22px; height: 22px; stroke-width: 1.5px; }
+.icon-btn {
+    position: relative; display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; color: #141414; border-radius: 50%; transition: opacity 0.2s;
+}
+.icon-btn:hover { opacity: 0.65; }
+.icon-btn .icon { width: 22px; height: 22px; }
+/* Con số nhỏ chữ đen nằm góc trên bên phải biểu tượng giỏ hàng / yêu thích (luôn hiện, kể cả 0) */
+.cart-badge { position: absolute; top: -8px; right: -9px; font-size: 12px; font-weight: 400; line-height: 14px; color: #141414; pointer-events: none; }
+
+/* Hộp nhỏ xổ xuống dưới nút Tài Khoản */
+.header-account { position: relative; }
+.mini-menu {
+    position: absolute; top: calc(100% + 12px); right: 0; z-index: 6; display: none; min-width: 156px; padding: 6px 0;
+    background: var(--c-surface); border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+.header-account:hover .mini-menu, .header-account:focus-within .mini-menu, .mini-menu.open { display: block; }
+.header-account::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px; } /* cầu nối để rê chuột không bị rơi khỏi menu */
+.account-menu a, .account-menu button {
+    display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 18px; font-size: 14px; color: var(--c-text); text-align: left; white-space: nowrap;
+}
+.account-menu a:hover, .account-menu button:hover { background: var(--c-bg); }
+.account-menu a + a, .account-menu a + button, .account-menu button + a { border-top: 1px solid var(--c-line); }
+.account-menu .icon { width: 20px; height: 20px; color: var(--c-text-soft); }
+.menu-count { margin-left: auto; color: var(--c-text-mute); font-size: 12px; }
+/* Hiện / ẩn mục theo trạng thái đăng nhập (class logged-in do auth.js gắn vào .header-account) */
+.only-logged-in { display: none !important; }
+.header-account.logged-in .only-logged-in { display: flex !important; }
+.header-account.logged-in .only-guest { display: none !important; }
+
+/* ---------- Ngăn kéo tìm kiếm bên phải (rộng 448px) ---------- */
+.drawer-overlay { position: fixed; inset: 0; z-index: 1300; background: rgba(0, 0, 0, 0.5); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+.drawer-overlay.open { opacity: 1; visibility: visible; }
+.search-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 1301; width: 448px; max-width: 100%; padding: 24px 24px 32px; overflow-y: auto;
+    background: var(--c-surface); transform: translateX(100%); transition: transform 0.3s ease;
+}
+.search-drawer.open { transform: none; }
+.search-back { display: flex; width: 24px; height: 24px; margin-bottom: 16px; color: var(--c-text); }
+.search-back .icon { width: 24px; height: 24px; }
+.search-form { position: relative; display: flex; align-items: center; height: 40px; padding: 0 16px; background: #f1f1f1; border-radius: var(--r-pill); }
+.search-form-icon { width: 20px; height: 20px; margin-right: 12px; color: #9a9a9a; flex: none; }
+.search-form input { flex: 1; min-width: 0; height: 100%; background: none; border: none; outline: none; font-size: 14px; }
+.search-form input::placeholder { color: #9a9a9a; }
+.search-clear { display: none; align-items: center; justify-content: center; width: 24px; height: 24px; color: var(--c-text-soft); }
+.search-clear .icon { width: 18px; height: 18px; }
+.search-body { margin-top: 24px; }
+.search-heading { margin-bottom: 14px; font-size: 14px; font-weight: 600; }
+.search-keywords { display: flex; flex-wrap: wrap; gap: 8px; }
+.search-keywords button { padding: 6px 14px; border: 1px solid var(--c-line); border-radius: var(--r-pill); font-size: 13px; color: var(--c-text-soft); transition: border-color 0.2s; }
+.search-keywords button:hover { border-color: var(--c-text); color: var(--c-text); }
+.search-empty { padding: 24px 0; text-align: center; color: var(--c-text-mute); }
+.search-item { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--c-line); }
+.search-item img { flex: none; width: 48px; height: 64px; object-fit: cover; border-radius: 8px; background: var(--c-image-bg); }
+.search-item-name { font-size: 14px; line-height: 20px; color: #141414; }
+.search-item-price { margin-top: 2px; font-size: 14px; font-weight: 700; }
+.search-more { margin: 20px auto 0; }
+
+/* ---------- Ngăn kéo menu bên trái (mở bằng nút hamburger) ---------- */
+.nav-toggle { display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; color: #141414; }
+.nav-toggle .icon { width: 24px; height: 24px; }
+.mobile-menu {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 1301; width: 320px; max-width: 85%; overflow-y: auto;
+    background: var(--c-surface); transform: translateX(-100%); transition: transform 0.3s ease;
+}
+.mobile-menu.open { transform: none; }
+.mm-head { display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 16px; border-bottom: 1px solid var(--c-line); }
+.mm-head .site-logo { height: 28px; width: auto; font-size: 20px; }
+.mm-close { display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; color: var(--c-text-soft); }
+.mm-close .icon { width: 22px; height: 22px; }
+.mm-item { border-bottom: 1px solid var(--c-line); }
+.mm-item.active > .mm-link { font-weight: 700; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 40px; padding: 0 16px; font-size: 14px; text-align: left; }
+.mm-link .icon { width: 18px; height: 18px; transition: transform 0.25s; }
+.mm-item.open > .mm-link .icon { transform: rotate(180deg); }
+.mm-sub { display: none; }
+.mm-item.open > .mm-sub { display: block; }
+.mm-sub li { border-top: 1px solid var(--c-line); }
+.mm-sub a, .mm-sub .nav-sub-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 40px; padding: 0 16px 0 28px; font-size: 13px; text-transform: uppercase; text-align: left; }
+.mm-sub .nav-sub-list a { padding-left: 40px; text-transform: none; }
+
+/* ---------- Màn hình nhỏ: ẩn chữ "Gọi Ngay" và "Tài Khoản", chỉ còn biểu tượng ---------- */
+@media (max-width: 991px) {
+    :root { --header-h: 56px; --gutter: 16px; }
+    .site-logo { height: 28px; font-size: 20px; }
+    .header-tools { gap: 12px; }
+    .header-call, .header-account .header-link span { display: none; }
+    .icon-btn, .header-account .header-link { width: 28px; height: 28px; justify-content: center; }
+    .mini-menu { right: -8px; }
+}

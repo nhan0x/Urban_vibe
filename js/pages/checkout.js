@@ -31,12 +31,12 @@ class CheckoutPage {
     // Vẽ cả trang: giỏ trống (khi chưa đặt xong) thì báo giỏ trống; chưa đăng nhập thì ép về bước 1.
     // Còn lại: gọi hàm vẽ của bước hiện tại (tra trong mảng theo số bước) và ghép với thanh tiến trình + khung tóm tắt đơn hàng bên phải.
     render() {
-        const lines = cart.lines();
+        const lines = cart.checkoutLines();
         if (this.step < 4 && auth.isLoggedIn() && !lines.length) {
             this.root.innerHTML = `
                 <div class="co-empty">
                     <h2>Giỏ hàng của bạn đang trống</h2>
-                    <a class="cart-btn cart-btn-dark" href="index.html">Tiếp tục mua hàng</a>
+                    <a class="btn btn-gray" href="index.html">Tiếp tục mua hàng</a>
                 </div>`;
             return;
         }
@@ -78,7 +78,7 @@ class CheckoutPage {
         if (this.step === 4 && this.order) {
             items = this.order.items.map(i => ({ id: i.id, name: i.name, image: i.image, price: i.price, qty: i.qty, size: i.size }));
         } else {
-            items = cart.lines().map(l => ({ id: l.product.id, name: l.product.name, image: l.product.image, price: l.product.price, qty: l.qty, size: l.size }));
+            items = cart.checkoutLines().map(l => ({ id: l.product.id, name: l.product.name, image: l.product.image, price: l.product.price, qty: l.qty, size: l.size }));
         }
         const count = items.reduce((s, i) => s + i.qty, 0);
         const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
@@ -158,8 +158,8 @@ class CheckoutPage {
                 <h2 class="co-title">Đăng nhập để đặt hàng</h2>
                 <p class="co-desc">Giỏ hàng được lưu theo tài khoản, vui lòng đăng nhập để tiếp tục.</p>
                 <div class="co-actions">
-                    <button class="cart-btn cart-btn-dark" onclick="accountModal.open('login')">Đăng nhập</button>
-                    <button class="cart-btn" onclick="accountModal.open('register')">Tạo tài khoản</button>
+                    <button class="btn btn-gray" onclick="accountModal.open('login')">Đăng nhập</button>
+                    <button class="btn btn-outline btn-md" onclick="accountModal.open('register')">Tạo tài khoản</button>
                 </div>`;
         }
         const email = (this.contact && this.contact.email) || u.email;
@@ -174,7 +174,7 @@ class CheckoutPage {
                 </div>
                 <p class="co-account">Bạn đang đặt hàng với tài khoản <strong>${Utils.escapeHTML(u.name)}</strong>.
                     Không phải bạn? <a href="javascript:void(0)" onclick="auth.logout()">Đăng xuất</a></p>
-                <div class="co-actions"><button type="submit" class="cart-btn cart-btn-dark">Tiếp tục</button></div>
+                <div class="co-actions"><button type="submit" class="btn btn-gray">Tiếp tục</button></div>
             </form>`;
     }
 
@@ -263,7 +263,7 @@ class CheckoutPage {
                 <h2 class="co-title co-title-2">Chọn phương thức giao hàng của bạn</h2>
                 <p class="co-desc">Phí vận chuyển dựa trên trọng lượng kiện hàng và địa điểm giao hàng</p>
                 ${shippingOptions}
-                <div class="co-actions"><button type="submit" class="cart-btn cart-btn-dark">Tiếp tục</button></div>
+                <div class="co-actions"><button type="submit" class="btn btn-gray">Tiếp tục</button></div>
             </form>`;
     }
 
@@ -368,7 +368,7 @@ class CheckoutPage {
                     <p>${Utils.escapeHTML(this.contact.email)}</p>
                 </div>
             </div>
-            <div class="co-actions"><button id="co-place-btn" class="cart-btn cart-btn-dark" onclick="checkoutPage.placeOrder()">Đặt hàng</button></div>`;
+            <div class="co-actions"><button id="co-place-btn" class="btn btn-gray" onclick="checkoutPage.placeOrder()">Đặt hàng</button></div>`;
     }
 
     // Bấm "Đặt hàng": phải đăng nhập, giỏ không được trống. Chụp lại các món trong giỏ (copy giá và tên tại thời điểm đặt)
@@ -376,7 +376,7 @@ class CheckoutPage {
     // thì tạo đơn, xoá giỏ và sang bước 4.
     placeOrder() {
         if (!auth.requireLogin("Vui lòng đăng nhập để đặt hàng")) return;
-        const items = cart.lines().map(l => ({
+        const items = cart.checkoutLines().map(l => ({
             id: l.product.id, name: l.product.name, image: l.product.image, price: l.product.price, qty: l.qty, size: l.size
         }));
         if (!items.length) { Utils.showToast("Giỏ hàng của bạn đang trống!"); return; }
@@ -416,8 +416,8 @@ class CheckoutPage {
                     <li><span>Dự kiến giao</span><span>${orders.eta(o)}</span></li>
                 </ul>
                 <div class="co-actions">
-                    <a class="cart-btn cart-btn-dark" href="${query}">Tra cứu đơn hàng</a>
-                    <a class="cart-btn" href="index.html">Tiếp tục mua hàng</a>
+                    <a class="btn btn-gray" href="${query}">Tra cứu đơn hàng</a>
+                    <a class="btn btn-outline btn-md" href="index.html">Tiếp tục mua hàng</a>
                 </div>
             </div>`;
     }

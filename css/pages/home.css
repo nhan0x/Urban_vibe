@@ -1,0 +1,107 @@
+/* =====================================================================
+   TRANG CHỦ (theo bố cục của theciu.vn)
+   Từ trên xuống: khối trưng bày 1440x600 → banner khuyến mãi 1440x810 → khối sản phẩm có 3 tab → khối Blog → footer.
+   Nền xám #f6f6f6, mỗi khối nội dung là một thẻ trắng bo 16px.
+   ===================================================================== */
+.home-page { padding-bottom: 32px; background: var(--c-bg); }
+
+/* ---------- Khối trưng bày bộ sưu tập (tỉ lệ 2.4 : 1, nền #f9f9fb) ----------
+   Mọi kích thước tính theo cqw (% bề rộng khối) để co giãn đúng tỉ lệ như ảnh banner của theciu.vn. */
+.home-banner { padding: 16px 0; }
+.home-showcase { position: relative; width: 100%; aspect-ratio: 2.4 / 1; overflow: hidden; container-type: inline-size; background: #f9f9fb; }
+.showcase-title {
+    position: absolute; top: 3.67cqw; left: 0; right: 0; text-align: center;
+    font-family: 'Bebas Neue', 'Poppins', sans-serif; font-size: 6.05cqw; line-height: 1; letter-spacing: 0; color: #f4cdd6;
+}
+.showcase-row { position: absolute; left: 1.9cqw; right: 1.9cqw; top: 12cqw; display: flex; align-items: flex-end; justify-content: space-between; height: 18cqw; }
+.showcase-figure { position: relative; display: block; height: 100%; }
+.showcase-figure img { position: relative; z-index: 1; height: 100%; width: auto; max-width: none; transition: transform 0.35s ease; }
+.showcase-figure:hover img { transform: translateY(-0.8cqw); }
+/* Nét chì xám dưới chân mỗi người mẫu */
+.showcase-figure::after {
+    content: ""; position: absolute; left: 50%; bottom: -1.7cqw; width: 6.2cqw; height: 1.9cqw; transform: translateX(-50%) rotate(-3deg);
+    background: repeating-linear-gradient(-62deg, #ccd5d8 0 0.14cqw, transparent 0.14cqw 0.52cqw);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 68%); mask-image: radial-gradient(ellipse at center, #000 30%, transparent 68%);
+}
+.showcase-quote {
+    position: absolute; left: 0; right: 0; top: 33.4cqw; text-align: center;
+    font-family: 'Herr Von Muellerhoff', 'Poppins', cursive; font-size: 4.8cqw; line-height: 1; color: #141414;
+}
+
+/* ---------- Banner khuyến mãi dưới: ảnh rộng 16 : 9 ---------- */
+.home-promo { padding: 16px 0; }
+.home-promo a { display: block; position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #ececec; }
+.home-promo picture { display: block; width: 100%; height: 100%; }
+.home-promo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; transition: transform 0.6s ease; }
+.home-promo a:hover img { transform: scale(1.02); }
+
+/* ---------- Thẻ trắng bo 16px chứa từng khối ----------
+   Cả cụm nằm cách mép trái 48px, mép phải 32px (như theciu.vn); khối Blog giới hạn 1360px và canh giữa trong vùng đó. */
+.home-sections { margin: 0 32px 0 48px; }
+.home-section { margin: 32px auto 0; padding: 24px 16px; background: var(--c-surface); border-radius: var(--r-panel); }
+.home-section.is-narrow { max-width: 1360px; }
+.home-section-inner { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+/* ---------- Tab: NEW ARRIVALS | Best Seller | Black Friday ---------- */
+.tab-row { display: flex; align-items: center; justify-content: center; gap: 112px; margin-bottom: 16px; }
+.tab-btn {
+    position: relative; display: flex; align-items: center; justify-content: center; min-width: 150px; min-height: 32px; padding: 0 0 3px;
+    font-size: 22px; font-weight: 400; line-height: 32px; color: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(#000, #000) no-repeat right bottom / 0 2px; transition: background-size 0.3s, color 0.3s;
+}
+.tab-btn:hover { color: #000; background-size: 100% 2px; background-position: left bottom; }
+.tab-btn.active { font-weight: 700; color: #000; background-size: 100% 2px; background-position: left bottom; }
+.tab-btn .bf-text { font-size: 22px; line-height: 28px; }
+
+.home-more { display: flex; justify-content: center; margin-top: 48px; }
+.home-more .btn { gap: 12px; }
+.home-more .icon { width: 18px; height: 18px; }
+
+/* ---------- Blog ---------- */
+.home-section-title { margin-bottom: 24px; font-size: 30px; font-weight: 700; line-height: 36px; }
+.blog-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 0 0 0 -16px; width: calc(100% + 16px); }
+.blog-card { display: flex; flex-direction: column; padding: 16px; border-radius: var(--r-panel); }
+.blog-thumb { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-panel); background: #f5f5f5; }
+.blog-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.blog-card:hover .blog-thumb img { transform: scale(1.06); }
+.blog-title { margin-top: 24px; font-size: 14px; font-weight: 600; line-height: 32px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.blog-title:hover { text-decoration: underline; }
+.blog-excerpt { display: -webkit-box; height: 60px; overflow: hidden; -webkit-line-clamp: 3; -webkit-box-orient: vertical; font-size: 14px; line-height: 20px; }
+.blog-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+.blog-meta-left { display: flex; align-items: center; gap: 8px; }
+.blog-meta-left > .icon { width: 24px; height: 24px; color: #8a8a8a; }
+.blog-divider { width: 2px; height: 12px; margin: 0 8px; background: var(--c-text-mute); }
+.blog-like { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; transition: background 0.15s; }
+.blog-like:hover { background: #f1f1f1; }
+.blog-like .icon { width: 20px; height: 20px; }
+.blog-like.active { color: var(--c-sale); }
+
+@media (max-width: 1199px) {
+    .blog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tab-row { gap: 56px; }
+}
+@media (max-width: 767px) {
+    .home-banner, .home-promo { padding: 8px 0; }
+    .home-showcase { aspect-ratio: 1 / 1; }
+    .showcase-title { top: 12cqw; font-size: 14cqw; }
+    .showcase-row { left: 3cqw; right: 3cqw; top: 36cqw; height: 40cqw; }
+    .showcase-figure:nth-child(-n+3), .showcase-figure:nth-child(n+9) { display: none; }
+    .showcase-figure::after { bottom: -2cqw; width: 17cqw; height: 5cqw; background: repeating-linear-gradient(-62deg, #c7d1d5 0 0.4cqw, transparent 0.4cqw 1.5cqw); }
+    .showcase-quote { top: 85cqw; font-size: 11.5cqw; }
+    .home-promo a { aspect-ratio: 3 / 4; }
+    .home-sections { margin: 0 12px; }
+    .home-section { margin-top: 16px; padding: 16px 8px; }
+    .home-section-inner { padding: 0 4px; }
+    .tab-row { gap: 14px; }
+    .tab-btn, .tab-btn .bf-text { font-size: 14px; }
+    .tab-btn { min-width: 0; }
+    .blog-grid { grid-template-columns: minmax(0, 1fr); margin: 0; width: 100%; }
+    .home-more .btn.btn-wide { min-width: 0; width: 100%; }
+}
+
+/* Mũi tên → trong nút "Xem tất cả" */
+.home-more .btn::after {
+    content: ""; width: 18px; height: 18px;
+    background: no-repeat center / 18px 18px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23434343' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h16'/%3E%3Cpath d='m14 6 6 6-6 6'/%3E%3C/svg%3E");
+}
+.home-more .btn:hover::after { filter: invert(1); }

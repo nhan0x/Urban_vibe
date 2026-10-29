@@ -44,8 +44,8 @@ class AccountPage {
                     <h1 class="ac-title">Tài khoản</h1>
                     <p class="ac-desc">Vui lòng đăng nhập để xem thông tin tài khoản.</p>
                     <div class="co-actions">
-                        <button class="cart-btn cart-btn-dark" onclick="accountModal.open('login')">Đăng nhập</button>
-                        <button class="cart-btn" onclick="accountModal.open('register')">Tạo tài khoản</button>
+                        <button class="btn btn-gray" onclick="accountModal.open('login')">Đăng nhập</button>
+                        <button class="btn btn-outline btn-md" onclick="accountModal.open('register')">Tạo tài khoản</button>
                     </div>
                 </div>`;
             return;
@@ -91,7 +91,7 @@ class AccountPage {
                     <h2 class="ac-block-title"><a href="#${s.id}">${s.label}</a></h2>
                     <p class="ac-desc">${s.desc}</p>
                 </div>`).join("")}
-            <button class="cart-btn cart-btn-dark ac-logout" onclick="auth.logout()">Đăng xuất</button>`;
+            <button class="btn btn-gray ac-logout" onclick="auth.logout()">Đăng xuất</button>`;
     }
 
     // Mục "Đơn hàng": bảng các đơn của mình, đơn nào còn huỷ được thì có link "Hủy đơn". Chưa có đơn thì mời mua sắm.
@@ -125,7 +125,7 @@ class AccountPage {
             <p class="ac-note">Đơn hàng chỉ hủy được khi chưa được đóng gói. Muốn đổi trả sản phẩm đã nhận, vui lòng gọi hotline ${SHIPPING[0].hotline} trong vòng 7 ngày.</p>`;
         } else {
             content = `<p class="ac-desc">Bạn chưa có đơn hàng nào.</p>
-               <a class="cart-btn cart-btn-dark" href="index.html">Mua sắm ngay</a>`;
+               <a class="btn btn-gray" href="index.html">Mua sắm ngay</a>`;
         }
         return `
             <h1 class="ac-title">Đơn hàng và đổi trả</h1>
@@ -180,7 +180,7 @@ class AccountPage {
             <h1 class="ac-title">Sổ địa chỉ</h1>
             <p class="ac-desc">Địa chỉ mặc định sẽ được điền sẵn khi bạn thanh toán.</p>
             ${listHTML}
-            <button class="cart-btn cart-btn-dark" onclick="accountPage.editAddress('new')">Thêm địa chỉ mới</button>`;
+            <button class="btn btn-gray" onclick="accountPage.editAddress('new')">Thêm địa chỉ mới</button>`;
     }
 
     // Form thêm / sửa địa chỉ. a là địa chỉ đang sửa; a = null nghĩa là thêm mới (điền sẵn tên và số điện thoại của tài khoản).
@@ -234,8 +234,8 @@ class AccountPage {
                 </div>
                 <label class="ac-check"><input type="checkbox" name="isDefault"${defaultChecked}> Đặt làm địa chỉ mặc định</label>
                 <div class="co-actions">
-                    <button type="submit" class="cart-btn cart-btn-dark">Lưu địa chỉ</button>
-                    <button type="button" class="cart-btn" onclick="accountPage.editAddress(null)">Hủy</button>
+                    <button type="submit" class="btn btn-gray">Lưu địa chỉ</button>
+                    <button type="button" class="btn btn-outline btn-md" onclick="accountPage.editAddress(null)">Hủy</button>
                 </div>
             </form>`;
     }
@@ -315,7 +315,7 @@ class AccountPage {
                     <input type="email" value="${Utils.escapeHTML(u.email)}" disabled>
                     <small class="ac-field-hint">Đổi email tại mục <a href="#access">Thông tin truy cập</a>.</small>
                 </div>
-                <div class="co-actions"><button type="submit" class="cart-btn cart-btn-dark">Lưu thông tin</button></div>
+                <div class="co-actions"><button type="submit" class="btn btn-gray">Lưu thông tin</button></div>
             </form>`;
     }
 
@@ -365,7 +365,7 @@ class AccountPage {
                     <input type="password" name="current" autocomplete="current-password">
                     <small class="co-error"></small>
                 </div>
-                <div class="co-actions"><button type="submit" class="cart-btn cart-btn-dark">Lưu thay đổi</button></div>
+                <div class="co-actions"><button type="submit" class="btn btn-gray">Lưu thay đổi</button></div>
             </form>`;
     }
 
@@ -416,7 +416,7 @@ class AccountPage {
             <form class="ac-form" onsubmit="accountPage.saveNewsletter(event)">
                 <label class="ac-check"><input type="checkbox" name="newsletter"${checked}>
                     Đăng ký nhận bản tin Urban Vibe (sản phẩm mới, ưu đãi, sự kiện) qua email <strong>${Utils.escapeHTML(u.email)}</strong></label>
-                <div class="co-actions"><button type="submit" class="cart-btn cart-btn-dark">Lưu</button></div>
+                <div class="co-actions"><button type="submit" class="btn btn-gray">Lưu</button></div>
             </form>`;
     }
 

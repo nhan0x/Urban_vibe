@@ -1,37 +1,29 @@
-// Khung đăng nhập / tạo tài khoản trượt từ bên phải: mở, đóng và chuyển giữa 2 màn.
-// JS chỉ thêm / gỡ class "active"; hiệu ứng trượt do CSS đảm nhiệm.
+// Điều hướng tới trang đăng nhập / đăng ký (pages/account/sign-in.html) giống theciu.vn.
+// Tên lớp AccountModal và các hàm open / close được giữ nguyên để auth.js và các trang khác không phải sửa.
 
 class AccountModal {
-    // Mở khung: chọn màn đăng nhập hay đăng ký, hiện khung + lớp nền tối, khoá cuộn trang phía sau.
+    // Mở trang đăng nhập (tab "login") hoặc đăng ký (tab "register"), kèm địa chỉ trang hiện tại để quay lại sau khi đăng nhập xong.
     open(tab = "login") {
-        this.switchTab(tab);
-        Utils.$("account-modal").classList.add("active");
-        Utils.$("account-overlay").classList.add("active");
-        document.body.style.overflow ="hidden";
+        if (location.pathname.endsWith("sign-in.html")) { this.switchTab(tab); return; }
+        location.href = "pages/account/sign-in.html?tab=" + tab + "&return=" + encodeURIComponent(location.href);
     }
-    
 
-    // Đóng khung: làm ngược lại open(). Nếu khung không tồn tại hoặc đang đóng thì thoát luôn.
+    // Gọi sau khi đăng nhập / đăng ký thành công: đang ở trang đăng nhập thì quay về trang trước đó (hoặc trang chủ).
     close() {
-        const drawer = Utils.$("account-modal");
-        if (!drawer || !drawer.classList.contains("active")) return;
-        drawer.classList.remove("active");
-        Utils.$("account-overlay").classList.remove("active");
-        document.body.style.overflow = "";
+        if (!location.pathname.endsWith("sign-in.html")) return;
+        const back = new URLSearchParams(location.search).get("return");
+        if (back && !back.includes("sign-in.html")) location.href = back;
+        else location.href = "index.html";
     }
 
-    // Bấm vào vùng nền tối thì đóng. Kiểm tra e.target để chỉ đóng khi đúng là bấm lên nền,
-    // không đóng khi bấm bên trong khung (sự kiện click nổi bọt lên từ phần tử con).
-    closeOnOverlay(e) { if (e.target.id === "account-overlay") this.close(); }
-
-    // Chuyển giữa màn "login" và "register": bật active cho màn trùng tên, tắt màn còn lại.
+    // Chuyển giữa 2 tab của trang đăng nhập (chỉ có tác dụng khi trang có các phần tử tab).
     switchTab(tab) {
-        ["login", "register"].forEach(name =>
-            Utils.$("pane-" + name).classList.toggle("active", name === tab));
+        document.querySelectorAll("[data-auth-tab]").forEach(el => el.classList.toggle("active", el.dataset.authTab === tab));
+        document.querySelectorAll("[data-auth-pane]").forEach(el => el.classList.toggle("active", el.dataset.authPane === tab));
     }
 
-    // Bấm "Quên mật khẩu?": chỉ hiện thông báo hướng dẫn gọi hotline (chưa có chức năng khôi phục thật).
-    forgot() { Utils.showToast("Em chưa làm chức  năng này cô ơi"); }
+    // Bấm "Quên mật khẩu?": chỉ hiện thông báo (chưa có chức năng khôi phục thật).
+    forgot() { Utils.showToast("Vui lòng liên hệ hotline 0775 665 912 để được hỗ trợ đặt lại mật khẩu"); }
 }
 
 const accountModal = new AccountModal();

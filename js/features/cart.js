@@ -1,18 +1,21 @@
-// Giỏ hàng: thêm / gỡ / đổi số lượng theo size, lưu theo tài khoản và vẽ trang pages/shop/cart.html.
+// Giỏ hàng (phần xử lý dữ liệu): thêm / gỡ / đổi số lượng / đổi size theo từng dòng, chọn dòng để thanh toán, lưu theo tài khoản.
+// Giao diện trang giỏ hàng nằm ở js/pages/cart-page.js.
 
 class Cart {
-    // Nhận danh sách sản phẩm (từ products.js) để tra thông tin theo id. Size mặc định là "M".
+    // Nhận danh sách sản phẩm (từ products.js) để tra thông tin theo id. Size mặc định là "S".
     // Giỏ hàng chỉ lưu { id, size, qty }, còn tên / giá / ảnh được tra lại từ danh sách sản phẩm khi vẽ.
     constructor(allProducts) {
         this.products = allProducts;
-        this.defaultSize = "M";
+        this.defaultSize = "S";
     }
 
     // Key lưu giỏ trong localStorage, riêng cho từng tài khoản ("cart:email"). Chưa đăng nhập thì là null.
     key() { return auth.userKey("cart"); }
 
+    // Key lưu danh sách các dòng đang được tick để thanh toán ("cart-selected:email").
+    selectedKey() { return auth.userKey("cart-selected"); }
+
     // Đọc giỏ hàng của người đang đăng nhập (mảng các dòng). Chưa đăng nhập hoặc chưa có dữ liệu thì trả mảng rỗng.
-    // Dòng nào thiếu size thì gán size mặc định.
     get() {
         if (!this.key()) return [];
         const items = JSON.parse(localStorage.getItem(this.key())) || [];
@@ -26,8 +29,11 @@ class Cart {
         this.render();
     }
 
-    // Hai dòng giỏ là "cùng một món" khi cùng id sản phẩm VÀ cùng size (áo M và áo L là hai dòng khác nhau).
+    // Hai dòng giỏ là "cùng một món" khi cùng id sản phẩm VÀ cùng size (áo S và áo L là hai dòng khác nhau).
     same(a, id, size) { return a.id === id && a.size === size; }
+
+    // Khoá nhận diện một dòng giỏ, ví dụ "5|S".
+    lineKey(id, size) { return id + "|" + size; }
 
     // Thêm sản phẩm vào giỏ. Phải đăng nhập (requireLogin). Đã có đúng món đó (cùng id + size) thì cộng dồn số lượng,
     // chưa có thì thêm dòng mới. Trả true nếu thêm được, false nếu bị chặn do chưa đăng nhập.
@@ -38,7 +44,7 @@ class Cart {
         if (item) item.qty += qty;
         else items.push({ id, size, qty });
         this.save(items);
-        Utils.showToast("✓ Đã thêm sản phẩm vào giỏ hàng!");
+        Utils.showToast("Đã thêm vào giỏ hàng!");
         return true;
     }
 
@@ -46,37 +52,66 @@ class Cart {
     remove(id, size) {
         if (!auth.requireLogin()) return;
         this.save(this.get().filter(x => !this.same(x, id, size)));
+        this.setSelected(this.selectedKeys().filter(k => k !== this.lineKey(id, size)));
         Utils.showToast("Đã gỡ sản phẩm khỏi giỏ hàng");
     }
 
-    // Bấm nút − / + cạnh ô số lượng: delta là -1 hoặc +1. Số lượng không bao giờ nhỏ hơn 1,
-    // nhập chữ hay để trống thì coi là 1. Chỉ đổi trên màn hình, chưa lưu cho tới khi bấm "Cập nhật giỏ hàng".
-    stepQty(btn, delta) {
-        const input = btn.parentNode.querySelector("input");
-        input.value = Math.max(1, (parseInt(input.value, 10) || 1) + delta);
-        this.markDirty();
-    }
-
-    // Đánh dấu "có thay đổi chưa lưu": thêm class "dirty" để CSS làm nổi nút "Cập nhật giỏ hàng".
-    markDirty() { Utils.$("cart-update-btn").classList.add("dirty"); }
-
-    // Đọc số lượng người dùng đã sửa trong từng dòng trên trang giỏ rồi lưu lại. Trả true nếu có gì thay đổi.
-    // silent = true thì không hiện thông báo (dùng khi tự gọi lúc bấm Thanh toán).
-    applyInputs(silent) {
+    // Đặt số lượng của một dòng (tối thiểu 1).
+    setQty(id, size, qty) {
         const items = this.get();
-        let changed = false;
-        document.querySelectorAll(".cart-row").forEach(row => {
-            const item = items.find(x => this.same(x, +row.dataset.id, row.dataset.size));
-            const qty = Math.max(1, parseInt(row.querySelector("input").value, 10) || 1);
-            if (item && item.qty !== qty) { item.qty = qty; changed = true; }
-        });
-        if (changed) this.save(items);
-        if (!silent) {
-            if (changed) Utils.showToast("Đã cập nhật giỏ hàng");
-            else Utils.showToast("Giỏ hàng không có thay đổi");
-        }
-        return changed;
+        const item = items.find(x => this.same(x, id, size));
+        if (!item) return;
+        item.qty = Math.max(1, parseInt(qty, 10) || 1);
+        this.save(items);
     }
+
+    // Đổi size của một dòng. Nếu đã có dòng cùng sản phẩm với size mới thì gộp số lượng vào dòng đó.
+    setSize(id, oldSize, newSize) {
+        if (oldSize === newSize) return;
+        const items = this.get();
+        const item = items.find(x => this.same(x, id, oldSize));
+        if (!item) return;
+        const other = items.find(x => this.same(x, id, newSize));
+        if (other) {
+            other.qty += item.qty;
+            items.splice(items.indexOf(item), 1);
+        } else {
+            item.size = newSize;
+        }
+        this.save(items);
+    }
+
+    // ---------- Chọn dòng để thanh toán ----------
+
+    // Các khoá dòng đang được tick. Chưa từng chọn gì thì mặc định là tất cả các dòng trong giỏ.
+    selectedKeys() {
+        const all = this.get().map(i => this.lineKey(i.id, i.size));
+        if (!this.selectedKey()) return all;
+        const saved = JSON.parse(localStorage.getItem(this.selectedKey()));
+        if (!saved) return all;
+        return saved.filter(k => all.includes(k));
+    }
+
+    // Lưu danh sách khoá dòng được tick.
+    setSelected(keys) {
+        if (!this.selectedKey()) return;
+        localStorage.setItem(this.selectedKey(), JSON.stringify(keys));
+    }
+
+    // Tick / bỏ tick một dòng.
+    toggleSelected(id, size) {
+        const key = this.lineKey(id, size);
+        const keys = this.selectedKeys();
+        if (keys.includes(key)) this.setSelected(keys.filter(k => k !== key));
+        else this.setSelected(keys.concat(key));
+    }
+
+    // Tick tất cả (checked = true) hoặc bỏ tick tất cả.
+    selectAll(checked) {
+        this.setSelected(checked ? this.get().map(i => this.lineKey(i.id, i.size)) : []);
+    }
+
+    // ---------- Tra cứu ----------
 
     // Ghép mỗi dòng giỏ với thông tin sản phẩm đầy đủ (tên, giá, ảnh...) để vẽ.
     // Dòng nào có sản phẩm không còn tồn tại thì bị lọc bỏ.
@@ -86,138 +121,44 @@ class Cart {
             .filter(l => l.product);
     }
 
+    // Các dòng đang được tick để thanh toán.
+    checkoutLines() {
+        const keys = this.selectedKeys();
+        return this.lines().filter(l => keys.includes(this.lineKey(l.product.id, l.size)));
+    }
+
     // Tổng số món trong giỏ (cộng số lượng của mọi dòng) - con số hiện trên biểu tượng giỏ ở header.
     count() { return this.get().reduce((sum, i) => sum + i.qty, 0); }
 
-    // Tổng tiền hàng = cộng (giá x số lượng) của từng dòng, chưa tính phí vận chuyển.
-    subtotal() { return this.lines().reduce((s, l) => s + l.product.price * l.qty, 0); }
+    // Tổng tiền hàng của các dòng đã tick = cộng (giá x số lượng), chưa tính phí vận chuyển.
+    subtotal() { return this.checkoutLines().reduce((s, l) => s + l.product.price * l.qty, 0); }
 
-    // Xoá sạch giỏ (gọi sau khi đặt hàng thành công).
+    // Xoá khỏi giỏ các dòng đã đặt hàng (những dòng được tick); các dòng không tick vẫn còn.
     clear() {
         if (!this.key()) return;
-        localStorage.removeItem(this.key());
-        this.render();
+        const keys = this.selectedKeys();
+        this.save(this.get().filter(i => !keys.includes(this.lineKey(i.id, i.size))));
+        localStorage.removeItem(this.selectedKey());
     }
 
     // Chuyển sang trang giỏ hàng.
     open() { location.href = "pages/shop/cart.html"; }
 
-    // Cập nhật số trên header; nếu đang ở trang giỏ hàng (có #cart-page) thì vẽ lại cả trang.
+    // Cập nhật số trên biểu tượng giỏ ở header (ẩn khi giỏ trống); nếu đang ở trang giỏ hàng thì vẽ lại cả trang.
     render() {
-        Utils.setText("cart-count", this.count());
-        if (Utils.$("cart-page")) this.renderPage();
+        const badge = Utils.$("cart-count");
+        if (badge) {
+            badge.textContent = this.count();
+            badge.classList.toggle("show", this.count() > 0);
+        }
+        if (window.cartPage) cartPage.render();
     }
 
-    // Vẽ trang giỏ hàng, có 3 trường hợp (mỗi trường hợp vẽ xong là return):
-    //  1) Chưa đăng nhập: mời đăng nhập.  2) Giỏ trống: mời tiếp tục mua.  3) Có hàng: danh sách dòng + thanh tổng tiền.
-    // Danh sách đơn hàng đã đặt (ordersHTML) luôn hiện ở cả 3 trường hợp.
-    renderPage() {
-        const root = Utils.$("cart-page");
-        if (!auth.isLoggedIn()) {
-            root.innerHTML = `
-                <h1 class="cart-title">Thông tin giỏ hàng</h1>
-                <p class="cart-sub">Bạn cần đăng nhập để xem giỏ hàng.</p>
-                <button class="cart-btn cart-btn-dark" onclick="accountModal.open('login')">Đăng nhập</button>
-                ${this.ordersHTML()}`;
-            return;
-        }
-        const lines = this.lines();
-        if (!lines.length) {
-            root.innerHTML = `
-                <h1 class="cart-title">Thông tin giỏ hàng</h1>
-                <p class="cart-sub">Bạn chưa có sản phẩm nào trong giỏ.</p>
-                <a class="cart-btn cart-btn-dark" href="index.html">Tiếp tục mua hàng</a>
-                ${this.ordersHTML()}`;
-            return;
-        }
-        root.innerHTML = `
-            <h1 class="cart-title">Thông tin giỏ hàng</h1>
-            <p class="cart-sub">Bạn có ${this.count()} mặt hàng trong giỏ.</p>
-            <div class="cart-list">
-                ${lines.map(l => `
-                    <div class="cart-row" data-id="${l.product.id}" data-size="${l.size}">
-                        <a class="cart-row-img" href="pages/shop/product.html?id=${l.product.id}"><img src="${l.product.image}" alt="${l.product.name}"></a>
-                        <div class="cart-row-info">
-                            <a class="cart-row-name" href="pages/shop/product.html?id=${l.product.id}">${l.product.name}</a>
-                            <div class="cart-row-price">${Utils.formatPrice(l.product.price)}</div>
-                            <div class="cart-row-size">${l.size}</div>
-                            <div class="cart-qty">
-                                <button type="button" onclick="cart.stepQty(this, -1)">−</button>
-                                <input type="number" min="1" value="${l.qty}" oninput="cart.markDirty()">
-                                <button type="button" onclick="cart.stepQty(this, 1)">+</button>
-                            </div>
-                            <a href="javascript:void(0)" class="cart-row-remove" onclick="cart.remove(${l.product.id}, '${l.size}')">Gỡ</a>
-                        </div>
-                        <div class="cart-row-total">${Utils.formatPrice(l.product.price * l.qty)}</div>
-                    </div>`).join("")}
-            </div>
-            ${this.ordersHTML()}
-            <div class="cart-bar">
-                <div class="cart-bar-inner">
-                    <a class="cart-btn" href="index.html">Tiếp tục mua hàng</a>
-                    <div class="cart-bar-total">
-                        <strong>Tổng đơn đặt hàng ${Utils.formatPrice(this.subtotal())}</strong>
-                        <small>* Đã bao gồm thuế VAT</small>
-                    </div>
-                    <div class="cart-bar-actions">
-                        <button class="cart-btn" id="cart-update-btn" onclick="cart.applyInputs()">Cập nhật giỏ hàng</button>
-                        <button class="cart-btn cart-btn-dark" onclick="cart.checkout()">Thanh toán</button>
-                    </div>
-                </div>
-            </div>`;
-    }
-
-    // Tạo HTML khối "Đơn hàng của bạn": tối đa 5 đơn gần nhất (kèm link "Xem tất cả" nếu còn nhiều hơn).
-    // Không có đơn thì hiện câu thông báo phù hợp với việc đã đăng nhập hay chưa.
-    ordersHTML() {
-        let list = [];
-        if (auth.isLoggedIn()) list = orders.all();
-        const recent = list.slice(0, 5);
-
-        let allOrdersLink = "";
-        if (list.length > recent.length) allOrdersLink = '<a href="pages/account/account.html#orders">Xem tất cả đơn hàng</a>';
-
-        let ordersBody = "";
-        if (recent.length) {
-            ordersBody = `
-                <table class="tk-table">
-                    <thead><tr><th>Mã đơn</th><th>Ngày đặt</th><th>Sản phẩm</th><th>Tổng tiền</th><th>Trạng thái</th><th></th></tr></thead>
-                    <tbody>${recent.map(o => `
-                        <tr>
-                            <td>${o.code}</td>
-                            <td>${Utils.formatDateTime(o.createdAt)}</td>
-                            <td>${orders.count(o)}</td>
-                            <td>${Utils.formatPrice(orders.total(o))}</td>
-                            <td>${orders.statusLabel(o)}</td>
-                            <td><a href="pages/account/tracking.html?code=${o.code}">Theo dõi đơn hàng</a></td>
-                        </tr>`).join("")}
-                    </tbody>
-                </table>`;
-        } else {
-            let emptyText = "Đăng nhập để xem các đơn đã đặt, hoặc tra cứu bằng mã đơn hàng.";
-            if (auth.isLoggedIn()) emptyText = "Bạn chưa có đơn hàng nào.";
-            ordersBody = `<p class="cart-sub">${emptyText}</p>`;
-        }
-
-        return `
-            <section class="cart-orders">
-                <div class="cart-orders-head">
-                    <h2>Đơn hàng của bạn</h2>
-                    <div class="cart-orders-links">
-                        ${allOrdersLink}
-                        <a href="pages/account/tracking.html">Tra cứu đơn hàng bằng mã đơn</a>
-                    </div>
-                </div>
-                ${ordersBody}
-            </section>`;
-    }
-
-    // Bấm "Thanh toán": phải đăng nhập, lưu lại số lượng vừa sửa (nếu đang ở trang giỏ), giỏ trống thì báo,
-    // ngược lại chuyển sang trang thanh toán.
+    // Bấm "Thanh toán": phải đăng nhập, giỏ trống hoặc chưa tick dòng nào thì báo, ngược lại sang trang thanh toán.
     checkout() {
         if (!auth.requireLogin("Vui lòng đăng nhập để đặt hàng")) return;
-        if (Utils.$("cart-page")) this.applyInputs(true);
         if (!this.lines().length) { Utils.showToast("Giỏ hàng của bạn đang trống!"); return; }
+        if (!this.checkoutLines().length) { Utils.showToast("Vui lòng chọn ít nhất một sản phẩm để thanh toán"); return; }
         location.href = "pages/shop/checkout.html";
     }
 }

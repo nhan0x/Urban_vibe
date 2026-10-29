@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<base href="../../">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sản phẩm - Urban Vibe | Thời trang nữ đa dạng</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400&display=swap&subset=vietnamese" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="image/favicon.svg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body data-nav="product">
+
+<div id="site-header"></div>
+
+<main class="site-main page-plain">
+    <!-- Tiêu đề + đường dẫn -->
+    <div class="page-container listing-head">
+        <h1 class="page-title" id="listing-title">Sản phẩm</h1>
+        <nav class="breadcrumb" aria-label="Đường dẫn">
+            <a href="index.html">Trang chủ</a>
+            <span class="breadcrumb-sep"></span>
+            <a href="pages/shop/products.html" id="breadcrumb-current">Sản phẩm</a>
+        </nav>
+    </div>
+
+    <!-- Dải tab nhóm sản phẩm (vẽ bởi js/pages/products.js) -->
+    <div class="category-band">
+        <div class="page-container"><div class="category-tabs" id="category-tabs"></div></div>
+    </div>
+
+    <div class="page-container listing-body">
+        <!-- Thanh sắp xếp -->
+        <div class="sort-bar">
+            <span class="sort-icon" aria-hidden="true"></span>
+            <p>Sắp xếp theo</p>
+            <div class="sort-select" id="sort-select">
+                <button type="button" class="sort-button" id="sort-button" onclick="productsPage.toggleSort()"><span id="sort-label">Mới nhất</span></button>
+                <ul class="sort-menu" id="sort-menu"></ul>
+            </div>
+            <span class="sort-count" id="sort-count"></span>
+        </div>
+
+        <div class="product-grid" id="listing-grid"></div>
+        <nav class="pagination" id="listing-pagination" aria-label="Phân trang"></nav>
+    </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="js/data/products.js"></script>
+<script src="js/data/collections.js"></script>
+<script src="js/data/stores.js"></script>
+<script src="js/data/mock-data.js"></script>
+<script src="js/core/icons.js"></script>
+<script src="js/core/utils.js"></script>
+<script src="js/data/catalog.js"></script>
+<script src="js/core/layout.js"></script>
+<script src="js/core/auth.js"></script>
+<script src="js/core/header.js"></script>
+<script src="js/core/account-modal.js"></script>
+<script src="js/features/wishlist.js"></script>
+<script src="js/features/cart.js"></script>
+<script src="js/features/orders.js"></script>
+<script src="js/components/product-card.js"></script>
+<script src="js/widgets/student-popup.js"></script>
+<script src="js/pages/products.js"></script>
+<script src="js/core/app.js"></script>
+
+</body>
+</html>

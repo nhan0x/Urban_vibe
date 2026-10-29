@@ -1,29 +1,78 @@
-/* Urban Vibe - giao diện */
-/* Font Helvetica Neue (cùng bộ chữ với elise.vn); các độ đậm: 100 mảnh, 400 thường, 500 vừa, 600 đậm */
-@font-face { font-family: 'Helvetica Neue'; src: url('../../fonts/helvetica-neue-light.ttf') format('truetype'); font-weight: 100; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Helvetica Neue'; src: url('../../fonts/helvetica-neue-regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Helvetica Neue'; src: url('../../fonts/helvetica-neue-medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Helvetica Neue'; src: url('../../fonts/helvetica-neue-bold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+/* =====================================================================
+   NỀN TẢNG: font, biến thiết kế, reset, kiểu chữ dùng chung.
+   Thiết kế theo theciu.vn: font Poppins 14px, nền xám nhạt #f6f6f6, khối nội dung trắng bo góc,
+   nút dạng viên thuốc (pill) đen / xám đậm.
+   Font Poppins nạp từ Google Fonts bằng thẻ <link> ở <head> mỗi trang.
+   ===================================================================== */
 :root {
-        --brand-gold: #b38b59;
-        --brand-red: #d32f2f;
-        --brand-gray: #666666;
-        --brand-light: #f7f7f7;
-        --brand-border: #e8e8e8;
-        --white: #ffffff;
-        --dark: #111111;
-        --text-color: #222222;
-        --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        --header-h: 100px; --header-h-compact: 76px; --flash-h: 0px;
+    /* Màu */
+    --c-bg: #f6f6f6;            /* nền trang */
+    --c-surface: #ffffff;       /* nền khối nội dung / thẻ */
+    --c-text: #000000;          /* chữ chính */
+    --c-text-soft: #434343;     /* chữ phụ, mục menu, nút xám đậm */
+    --c-text-mute: #7d7d7d;     /* chữ mờ, ghi chú */
+    --c-dark: #202020;          /* nút "Mua ngay" */
+    --c-line: #e5e5e5;          /* đường kẻ mảnh */
+    --c-card-line: #ece9e9;     /* viền thẻ sản phẩm */
+    --c-badge: #85a1fc;         /* nhãn "New" */
+    --c-sale: #e50914;          /* Black Friday, giá giảm */
+    --c-brand: #d9889b;         /* hồng của bông hoa trên logo */
+    --c-image-bg: #f0eff2;      /* nền ô ảnh khi chưa tải */
+
+    /* Bo góc */
+    --r-panel: 16px;            /* khối nội dung lớn */
+    --r-card: 20px;             /* thẻ sản phẩm */
+    --r-image: 14px;            /* ảnh trong thẻ */
+    --r-pill: 999px;            /* nút viên thuốc */
+
+    /* Đổ bóng */
+    --shadow-card: 0 8px 22px rgba(26, 20, 20, 0.08);
+    --shadow-header: 4px 20px 20px -20px rgba(16, 24, 40, 0.06);
+    --shadow-menu: 0 3px 14px rgba(0, 0, 0, 0.08);
+
+    /* Kích thước khung */
+    --header-h: 76px;
+    --gutter: 24px;
+
+    --font-main: 'Poppins', -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
+
+html { font-size: 10px; -webkit-text-size-adjust: 100%; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-button, input, textarea, select { font-family: inherit; }
 body {
-        font-family: var(--font-main);
-        background: #ffffff;
-        color: var(--text-color);
-        line-height: 1.5;
-    }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
-img { max-width: 100%; display: block; }
+    font-family: var(--font-main); font-size: 14px; font-weight: 400; line-height: 20px;
+    color: var(--c-text); background: var(--c-surface);
+    -webkit-font-smoothing: antialiased;
+}
+button, input, textarea, select { font-family: inherit; font-size: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: none; }
+a { color: inherit; text-decoration: none; cursor: pointer; }
+ul, ol { list-style: none; }
+img { display: block; max-width: 100%; }
+h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
+
+/* Thanh cuộn mảnh 6px, thumb xám bo tròn (giống theciu.vn) */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { border-radius: 20px; }
+::-webkit-scrollbar-thumb { background: #afafaf; border-radius: 60px; }
+::-webkit-scrollbar-thumb:hover { background: #d5d5d5; }
+
+/* Phần thân trang: nền xám nhạt, các khối trắng nằm trên nền này */
+.site-main { min-height: calc(100vh - var(--header-h)); background: var(--c-bg); }
+.page-wrap { width: calc(100% - 80px); max-width: 1360px; margin: 0 auto; }
+
+/* Khối nội dung trắng bo góc (giống các thẻ lớn trên theciu.vn) */
+.panel { padding: 24px 16px; background: var(--c-surface); border-radius: var(--r-panel); }
+
+/* Dòng điều hướng "Trang chủ > Sản phẩm" */
+.breadcrumb { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--c-text); }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb svg { width: 16px; height: 16px; }
+
+/* Ẩn chữ nhưng vẫn đọc được bằng trình đọc màn hình */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (max-width: 767px) {
+    :root { --header-h: 64px; --gutter: 16px; }
+    .page-wrap { width: calc(100% - 32px); }
+}

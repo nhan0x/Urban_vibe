@@ -1,7 +1,0 @@
-/* ---------- Lưới sản phẩm New Arrival theo kích thước của elise.vn: 4 cột, khoảng cách 42px, ảnh tỉ lệ 2:3 ---------- */
-.new-arrival .products-container { max-width: 1670px; padding: 0 20px 10px; }
-.new-arrival .product-grid { gap: 30px 42px; }
-@media (max-width: 1280px) { .new-arrival .product-grid { gap: 30px 28px; } }
-@media (max-width: 1024px) { .new-arrival .product-grid { gap: 24px 18px; } }
-@media (max-width: 767px) { .new-arrival .product-grid { gap: 20px 12px; } }
-@media (max-width: 480px) { .new-arrival .product-grid { gap: 16px 8px; } }

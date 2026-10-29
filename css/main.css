@@ -1,0 +1,27 @@
+/* =====================================================================
+   Tệp CSS duy nhất mà mọi trang cần nối (<link rel="stylesheet" href="css/main.css">).
+   Các tệp con được nạp theo đúng thứ tự dưới đây: nền tảng → thành phần dùng chung → khung trang → từng trang.
+   ===================================================================== */
+
+/* Nền tảng: biến thiết kế, reset, kiểu chữ */
+@import url("base/base.css");
+
+/* Thành phần dùng chung */
+@import url("components/button.css");
+@import url("components/product-card.css");
+
+/* Khung chung: header, footer, nút nổi, popup */
+@import url("layout/header.css");
+@import url("layout/footer.css");
+@import url("layout/floating.css");
+
+/* Từng trang */
+@import url("pages/home.css");
+@import url("pages/listing.css");
+@import url("pages/product-detail.css");
+@import url("pages/cart.css");
+@import url("pages/collection.css");
+@import url("pages/black-friday.css");
+@import url("pages/info.css");
+@import url("pages/auth.css");
+@import url("pages/account.css");

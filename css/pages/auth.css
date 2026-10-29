@@ -1,0 +1,68 @@
+/* =====================================================================
+   TRANG ĐĂNG NHẬP / ĐĂNG KÝ (theo theciu.vn/sign-in và /sign-up)
+   Hai cột: ảnh trượt 480px bên trái (kèm chấm tròn) | biểu mẫu 512px bên phải. Không có header / footer.
+   ===================================================================== */
+.auth-body { background: #fff; }
+.auth-page { display: grid; grid-template-columns: 480px minmax(0, 1fr); min-height: 100vh; }
+
+/* ---------- Ảnh trượt bên trái ---------- */
+.auth-visual { position: relative; }
+.auth-slides { position: relative; width: 480px; height: 600px; overflow: hidden; background: #e9ecf1; }
+.auth-slides img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; opacity: 0; transition: opacity 0.6s ease; }
+.auth-slides img.active { opacity: 1; }
+.auth-dots { display: flex; justify-content: center; align-items: center; gap: 8px; height: 48px; }
+.auth-dots button { width: 12px; height: 12px; background: #fff; border: 1px solid #000; border-radius: 50%; transition: background 0.2s; }
+.auth-dots button.active { background: #000; }
+
+/* ---------- Biểu mẫu ---------- */
+.auth-form-col { display: flex; justify-content: center; padding: 72px 24px 48px; }
+.auth-form-wrap { width: 100%; max-width: 512px; }
+.auth-logo { display: flex; justify-content: center; width: auto; height: 32px; font-size: 40px; }
+.auth-title { margin-top: 32px; font-size: 24px; font-weight: 700; line-height: 32px; text-align: center; }
+.auth-sub { margin-top: 16px; font-size: 14px; text-align: center; color: #6b6b6b; }
+.auth-pane { display: none; }
+.auth-pane.active { display: block; }
+
+.auth-quick-title { margin-top: 48px; font-size: 14px; font-weight: 700; text-align: center; }
+.auth-social { display: flex; justify-content: center; gap: 64px; margin-top: 28px; }
+.auth-social button { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; transition: transform 0.2s; }
+.auth-social button:hover { transform: scale(1.08); }
+.social-fb i { font-size: 48px; color: #1877f2; }
+.social-google span { font-size: 46px; font-weight: 700; line-height: 1; background: conic-gradient(from -45deg, #ea4335 0 25%, #fbbc05 0 50%, #34a853 0 75%, #4285f4 0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.auth-or { margin-top: 28px; font-size: 14px; font-weight: 700; text-align: center; }
+.auth-tabs { display: flex; justify-content: center; width: 280px; margin: 28px auto 0; border-bottom: 1px solid #eee; }
+.auth-tabs button { flex: 1; height: 46px; font-size: 14px; color: #7a7a7a; }
+.auth-tabs button.active { font-weight: 700; color: #000; box-shadow: inset 0 -2px 0 #000; }
+
+.auth-form { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+.auth-form .field { gap: 8px; }
+.auth-form .field > label { font-size: 14px; }
+.auth-form .input-wrap { height: 44px; border: 1px solid #c4c4cc; border-radius: 22px; }
+.auth-form .input-wrap > .icon { width: 22px; height: 22px; margin-right: 10px; color: #8a8a93; }
+.eye-btn { display: flex; flex: none; width: 24px; height: 24px; margin-left: 8px; color: #6b6b6b; }
+.eye-btn .icon { width: 22px; height: 22px; }
+.auth-row { display: flex; align-items: center; justify-content: space-between; margin-top: -2px; font-size: 14px; }
+.auth-check { display: flex; align-items: center; gap: 8px; cursor: pointer; margin-left: -3px; }
+.auth-check input { width: 18px; height: 18px; accent-color: #000; }
+.auth-link-underline { text-decoration: underline; }
+.auth-submit { height: 48px; margin-top: 8px; background: var(--c-text-soft); border-radius: 16px; color: #fff; font-size: 14px; transition: background 0.2s; }
+.auth-submit:hover:not(:disabled) { background: #000; }
+.auth-submit:disabled { background: #f2f2f2; color: #b3b3b3; cursor: not-allowed; }
+.auth-switch { margin-top: 32px; font-size: 14px; text-align: center; }
+.auth-switch a { margin-left: 4px; color: #5560e6; text-decoration: underline; }
+
+/* ---------- 3 bước đăng ký ---------- */
+.auth-steps { display: flex; justify-content: space-between; margin: 36px 0 20px; }
+.auth-steps li { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 14px; font-size: 14px; }
+.auth-steps li span { display: flex; align-items: center; justify-content: center; width: 14px; height: 14px; background: #c4c4c4; border-radius: 50%; color: #fff; font-size: 8px; font-weight: 700; }
+.auth-steps li + li::before { content: ""; position: absolute; top: 7px; right: 50%; width: 130px; height: 1px; margin-right: 28px; background: #c4c4cc; }
+.auth-steps li.done span { background: #87bd5e; }
+.auth-steps li.done b { color: #87bd5e; }
+.auth-steps li b { font-weight: 400; }
+.auth-steps li.done b { font-weight: 700; }
+
+@media (max-width: 899px) {
+    .auth-page { grid-template-columns: minmax(0, 1fr); }
+    .auth-visual { display: none; }
+    .auth-form-col { padding: 40px 20px; }
+}

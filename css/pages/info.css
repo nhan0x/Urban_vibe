@@ -1,0 +1,234 @@
+/* =====================================================================
+   CÁC TRANG THÔNG TIN (bố cục theo theciu.vn): Blog, bài viết, Giới thiệu, FAQ, chính sách, Membership, Chi nhánh, Tuyển dụng.
+   Nền xám #f6f6f6 (riêng Chi nhánh / Membership có phần nền riêng), khối nội dung trắng bo góc.
+   ===================================================================== */
+.info-main { padding-bottom: 80px; background: var(--c-bg); }
+
+/* ---------- Blog: danh sách ---------- */
+.blog-page { padding: 40px 24px 40px; }
+.blog-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.blog-top-title { display: flex; align-items: baseline; gap: 24px; }
+.blog-top-title h1 { font-size: 48px; font-weight: 800; line-height: 58px; }
+.blog-top-title p { font-size: 14px; font-weight: 500; }
+.blog-search { display: flex; align-items: center; gap: 16px; }
+.blog-search-box { display: flex; align-items: center; gap: 12px; width: 444px; height: 48px; padding: 0 16px; background: #fff; border-radius: 16px; }
+.blog-search-icon .icon { width: 22px; height: 22px; color: #6f6f6f; }
+.blog-search-box input { flex: 1; min-width: 0; height: 100%; border: none; outline: none; background: none; font-size: 14px; }
+.blog-search-box input::placeholder { color: #b0b0b0; }
+.blog-search .btn-md { min-width: 140px; height: 46px; border-radius: 16px; }
+.blog-cats { display: flex; align-items: center; justify-content: space-between; margin: 32px 0; }
+.blog-cats h2 { font-size: 40px; font-weight: 700; line-height: 48px; }
+.blog-cat-links { display: flex; align-items: center; }
+.blog-cat-links button { padding: 0 24px; font-size: 20px; font-weight: 600; line-height: 24px; border-left: 1px solid #000; opacity: 0.85; transition: opacity 0.2s; }
+.blog-cat-links button:first-child { border-left: none; }
+.blog-cat-links button:last-child { padding-right: 0; }
+.blog-cat-links button.active, .blog-cat-links button:hover { opacity: 1; text-decoration: underline; }
+.blog-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.blog-item { display: flex; flex-direction: column; padding: 24px; background: #fff; border-radius: var(--r-panel); }
+.blog-item-thumb { display: block; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 8px; background: #f0f0f0; }
+.blog-item-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.blog-item:hover .blog-item-thumb img { transform: scale(1.04); }
+.blog-item-title { margin-top: 16px; font-size: 24px; font-weight: 700; line-height: 36px; }
+.blog-item-title a:hover { text-decoration: underline; }
+.blog-item-date { margin-top: 4px; font-size: 14px; }
+.blog-item-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; }
+.blog-item-tag { font-size: 14px; font-weight: 700; color: #808080; }
+
+/* ---------- Bài viết ---------- */
+.article-wrap { max-width: 900px; margin: 0 auto; padding: 24px 24px 60px; background: var(--c-surface); }
+.article-crumb { margin-bottom: 24px; height: auto; flex-wrap: wrap; }
+.article-title { font-size: 40px; font-weight: 700; line-height: 52px; }
+.article-meta { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; }
+.article-meta > .icon { width: 22px; height: 22px; color: #8a8a8a; }
+.article-tag { margin-left: auto; font-weight: 700; color: #808080; }
+.article-cover { margin: 24px 0; overflow: hidden; border-radius: 24px; aspect-ratio: 16 / 9; background: #f0f0f0; }
+.article-cover img { width: 100%; height: 100%; object-fit: cover; }
+.article-body p { margin-bottom: 20px; font-size: 16px; line-height: 28px; }
+.blog-page + .home-sections, #blog-detail .home-sections { margin-top: 32px; }
+
+/* ---------- Giới thiệu ---------- */
+.about-main { padding-bottom: 32px; background: var(--c-bg); }
+.about-crumb { padding: 24px 24px 0; height: 48px; }
+.about-hero { height: 602px; overflow: hidden; background: #ddd; }
+.about-hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
+.about-card { margin: 0 24px; background: #fff; }
+.about-intro { display: grid; grid-template-columns: 1fr 1fr; align-items: center; margin-top: 72px; padding: 80px 0; border-radius: 0 0 var(--r-panel) var(--r-panel); border-radius: var(--r-panel); }
+.about-logo { display: flex; align-items: center; justify-content: center; width: 320px; height: 190px; margin: 0 auto; background: #f5f5f5; font-size: 38px; font-weight: 800; letter-spacing: 0.03em; }
+.about-text { max-width: 440px; }
+.about-text h1 { margin-bottom: 18px; font-size: 40px; font-weight: 700; line-height: 48px; }
+.about-text p { margin-bottom: 14px; font-size: 14px; line-height: 24px; }
+.about-values-title { margin-top: 50px; padding: 32px 0; text-align: center; border-radius: 0; }
+.about-values-title h2 { font-size: 28px; font-weight: 700; }
+.about-values { display: grid; grid-template-columns: 1fr 1fr; margin: 48px 24px 0; background: #fff; }
+.value-img img { display: block; width: 100%; height: 100%; min-height: 360px; object-fit: cover; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12); }
+.value-list { display: flex; flex-direction: column; }
+.value-item { display: flex; align-items: center; gap: 32px; flex: 1; min-height: 260px; padding: 0 40px; border-bottom: 1px solid #f0f0f0; }
+.value-item:last-child { border-bottom: none; }
+.value-no { flex: none; width: 84px; font-size: 90px; font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: #bdbdbd; }
+.value-item h3 { font-size: 26px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.value-item p { margin-top: 6px; font-size: 18px; line-height: 22px; font-weight: 300; }
+.value-wide { grid-column: 1 / -1; min-height: 260px; padding-left: 40px; }
+.about-split { display: grid; grid-template-columns: 1fr 1fr; align-items: center; margin-top: 20px; min-height: 420px; overflow: hidden; border-radius: 0; }
+.about-split-text { padding: 0 48px; }
+.about-split-text h2 { font-size: 26px; font-weight: 700; }
+.about-split-text p { margin-top: 24px; font-size: 22px; line-height: 28px; font-weight: 300; }
+.about-split-img img { width: 100%; height: 100%; min-height: 420px; object-fit: cover; }
+.about-split-rev .about-split-text { padding-left: 100px; }
+
+/* ---------- FAQ ---------- */
+.narrow-wrap { max-width: 1032px; margin: 0 auto; padding: 0 24px; }
+.narrow-crumb { padding: 24px 28px 0; }
+.faq-head { margin: 56px 0 32px; text-align: center; }
+.faq-head h1 { font-size: 64px; font-weight: 800; line-height: 76px; }
+.faq-head p { margin-top: 8px; font-size: 12px; }
+.faq-panel { padding: 40px 90px 56px; background: #fff; border-radius: 32px; }
+.faq-group + .faq-group { margin-top: 40px; }
+.faq-group h2 { font-size: 28px; font-weight: 700; line-height: 36px; }
+.faq-item { margin-top: 28px; }
+.faq-item h3 { font-size: 16px; font-weight: 700; line-height: 20px; }
+.faq-item p { margin-top: 12px; font-size: 14px; line-height: 20px; }
+
+/* ---------- Chính sách ---------- */
+.policy-page { padding: 24px 24px 20px; }
+.policy-title { margin: 48px 0 32px; font-size: 56px; line-height: 68px; text-transform: none; }
+.policy-table-wrap { overflow-x: auto; }
+.policy-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 21px; color: #555; }
+.policy-table th, .policy-table td { padding: 6px; text-align: left; vertical-align: top; border: 1px solid #8a8a8a; }
+.policy-table thead th { font-size: 13px; font-weight: 700; text-transform: uppercase; color: #555; background: #f6f6f6; }
+.policy-table tbody th { width: 125px; font-weight: 400; background: #f6f6f6; }
+.policy-table td span { display: block; }
+.policy-sections section { margin-bottom: 28px; padding: 24px 28px; background: #fff; border-radius: var(--r-panel); }
+.policy-sections h2 { margin-bottom: 12px; font-size: 20px; font-weight: 700; }
+.policy-sections p { margin-bottom: 10px; font-size: 14px; line-height: 24px; }
+
+/* ---------- Membership ---------- */
+.member-title { margin: 8px 0 24px; }
+.member-hero { background: #f7f5f0; }
+.member-hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; max-width: 1440px; margin: 0 auto; padding: 80px 56px; }
+.member-hero-left { flex: none; width: 682px; }
+.member-kicker { font-size: 44px; font-weight: 300; letter-spacing: 0.02em; line-height: 52px; color: #2a2a2a; }
+.member-big { margin: 8px 0 56px; font-size: 76px; font-weight: 700; line-height: 92px; letter-spacing: 0.01em; color: #222; }
+.member-table { width: 100%; border-collapse: separate; border-spacing: 0; overflow: hidden; border: 1px solid #222; border-radius: 8px; font-size: 14px; }
+.member-table th, .member-table td { height: 52px; padding: 0 12px; text-align: center; border-right: 1px solid #222; border-bottom: 1px solid #222; }
+.member-table th:last-child, .member-table td:last-child { border-right: none; }
+.member-table tbody tr:last-child th, .member-table tbody tr:last-child td { border-bottom: none; }
+.member-table thead th { height: 66px; font-size: 16px; font-weight: 500; letter-spacing: 0.02em; }
+.member-table tbody th { width: 226px; font-size: 13px; font-weight: 500; text-align: left; padding-left: 22px; }
+.member-table td { font-size: 13px; }
+.member-table thead th:first-child { text-align: left; padding-left: 22px; }
+.member-table sup { font-size: 7px; }
+.member-dot { display: inline-block; width: 9px; height: 9px; background: #222; border-radius: 50%; }
+.member-cards { position: relative; flex: 1; min-width: 560px; height: 420px; }
+.member-card { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 268px; height: 164px; border-radius: 14px; box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18); font-size: 28px; font-weight: 700; letter-spacing: 0.01em; transform: rotate(-9deg); }
+.member-card small { margin-top: 14px; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; }
+.member-card-economy { top: 24px; left: 0; background: linear-gradient(135deg, #fff, #ececec); color: #111; }
+.member-card-vip { top: 0; left: 270px; background: linear-gradient(135deg, #cfcfd2, #a8a8ad); color: #111; transform: rotate(-11deg); }
+.member-card-premium { top: 210px; left: 12px; background: linear-gradient(135deg, #e8d7b8, #c9ae82); color: #111; transform: rotate(-7deg); }
+.member-card-platinum { top: 196px; left: 286px; background: linear-gradient(135deg, #38393d, #17181a); color: #fff; transform: rotate(-9deg); }
+.member-notes { padding: 56px 24px 20px; background: var(--c-surface); }
+.member-note { margin-bottom: 20px; }
+.member-note h3 { font-size: 16px; font-weight: 700; }
+.member-note p { margin-top: 4px; font-size: 16px; line-height: 24px; }
+
+/* ---------- Chi nhánh ---------- */
+.branch-page { padding: 24px 24px 0; }
+.branch-layout { display: flex; align-items: flex-start; gap: 24px; margin-top: 24px; }
+.branch-panel { flex: none; width: 308px; padding: 24px; background: #fff; border-radius: var(--r-panel); }
+.branch-panel h1 { font-size: 20px; font-weight: 700; line-height: 28px; }
+.branch-panel > p { margin-top: 8px; font-size: 14px; }
+.branch-count { margin-top: 16px !important; }
+.branch-list { margin-top: 20px; }
+.branch-item { border-top: 1px solid #e0e0e0; }
+.branch-name { display: block; width: 100%; padding: 24px 0; text-align: left; font-size: 16px; font-weight: 700; line-height: 22px; }
+.branch-item.open .branch-name { padding-bottom: 14px; }
+.branch-name:hover { text-decoration: underline; }
+.branch-detail { padding-bottom: 20px; }
+.branch-detail p { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px; font-size: 14px; line-height: 20px; }
+.branch-detail p .icon { flex: none; width: 20px; height: 20px; margin-top: 0; color: var(--c-text-soft); }
+.branch-route { width: 100%; height: 48px; margin-top: 8px; border-radius: 16px; line-height: 46px; }
+.branch-route .icon { width: 18px; height: 18px; }
+.branch-map { flex: 1; min-width: 0; height: 660px; overflow: hidden; background: #e8e6e1; border-radius: 4px; }
+.branch-map iframe { width: 100%; height: 100%; border: 0; }
+
+/* ---------- Tuyển dụng ---------- */
+.recruit-main { padding-bottom: 0; background: #fff; }
+.recruit-hero { height: 617px; overflow: hidden; background: #ddd; }
+.recruit-hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.recruit-search { padding: 64px 24px 80px; text-align: center; }
+.recruit-search h1 { margin-bottom: 40px; font-size: 48px; font-weight: 700; line-height: 58px; }
+.recruit-form { display: flex; align-items: center; justify-content: center; gap: 16px; max-width: 1006px; margin: 0 auto; }
+.recruit-input { display: flex; align-items: center; flex: 1; gap: 12px; height: 48px; padding: 0 16px; background: #f1f1f1; border-radius: 16px; }
+.recruit-input-icon .icon { width: 22px; height: 22px; color: #6f6f6f; }
+.recruit-input input { flex: 1; min-width: 0; height: 100%; background: none; border: none; outline: none; font-size: 14px; }
+.recruit-select { width: 198px; height: 48px; padding: 0 16px; background: #fff; border: 1px solid var(--c-text-soft); border-radius: 16px; font-size: 14px; outline: none; }
+.recruit-btn { width: 125px; height: 48px; border-radius: 16px; }
+.recruit-list-wrap { padding: 64px 24px 100px; background: #f8f8f8; }
+.recruit-list-inner h2 { margin-bottom: 24px; font-size: 24px; font-weight: 700; }
+.job-list { display: flex; flex-direction: column; gap: 16px; }
+.job-card { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 32px; background: #fff; border-radius: var(--r-panel); }
+.job-main h3 { font-size: 18px; font-weight: 700; line-height: 26px; }
+.job-tags { display: flex; gap: 8px; margin-top: 8px; }
+.job-tags span { padding: 2px 12px; background: #f1f1f1; border-radius: var(--r-pill); font-size: 12px; }
+.job-info { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; color: #555; }
+.job-info .icon { width: 18px; height: 18px; }
+.job-info i { width: 1px; height: 14px; margin: 0 8px; background: #bbb; }
+.job-side { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; flex: none; }
+.job-side strong { font-size: 18px; font-weight: 700; color: var(--c-sale); }
+.job-side .btn { height: 36px; min-height: 36px; padding: 0 24px; border-radius: 16px; }
+
+/* ---------- Màn hình nhỏ ---------- */
+@media (max-width: 991px) {
+    .blog-top { flex-direction: column; align-items: flex-start; }
+    .blog-search { width: 100%; }
+    .blog-search-box { flex: 1; width: auto; }
+    .blog-cats { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .blog-cats h2 { font-size: 30px; }
+    .blog-list { grid-template-columns: minmax(0, 1fr); }
+    .about-intro, .about-values, .about-split { grid-template-columns: minmax(0, 1fr); }
+    .about-intro { gap: 32px; padding: 40px 24px; }
+    .about-hero { height: 360px; }
+    .value-item { min-height: 160px; padding: 24px; }
+    .value-no { font-size: 64px; width: 60px; }
+    .about-split-text, .about-split-rev .about-split-text { padding: 32px 24px; }
+    .faq-panel { padding: 28px 24px; border-radius: 24px; }
+    .faq-head h1 { font-size: 44px; line-height: 52px; }
+    .member-hero-inner { flex-direction: column; padding: 40px 16px; }
+    .member-hero-left { width: 100%; }
+    .member-kicker { font-size: 28px; line-height: 34px; }
+    .member-big { font-size: 44px; line-height: 52px; margin-bottom: 28px; }
+    .member-cards { min-width: 0; width: 100%; height: 360px; }
+    .member-card { width: 220px; height: 136px; font-size: 22px; }
+    .member-card-vip { left: 200px; }
+    .member-card-platinum { left: 210px; top: 190px; }
+    .branch-layout { flex-direction: column; }
+    .branch-panel { width: 100%; }
+    .branch-map { width: 100%; flex: none; height: 420px; }
+    .recruit-hero { height: 320px; }
+    .recruit-form { flex-wrap: wrap; }
+    .recruit-input { flex: 1 1 100%; }
+    .job-card { flex-direction: column; align-items: flex-start; }
+    .job-side { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
+}
+@media (max-width: 599px) {
+    .blog-cat-links { flex-wrap: wrap; row-gap: 8px; }
+    .blog-cat-links button { padding: 0 14px; font-size: 16px; }
+    .blog-search { flex-wrap: wrap; }
+    .blog-search-box { flex: 1 1 100%; width: 100%; }
+    .blog-search .btn-md { flex: 1 1 100%; }
+    .member-hero-inner { padding: 32px 12px; overflow: hidden; }
+    .member-cards { height: 300px; }
+    .member-card { width: 150px; height: 94px; font-size: 16px; border-radius: 10px; }
+    .member-card small { margin-top: 8px; font-size: 7px; }
+    .member-card-economy { top: 24px; left: 0; }
+    .member-card-vip { top: 0; left: 150px; }
+    .member-card-premium { top: 150px; left: 6px; }
+    .member-card-platinum { top: 136px; left: 156px; }
+    .blog-top-title { flex-direction: column; gap: 4px; }
+    .blog-top-title h1 { font-size: 36px; }
+    .blog-item { padding: 14px; }
+    .article-title { font-size: 28px; line-height: 36px; }
+    .member-table th, .member-table td { padding: 0 4px; }
+    .member-table tbody th { width: 120px; padding-left: 8px; font-size: 11px; }
+    .policy-page { padding: 16px 12px; }
+    .recruit-search h1 { font-size: 32px; }
+}
