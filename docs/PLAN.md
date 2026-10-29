@@ -68,6 +68,27 @@ Trên Chrome thật (không giả lập throttling), trang chủ tải xong sau 
 
 **Tiêu chí đạt:** số script đồng bộ trên trang chủ giảm; LCP và TBT cải thiện; mọi chức năng (menu, giỏ hàng, yêu thích, tìm kiếm) vẫn chạy đúng.
 
+### Kết quả Sprint 3 (đo 3 lần, trung vị, chưa đạt hoàn toàn)
+- Đã thêm `defer` cho mọi thẻ script (20 trang). Thứ tự thực thi giữ nguyên, không có lỗi console trên các trang đã kiểm tra.
+- Đã đổi popup khuyến mãi thành banner dưới đáy màn hình: hiện sau 3 s, không che nội dung, không dùng ảnh lớn, đóng được và nhớ trong phiên.
+- Ảnh lookbook trên trang chủ (LCP trên mobile) bỏ lazy, đặt `fetchpriority="high"`.
+- Font: giữ nguyên. Bebas Neue và Herr Von Muellerhoff chỉ dùng cho tiêu đề trang chủ.
+- Font Awesome: giữ nguyên, chưa thay bằng SVG vì rủi ro cao hơn lợi ích.
+
+| Trang | LCP (Sprint 2 → Sprint 3) | CLS (Sprint 2 → Sprint 3) |
+|---|---|---|
+| Trang chủ | 8.40 s → 8.4 s | 0.077 → 0.001 |
+| Danh sách | 8.91 s → 9.13 s | 0.117 → 0.000 |
+| Chi tiết | 8.80 s → 8.79 s | 0.274 → 0.000 |
+| Giỏ hàng | 3.03 s → 4.22 s | 0.070 → 0.000 |
+
+**Đánh giá:** CLS về 0 trên mọi trang (defer đã sửa các dịch chuyển bố cục). LCP chưa đạt: trang chủ là ảnh popup khuyến mãi, danh sách bị main thread bận khi render lưới (2.5 s), giỏ hàng xấu đi (chưa rõ nguyên nhân).
+
+### Điều tra thêm (Sprint 3, sau banner)
+- Trên Chrome thật (không giả lập), trang danh sách: DOMContentLoaded 105 ms, load 232 ms, 20 thẻ sản phẩm, không có long task. Giỏ hàng: DCL 86 ms, load 108 ms.
+- Lighthouse mobile vẫn báo LCP 8–9 s cho danh sách và giỏ hàng. Ảnh LCP tải xong lúc ~300 ms, nhưng main thread bận lâu hơn nhiều dưới giả lập CPU 4x. Phần lớn là `styleLayout` (~750 ms) và `other` (~630 ms).
+- Kết luận: thời gian thực tế đã nhanh. Muốn giảm số Lighthouse cần giảm việc của main thread: tách CSS theo trang (hiện `main.css` import toàn bộ) và giảm JS tải trên mỗi trang.
+
 ## Sprint 4: Trải nghiệm mượt (UX)
 **Mục tiêu:** người dùng thấy trang phản hồi ngay, không bị giật.
 - Skeleton hoặc khung giữ chỗ cho danh sách sản phẩm khi đang tải.
@@ -110,3 +131,20 @@ Nhận xét: trang danh sách và trang chủ có LCP rất cao, nguyên nhân c
 
 ### Sau tối ưu (Sprint 5)
 _Chưa đo._
+
+## Sprint 5: Kết quả cuối (đo Lighthouse 3 lần, trung vị)
+
+| Trang | Điểm | LCP | CLS | TBT | Dung lượng |
+|---|---|---|---|---|---|
+| Trang chủ | 0.79 | 5.04 s | 0.069 | 112 ms | 1477 KB |
+| Danh sách | 0.68 | 9.03 s | 0.131 | 160 ms | 2063 KB |
+| Chi tiết | 0.57 | 8.67 s | 0.272 | 216 ms | 1813 KB |
+| Giỏ hàng | 0.83 | 4.19 s | 0.068 | 118 ms | 456 KB |
+
+So với baseline (Sprint 1): LCP trang chủ 9.8 → 5.0 s, danh sách 10.5 → 9.0 s, chi tiết 2.2 → 8.7 s (tệ hơn), giỏ hàng 3.4 → 4.2 s (tệ hơn). Dung lượng ảnh trang chủ giảm 61%.
+
+**Đánh giá:** chưa đạt mục tiêu LCP < 2.5 s ở bất kỳ trang nào. CLS chi tiết (0.272) và danh sách (0.131) vượt ngưỡng 0.1 trong các lần đo cuối, dù các lần đo giữa Sprint 3 từng cho 0. Chưa xác định nguyên nhân dao động này.
+
+**Kiểm tra chức năng:** không cuộn ngang ở 375px trên 4 trang chính. Thêm vào giỏ cập nhật badge ngay không tải lại trang. Console không có lỗi trên các trang đã kiểm tra.
+
+**Việc còn lại:** tách CSS và JS theo trang để giảm công việc của main thread; điều tra CLS chi tiết và danh sách.

@@ -1,53 +1,48 @@
-// Popup khuyến mãi hiện khi vào trang chủ (mỗi phiên trình duyệt chỉ hiện một lần).
-// Đóng bằng nút ×, bấm vào nền tối hoặc phím Esc.
+// Banner khuyến mãi dưới đáy màn hình trang chủ: hiện sau khi trang tải xong, không che nội dung.
+// Đóng bằng nút ×; đã đóng trong phiên trình duyệt thì không hiện lại.
 
 class PromoPopup {
-    // Ảnh popup, đích khi bấm "SHOP NOW" và khoá sessionStorage để nhớ đã hiện rồi.
     constructor() {
-        this.image = "image/slider/slide-2-mb.webp";
         this.link = "pages/shop/products.html";
         this.key = "promoShown";
         this.build();
-        // Đợi trang tải xong rồi mới hiện popup, để popup không tranh băng thông và luồng render với nội dung chính.
-        if (!sessionStorage.getItem(this.key)) {
-            const show = () => setTimeout(() => this.open(), 1500);
+        if (!this.isDismissed()) {
+            const show = () => setTimeout(() => this.open(), 3000);
             if (document.readyState === "complete") show();
             else window.addEventListener("load", show, { once: true });
         }
     }
 
-    // Dựng HTML popup và gắn sự kiện đóng.
+    // Đọc sessionStorage trong try/catch: trình duyệt có thể chặn truy cập.
+    isDismissed() {
+        try { return sessionStorage.getItem(this.key) === "1"; } catch { return false; }
+    }
+
+    // Dựng HTML banner và gắn sự kiện đóng.
     build() {
         const wrap = document.createElement("div");
-        wrap.className = "promo-overlay";
+        wrap.className = "promo-banner";
         wrap.id = "promo-overlay";
+        wrap.setAttribute("role", "region");
+        wrap.setAttribute("aria-label", "Khuyến mãi");
         wrap.innerHTML = `
-            <div class="promo-box" role="dialog" aria-label="Khuyến mãi">
-                <button type="button" class="promo-close" aria-label="Đóng">${Icons.get("close")}</button>
-                <a class="promo-image" href="${this.link}">
-                    <img src="${this.image}" alt="Bộ sưu tập mới Urban Vibe" loading="lazy" decoding="async">
-                    <span class="promo-cta">Shop now</span>
-                </a>
-            </div>`;
+            <span class="promo-text">Bộ sưu tập mới Urban Vibe đã lên kệ</span>
+            <a class="promo-link" href="${this.link}">Shop now</a>
+            <button type="button" class="promo-close" aria-label="Đóng">${Icons.get("close")}</button>`;
         document.body.appendChild(wrap);
         this.el = wrap;
         wrap.querySelector(".promo-close").addEventListener("click", () => this.close());
-        wrap.addEventListener("click", e => { if (e.target === wrap) this.close(); });
-        document.addEventListener("keydown", e => { if (e.key === "Escape") this.close(); });
     }
 
-    // Mở popup và khoá cuộn trang phía sau.
+    // Hiện banner và ghi nhớ để phiên này không hiện lại.
     open() {
         this.el.classList.add("open");
-        document.body.style.overflow = "hidden";
-        sessionStorage.setItem(this.key, "1");
+        try { sessionStorage.setItem(this.key, "1"); } catch { /* bỏ qua: chỉ mất ghi nhớ */ }
     }
 
-    // Đóng popup và mở lại cuộn trang (trừ khi ngăn kéo tìm kiếm đang mở).
+    // Ẩn banner.
     close() {
-        if (!this.el.classList.contains("open")) return;
         this.el.classList.remove("open");
-        if (!Utils.$("search-drawer").classList.contains("open")) document.body.style.overflow = "";
     }
 }
 
