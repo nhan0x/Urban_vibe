@@ -70,7 +70,6 @@ class Layout {
         </div>
 
         <div class="header-tools">
-            <a class="header-link header-call" href="tel:${SITE_CONTACT.sales.tel}">${Icons.get("phone")}<span>Gọi Ngay</span></a>
             <div class="header-account">
                 <button type="button" class="header-link btn-account" id="account-btn" onclick="auth.onAccountClick()">${Icons.get("user")}<span id="account-label">Tài Khoản</span></button>
                 <div class="mini-menu account-menu">

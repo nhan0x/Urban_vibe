@@ -148,3 +148,8 @@ So với baseline (Sprint 1): LCP trang chủ 9.8 → 5.0 s, danh sách 10.5 →
 **Kiểm tra chức năng:** không cuộn ngang ở 375px trên 4 trang chính. Thêm vào giỏ cập nhật badge ngay không tải lại trang. Console không có lỗi trên các trang đã kiểm tra.
 
 **Việc còn lại:** tách CSS và JS theo trang để giảm công việc của main thread; điều tra CLS chi tiết và danh sách.
+
+### Tiếp tục tối ưu (sau Sprint 5)
+- Đã thay `@import` xích trong `main.css` bằng các thẻ `<link>` song song trong mỗi trang. Kết quả đo không đổi đáng kể (trang chủ LCP 5.1 s, danh sách 9.2 s, chi tiết 8.7 s, giỏ hàng 4.2 s). Nghĩa là độ trễ tải CSS không phải nút thắt chính.
+- Header: đã đưa logo vào giữa, gỡ "Gọi Ngay", ẩn chữ "Tài Khoản" (chỉ còn icon).
+- Nút thắt còn lại là thời gian xử lý trên main thread khi giả lập CPU chậm. Cần tách JS theo trang (chưa làm) hoặc chấp nhận số liệu trên Chrome thật.
