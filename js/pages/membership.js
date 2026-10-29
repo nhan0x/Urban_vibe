@@ -12,7 +12,7 @@ class MembershipPage {
     tableHTML() {
         const row = (label, key, note) => `<tr><th scope="row">${label}${note ? `<sup>(${note})</sup>` : ""}</th>${MEMBER_TIERS.map(t => `<td>${this.cell(t[key])}</td>`).join("")}</tr>`;
         return `
-            <table class="member-table">
+            <div class="policy-table-wrap"><table class="member-table">
                 <thead><tr><th>HẠNG THÀNH VIÊN<sup>(1)</sup></th>${MEMBER_TIERS.map(t => `<th>${t.name}</th>`).join("")}</tr></thead>
                 <tbody>
                     ${row("Chỉ tiêu tích lũy trong năm", "spend", 2)}
@@ -22,7 +22,7 @@ class MembershipPage {
                     ${row("Giảm giá hóa đơn", "invoice", 6)}
                     ${row("Ưu đãi sinh nhật", "birthday", 7)}
                 </tbody>
-            </table>`;
+            </table></div>`;
     }
 
     // Bốn thẻ thành viên xếp so le (vẽ bằng CSS).
