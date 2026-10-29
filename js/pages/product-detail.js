@@ -124,7 +124,7 @@ class ProductDetail {
                                 <button type="button" class="btn btn-outline btn-action" onclick="productDetail.addToCart()">Thêm vào giỏ</button>
                                 <button type="button" class="btn btn-gray btn-action btn-buy" onclick="productDetail.buyNow()">Mua ngay</button>
                             </div>
-                            <a class="pd-where" href="#branch_stock">${Icons.get("pin")}<span>Địa chỉ còn hàng</span></a>
+                            <a class="pd-where" href="${location.pathname}#branch_stock">${Icons.get("pin")}<span>Địa chỉ còn hàng</span></a>
                         </div>
                     </div>
                     <div class="pd-wish-row">

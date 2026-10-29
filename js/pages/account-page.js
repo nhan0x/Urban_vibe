@@ -66,7 +66,7 @@ class AccountPage {
         const menuItems = ACCOUNT_SECTIONS.map(s => {
             let activeClass = "";
             if (s.id === current) activeClass = "active";
-            return `<li class="${activeClass}"><a href="#${s.id}">${s.label}</a></li>`;
+            return `<li class="${activeClass}"><a href="${location.pathname}#${s.id}">${s.label}</a></li>`;
         }).join("");
 
         this.root.innerHTML = `
@@ -88,7 +88,7 @@ class AccountPage {
             <h1 class="ac-title">Tài khoản</h1>
             ${ACCOUNT_SECTIONS.slice(1).map(s => `
                 <div class="ac-block">
-                    <h2 class="ac-block-title"><a href="#${s.id}">${s.label}</a></h2>
+                    <h2 class="ac-block-title"><a href="${location.pathname}#${s.id}">${s.label}</a></h2>
                     <p class="ac-desc">${s.desc}</p>
                 </div>`).join("")}
             <button class="btn btn-gray ac-logout" onclick="auth.logout()">Đăng xuất</button>`;
@@ -313,7 +313,7 @@ class AccountPage {
                 <div class="co-field">
                     <label>Email</label>
                     <input type="email" value="${Utils.escapeHTML(u.email)}" disabled>
-                    <small class="ac-field-hint">Đổi email tại mục <a href="#access">Thông tin truy cập</a>.</small>
+                    <small class="ac-field-hint">Đổi email tại mục <a href="${location.pathname}#access">Thông tin truy cập</a>.</small>
                 </div>
                 <div class="co-actions"><button type="submit" class="btn btn-gray">Lưu thông tin</button></div>
             </form>`;
