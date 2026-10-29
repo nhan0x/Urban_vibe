@@ -153,3 +153,9 @@ So với baseline (Sprint 1): LCP trang chủ 9.8 → 5.0 s, danh sách 10.5 →
 - Đã thay `@import` xích trong `main.css` bằng các thẻ `<link>` song song trong mỗi trang. Kết quả đo không đổi đáng kể (trang chủ LCP 5.1 s, danh sách 9.2 s, chi tiết 8.7 s, giỏ hàng 4.2 s). Nghĩa là độ trễ tải CSS không phải nút thắt chính.
 - Header: đã đưa logo vào giữa, gỡ "Gọi Ngay", ẩn chữ "Tài Khoản" (chỉ còn icon).
 - Nút thắt còn lại là thời gian xử lý trên main thread khi giả lập CPU chậm. Cần tách JS theo trang (chưa làm) hoặc chấp nhận số liệu trên Chrome thật.
+
+### Kết luận cuối (đã làm hết các bước còn lại của plan)
+- Thử bỏ `backdrop-filter` ở header và nút nổi: LCP danh sách vẫn 8.9–9.2 s. Không phải nguyên nhân, đã hoàn tác.
+- Tách JS theo trang: không làm. Thời gian chạy script (scriptEvaluation) chỉ khoảng 58 ms trên danh sách. Phần lớn chi phí nằm ở styleLayout (650–1050 ms) và "other", nên tách JS không giải quyết được nút thắt.
+- CLS chi tiết (0.27) và danh sách (0.05–0.13) dao động giữa các lần đo, không tái hiện được trên Chrome thật (CLS 0). Chưa xác định nguyên nhân gốc.
+- Kết luận: mục tiêu LCP < 2.5 s chưa đạt ở bất kỳ trang nào trong Lighthouse giả lập. Trên Chrome thật, các trang tải xong trong 0.1–0.25 s.
