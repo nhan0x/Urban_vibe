@@ -220,7 +220,7 @@ class TrackingPage {
                 <thead><tr><th>Tên sản phẩm</th><th>Kích cỡ</th><th>Giá</th><th>Số lượng</th><th>Tổng</th></tr></thead>
                 <tbody>${order.items.map(i => `
                     <tr>
-                        <td><div class="tk-prod"><img src="${i.image}" alt="${i.name}"><span>${Utils.escapeHTML(i.name)}</span></div></td>
+                        <td><div class="tk-prod"><img src="${i.image}" alt="${i.name}" loading="lazy" decoding="async"><span>${Utils.escapeHTML(i.name)}</span></div></td>
                         <td>${i.size || "—"}</td>
                         <td>${Utils.formatPrice(i.price)}</td>
                         <td>${i.qty}</td>

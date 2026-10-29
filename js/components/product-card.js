@@ -20,6 +20,8 @@ class ProductCard {
     // HTML của MỘT thẻ sản phẩm: nhãn, nút tim, ảnh (có ảnh thứ 2 hiện khi rê chuột), tên, giá, mẫu màu, nút "Mua ngay".
     // opts.overlay (tuỳ chọn): đoạn HTML đặt đè lên đáy ảnh (dùng ở trang Black Friday cho nhãn giảm giá và đếm ngược).
     static html(p, opts = {}) {
+        // Thẻ đầu tiên trong lưới (ảnh có thể là LCP) tải ngay, không lazy.
+        const loading = opts.eager ? "eager" : "lazy";
         const badge = ProductCard.badge(p);
         const badgeHTML = badge ? `<span class="product-badge ${badge.cls}">${badge.text}</span>` : "";
         const liked = wishlist.has(p.id);
@@ -36,7 +38,7 @@ class ProductCard {
                 ${badgeHTML}
                 <button type="button" class="btn-circle wish-btn ${liked ? "active" : ""}" onclick="wishlist.toggle(${p.id}, event)" aria-label="Yêu thích">${heart}</button>
                 <a class="product-media" href="${url}">
-                    <img class="img-main" src="${p.image}" alt="${Utils.escapeHTML(Utils.prettyName(p.name))}" loading="lazy">
+                    <img class="img-main" src="${p.image}" alt="${Utils.escapeHTML(Utils.prettyName(p.name))}" loading="${loading}" decoding="async">
                     ${hover}
                     ${opts.overlay ? opts.overlay(p) : ""}
                 </a>
@@ -56,7 +58,7 @@ class ProductCard {
         const box = Utils.$(containerId);
         if (!box) return;
         if (!list.length) { box.innerHTML = `<p class="empty-hint">${emptyText}</p>`; return; }
-        box.innerHTML = list.map(p => ProductCard.html(p, opts)).join("");
+        box.innerHTML = list.map((p, i) => ProductCard.html(p, { ...opts, eager: i < 4 })).join("");
     }
 
     // Bấm một mẫu màu: đổi ảnh chính của thẻ sang ảnh của mẫu đó và tô vòng cho mẫu đang chọn.

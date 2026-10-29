@@ -173,7 +173,7 @@ class ProductDetail {
         const slice = photos.slice(this.thumbStart, this.thumbStart + this.visibleThumbs);
         let html = slice.map((src, i) => {
             const index = this.thumbStart + i;
-            return `<button type="button" class="pd-thumb ${index === this.photoIndex ? "active" : ""}" onclick="productDetail.showPhoto(${index})"><img src="${src}" alt=""></button>`;
+            return `<button type="button" class="pd-thumb ${index === this.photoIndex ? "active" : ""}" onclick="productDetail.showPhoto(${index})"><img src="${src}" alt="" loading="lazy" decoding="async"></button>`;
         }).join("");
         if (photos.length > this.visibleThumbs) {
             const more = this.thumbStart + this.visibleThumbs < photos.length;

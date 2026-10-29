@@ -119,7 +119,7 @@ class CheckoutPage {
                 <div class="co-items">
                     ${items.map(i => `
                         <div class="co-item">
-                            <img src="${i.image}" alt="${i.name}">
+                            <img src="${i.image}" alt="${i.name}" loading="lazy" decoding="async">
                             <div class="co-item-info">
                                 <div class="co-item-name">${i.name}</div>
                                 <div class="co-item-price">${Utils.formatPrice(i.price)}</div>

@@ -7,7 +7,7 @@ const BLOG_CATEGORIES = ["Bản tin", "Blogs", "BST mới", "Phong cách"];
 const BLOG_POSTS = [
     {
         slug: "cach-phoi-vay-hoa-ngay-thu", category: "BST mới", title: "5 cách phối váy hoa dịu dàng cho những ngày thu", date: "12/10/2026", likes: 12,
-        image: "image/lookbook/autumn-breeze.jpg",
+        image: "image/lookbook/autumn-breeze.webp",
         excerpt: "Váy hoa chưa bao giờ hết hợp mốt. Chỉ cần thay đổi áo khoác, giày và phụ kiện, bạn đã có năm diện mạo hoàn toàn khác nhau cho những ngày se lạnh đầu thu.",
         body: [
             "Váy hoa luôn là món đồ được yêu thích nhờ vẻ nhẹ nhàng, nữ tính và dễ phối. Vào những ngày thu se lạnh, bạn chỉ cần thêm một lớp áo khoác mỏng là đã có ngay một bộ trang phục vừa ấm vừa xinh.",
@@ -18,7 +18,7 @@ const BLOG_POSTS = [
     },
     {
         slug: "trang-phuc-cong-so-thanh-lich", category: "Phong cách", title: "Gợi ý trang phục công sở thanh lịch nhưng không nhàm chán", date: "08/10/2026", likes: 7,
-        image: "image/lookbook/modern-living.jpg",
+        image: "image/lookbook/modern-living.webp",
         excerpt: "Công sở không có nghĩa là chỉ có áo sơ mi trắng và quần tây đen. Hãy thử thay đổi chất liệu, phom dáng và một vài điểm nhấn nhỏ để mỗi ngày đi làm đều là một ngày mới.",
         body: [
             "Trang phục công sở hiện đại ngày càng linh hoạt. Bạn hoàn toàn có thể giữ sự chuyên nghiệp mà vẫn thể hiện cá tính qua cách chọn màu sắc, chất liệu và phụ kiện.",
@@ -28,7 +28,7 @@ const BLOG_POSTS = [
     },
     {
         slug: "cach-chon-chan-vay-xep-ly", category: "Blogs", title: "Cách chọn chân váy xếp ly hợp dáng người", date: "02/10/2026", likes: 9,
-        image: "image/lookbook/polka-dot-charm.jpg",
+        image: "image/lookbook/polka-dot-charm.webp",
         excerpt: "Chân váy xếp ly có thể che khuyết điểm và tôn dáng cực tốt, nhưng chỉ khi bạn chọn đúng độ dài và chất liệu. Cùng xem những mẹo chọn váy phù hợp với từng vóc dáng.",
         body: [
             "Chân váy xếp ly là món đồ cơ bản trong tủ đồ của nhiều cô gái. Độ xòe của váy tạo cảm giác bồng bềnh, nhẹ nhàng và giúp cân đối tổng thể cơ thể.",
@@ -38,7 +38,7 @@ const BLOG_POSTS = [
     },
     {
         slug: "bi-quyet-phoi-do-mau-pastel", category: "Blogs", title: "Bí quyết phối đồ với bảng màu pastel không bị nhạt nhòa", date: "27/09/2026", likes: 4,
-        image: "image/lookbook/for-her.jpg",
+        image: "image/lookbook/for-her.webp",
         excerpt: "Màu pastel mang lại cảm giác nhẹ nhàng, nữ tính nhưng nếu không khéo sẽ dễ khiến bộ trang phục trở nên nhạt. Hãy thử nguyên tắc phối tương phản nhẹ này.",
         body: [
             "Bảng màu pastel gồm hồng phấn, xanh bạc hà, vàng bơ, lavender... rất hợp với phong cách dịu dàng. Tuy nhiên, mặc toàn bộ cùng một tông dễ khiến bạn bị chìm trong trang phục.",
@@ -47,7 +47,7 @@ const BLOG_POSTS = [
     },
     {
         slug: "phu-kien-nho-tao-diem-nhan", category: "Phong cách", title: "Phụ kiện nhỏ, điểm nhấn lớn: nơ, kẹp tóc và túi mini", date: "20/09/2026", likes: 6,
-        image: "image/lookbook/romanza-a-como.jpg",
+        image: "image/lookbook/romanza-a-como.webp",
         excerpt: "Một chiếc nơ lụa, chiếc kẹp tóc ngọc trai hay túi mini đúng màu có thể khiến bộ đồ đơn giản trở nên cuốn hút hơn rất nhiều.",
         body: [
             "Phụ kiện là cách nhanh nhất để làm mới một bộ trang phục quen thuộc. Chỉ với vài chi tiết nhỏ, bạn có thể biến một chiếc váy đơn giản thành bộ cánh đi chơi cuối tuần.",
@@ -56,7 +56,7 @@ const BLOG_POSTS = [
     },
     {
         slug: "tu-do-capsule-cho-nguoi-ban-ron", category: "Bản tin", title: "Tủ đồ capsule dành cho người bận rộn: 10 món là đủ", date: "14/09/2026", likes: 11,
-        image: "image/lookbook/the-monochromes.jpg",
+        image: "image/lookbook/the-monochromes.webp",
         excerpt: "Không cần một tủ đồ đầy ắp, chỉ cần 10 món cơ bản được chọn kỹ là bạn đã có thể mix & match thành hàng chục bộ trang phục cho cả tuần.",
         body: [
             "Tủ đồ capsule là cách xây dựng tủ quần áo gọn nhẹ nhưng linh hoạt. Thay vì mua nhiều, bạn chọn ít nhưng chất lượng và dễ phối với nhau.",

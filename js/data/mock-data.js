@@ -48,15 +48,15 @@ const MOCK_ORDERS = [
     {
         code: "UV100001", createdAt: MOCK_NOW - 72 * MOCK_HOUR, payment: "cod",
         customer: { name: "Nguyễn Minh Anh", phone: "0901234567", email: "minhanh@example.com", address: "12 Lê Lợi", ward: "Phường 1", district: "TP. Vũng Tàu", province: "Tỉnh Bà Rịa - Vũng Tàu", note: "" },
-        items: [{ id: 2, name: "ĐẦM HỒNG SÁT NÁCH CỔ V", image: "image/products/2-card0.jpg", price: 2298000, qty: 1, size: "M" }],
+        items: [{ id: 2, name: "ĐẦM HỒNG SÁT NÁCH CỔ V", image: "image/products/2-card0.webp", price: 2298000, qty: 1, size: "M" }],
         events: buildEvents(MOCK_NOW - 72 * MOCK_HOUR, [0, 1 * MOCK_HOUR, 8 * MOCK_HOUR, 3 * MOCK_HOUR, 14 * MOCK_HOUR, 20 * MOCK_HOUR, 6 * MOCK_HOUR]).slice(0, 7)
     },
     {
         code: "UV100002", createdAt: MOCK_NOW - 30 * MOCK_HOUR, payment: "cod",
         customer: { name: "Trần Quốc Bảo", phone: "0912345678", email: "quocbao@example.com", address: "45 Nguyễn Huệ", ward: "Phường Bến Nghé", district: "Quận 1", province: "Thành phố Hồ Chí Minh", note: "Giao giờ hành chính" },
         items: [
-            { id: 1, name: "ĐẦM TRẮNG HT HOA VAI CHỜM", image: "image/products/1-card0.jpg", price: 2298000, qty: 2, size: "S" },
-            { id: 3, name: "QUẦN SUÔNG HỒNG PHỐI CẠP", image: "image/products/3-card0.jpg", price: 1398000, qty: 1, size: "L" }
+            { id: 1, name: "ĐẦM TRẮNG HT HOA VAI CHỜM", image: "image/products/1-card0.webp", price: 2298000, qty: 2, size: "S" },
+            { id: 3, name: "QUẦN SUÔNG HỒNG PHỐI CẠP", image: "image/products/3-card0.webp", price: 1398000, qty: 1, size: "L" }
         ],
         events: buildEvents(MOCK_NOW - 30 * MOCK_HOUR, [0, 1 * MOCK_HOUR, 6 * MOCK_HOUR, 2 * MOCK_HOUR, 12 * MOCK_HOUR])
     }

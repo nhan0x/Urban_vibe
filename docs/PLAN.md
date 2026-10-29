@@ -23,6 +23,41 @@ Phương pháp: chia thành sprint nhỏ. Mỗi sprint có mục tiêu, việc c
 
 **Tiêu chí đạt:** tổng dung lượng ảnh trang chủ giảm ít nhất 60%; LCP cải thiện so với baseline; không có ảnh bị vỡ (kiểm tra bằng Claude in Chrome).
 
+### Kết quả Sprint 2 (đo lại 3 lần, lấy trung vị)
+
+| Chỉ tiêu | Trước | Sau | Kết quả |
+|---|---|---|---|
+| Ảnh trang chủ (KB) | 2862 | 1116 | Giảm 61%, đạt |
+| LCP trang chủ | 9.49 s | 8.40 s | Cải thiện, đạt |
+| LCP danh sách | 10.34 s | 8.91 s | Cải thiện, đạt |
+| LCP chi tiết | 16.70 s | 8.80 s | Cải thiện, đạt |
+| LCP giỏ hàng | 2.11 s | 3.03 s | Tệ hơn, chưa đạt (chưa rõ nguyên nhân) |
+| CLS chi tiết | 0.000 | 0.274 (2/3 lần) | Tệ hơn, chưa đạt (chưa rõ nguyên nhân) |
+| CLS giỏ hàng | 0.003 | 0.070 | Tệ hơn, chưa đạt |
+| Ảnh hỏng | — | 0 (kiểm tra DOM sau khi cuộn hết trang) | Đạt |
+
+**Thay đổi:** WebP cho 355 ảnh (lookbook, slider và home nén lại ở 1200 px, chất lượng 75); lazy load cho ảnh dưới màn hình đầu; 4 thẻ đầu lưới sản phẩm tải ngay; popup khuyến mãi hiện sau khi trang tải xong; bỏ lazy ở thumbnail giỏ hàng.
+
+**Chưa giải quyết:** CLS chi tiết và giỏ hàng tệ hơn trong Lighthouse, và LCP giỏ hàng cũng vậy. Thử bỏ lazy ở thumbnail chi tiết không làm CLS biến mất, nên nguyên nhân khác. Sẽ kiểm tra ở Sprint 3 (font và thứ tự tải script).
+
+**Lỗi đo trước đó:** số liệu trang chi tiết trong baseline đo nhầm trang "không tìm thấy sản phẩm", vì server `serve` bỏ tham số `?id=`. Đã sửa bằng cấu hình `cleanUrls: false`. Số liệu trong bảng trên là đúng.
+
+### Kết quả Sprint 2 (bản đầu, đã thay thế)
+- Đã tạo WebP song song cho 355 file ảnh: 90.4 MB → 37.1 MB. File gốc giữ nguyên.
+- Đã đổi 330 tham chiếu `.jpg/.png` sang `.webp` trong HTML/JS/CSS (đều có file tồn tại).
+- Đã thêm `loading="lazy"` cho ảnh dưới màn hình đầu; 4 thẻ sản phẩm đầu của lưới tải ngay.
+- Đã sửa popup khuyến mãi: hiện sau khi trang tải xong (1.5 s), thay vì 0.5 s.
+
+| Trang | LCP trước → sau | Tổng dung lượng trước → sau | CLS trước → sau |
+|---|---|---|---|
+| Trang chủ | 9.8 s → 9.2 s | 3.3 MB → 1.8 MB | 0.008 → 0.009 |
+| Danh sách | 10.5 s → 8.9–9.2 s | 11.8 MB → 2.4 MB | 0 → 0.001 đến 0.132 (dao động) |
+| Giỏ hàng | 3.4 s → 4.4 s | 456 KB → 456 KB | 0.071 → 0.07 |
+
+**Đánh giá:** tiêu chí "giảm ≥ 60% dung lượng ảnh trang chủ" chưa đạt rõ ràng (tổng trang giảm 44%, gồm cả JS/CSS/font). LCP chỉ cải thiện nhẹ. Nguyên nhân LCP cao không nằm ở dung lượng mà ở thời gian JS/CSS chiếm luồng chính (bootup ~1.5 s, style/layout ~0.8 s) và ở font tải từ CDN. Điều này thuộc Sprint 3. Giỏ hàng LCP tăng từ 3.4 lên 4.4 s, có thể do dao động đo; cần đo lại nhiều lần.
+
+Trên Chrome thật (không giả lập throttling), trang chủ tải xong sau khoảng 0.86 s, nên số LCP cao là kết quả của giả lập mobile.
+
 ## Sprint 3: Tối ưu script và font
 **Mục tiêu:** trang vào nhanh hơn, không tải code thừa.
 - Thêm `defer` cho các script không chặn render, giữ đúng thứ tự phụ thuộc (xem CLAUDE.md).
