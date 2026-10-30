@@ -1,71 +1,126 @@
 /* =====================================================================
-   TRANG DANH SÁCH SẢN PHẨM (theo số đo của theciu.vn/product)
-   Nền trắng. Từ trên xuống: tiêu đề 48px + đường dẫn → dải tab nhóm (kẻ chân 1px) → thanh sắp xếp → lưới 4 cột → phân trang.
+   TRANG DANH SÁCH SẢN PHẨM (theo owen.vn) + CÁC LỚP DÙNG CHUNG CHO TRANG NỘI DUNG
+   Từ trên xuống: banner danh mục rộng hết màn hình + thẻ kính mờ → nền xám #f5f5f5: đường dẫn in hoa → hàng nút pill
+   → [cột lọc trắng | khu sản phẩm trắng: thanh công cụ, lưới 3/4 cột, phân trang].
    ===================================================================== */
+
+/* ---------- Lớp dùng chung (trang yêu thích, bộ sưu tập, thông tin, blog...) ---------- */
 .page-plain { background: var(--c-surface); }
-.page-container { width: 100%; max-width: 1280px; margin: 0 auto; }
-
+.page-container { width: 100%; max-width: var(--container); margin: 0 auto; }
 .listing-head { padding: 24px 16px 0; }
-.page-title { padding: 16px 0; font-size: 48px; font-weight: 700; line-height: 57.6px; text-align: center; text-transform: uppercase; }
-.breadcrumb { height: 24px; font-size: 14px; }
-.breadcrumb-sep { display: inline-block; width: 24px; height: 24px; margin: 0 -8px; background: no-repeat center / 16px 16px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9.5 6 6 6-6 6'/%3E%3C/svg%3E"); }
+.page-title { padding: 16px 0; font-size: 40px; font-weight: 700; line-height: 1.2; text-align: center; text-transform: uppercase; }
+.breadcrumb-sep { display: inline-block; width: 12px; height: 12px; background: no-repeat center / 12px 12px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23323232' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9.5 6 6 6-6 6'/%3E%3C/svg%3E"); }
 
-/* ---------- Dải tab nhóm sản phẩm: rộng hết khung, các tab dàn đều ---------- */
-.category-band { padding: 16px 0 17px; background: var(--c-surface); }
-.category-band .page-container { padding: 0 24px; }
-.category-tabs { position: relative; display: flex; justify-content: space-between; overflow-x: auto; box-shadow: inset 0 -1px 0 #e0e0e0; scrollbar-width: none; }
-.category-tabs::-webkit-scrollbar { display: none; }
-.cat-tab {
-    position: relative; flex: none; min-width: 100px; min-height: 52px; padding: 16px; font-size: 16px; line-height: 20px;
-    text-align: center; text-transform: uppercase; color: #000; opacity: 0.5; transition: opacity 0.2s;
+/* Phân trang: ô vuông 34px bo 6px, trang hiện tại nền đen */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 40px; }
+.page-btn {
+    display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 34px; padding: 0 8px;
+    border: 1px solid var(--c-line); border-radius: var(--r-sm); background: #fff; font-size: 14px; color: var(--c-text);
+    transition: color 0.2s, background-color 0.2s, border-color 0.2s;
 }
-.cat-tab:hover { opacity: 0.85; }
-.cat-tab.active { font-weight: 700; opacity: 1; }
-.cat-tab::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: #000; transform: scaleX(0); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-.cat-tab.active::after { transform: scaleX(1); }
+.page-btn:hover:not(.active):not(:disabled) { border-color: #000; }
+.page-btn.active { background: #000; border-color: #000; color: #fff; }
+.page-btn:disabled { opacity: 0.38; cursor: default; }
+.page-btn .icon { width: 16px; height: 16px; }
+.page-dots { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 34px; color: var(--c-text-mute); }
 
-/* ---------- Thanh sắp xếp ---------- */
-.listing-body { padding: 0 16px 100px; }
-.sort-bar { display: flex; align-items: center; gap: 16px; height: 32px; margin: 56px 0; white-space: nowrap; }
-.sort-icon { width: 24px; height: 24px; background: no-repeat center / 24px 24px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23434343' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 8h10M3 12h7M3 16h4'/%3E%3Cpath d='M17 7v10'/%3E%3Cpath d='m14 14 3 3 3-3'/%3E%3C/svg%3E"); }
+/* ---------- Banner danh mục ---------- */
+.listing-page { background: var(--c-bg); }
+.cat-hero { position: relative; overflow: hidden; aspect-ratio: 1920 / 640; max-height: 560px; width: 100%; background: #ddd; }
+.cat-hero-img { width: 100%; height: 100%; object-fit: cover; }
+.cat-hero-card {
+    position: absolute; left: clamp(16px, 2.6vw, 40px); bottom: clamp(16px, 2.6vw, 40px); width: 460px; max-width: calc(100% - 32px); padding: 22px 24px;
+    background: rgba(160, 160, 160, 0.45); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: var(--r-md);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); color: #fff;
+}
+.cat-hero-card h1 { font-size: 30px; font-weight: 600; line-height: 1.2; }
+.cat-hero-card p { margin-top: 10px; font-size: 13px; line-height: 1.5; color: rgba(255, 255, 255, 0.95); }
+
+/* ---------- Đường dẫn + nút pill ---------- */
+.listing-wrap { padding-top: 24px; padding-bottom: 60px; }
+.listing-wrap .breadcrumb { margin-bottom: 22px; }
+.breadcrumb-current { color: var(--c-text-mute); }
+.cat-pills { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 26px; scrollbar-width: none; }
+.cat-pills::-webkit-scrollbar { display: none; }
+.cat-pill {
+    flex: none; height: 36px; padding: 0 20px; background: #fff; border: 1px solid #d6d6d6; border-radius: var(--r-pill);
+    font-size: 14px; text-transform: uppercase; color: var(--c-text); transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.cat-pill:hover { border-color: #000; }
+.cat-pill.active { background: #000; border-color: #000; color: #fff; font-weight: 600; }
+
+/* ---------- Bố cục 2 cột: cột lọc 220px | khu sản phẩm ---------- */
+.listing-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 30px; align-items: start; }
+.listing-layout.filters-hidden { grid-template-columns: minmax(0, 1fr); }
+.listing-layout.filters-hidden .filter-panel { display: none; }
+
+.filter-panel { position: sticky; top: calc(var(--header-h) + 16px); padding: 18px; background: #fff; border-radius: var(--r-md); }
+.filter-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid var(--c-line); font-size: 15px; font-weight: 700; }
+.filter-close { display: flex; width: 24px; height: 24px; align-items: center; justify-content: center; color: var(--c-text-mute); }
+.filter-close .icon { width: 16px; height: 16px; }
+.filter-group { padding: 16px 0 4px; }
+.filter-title { position: relative; display: block; width: 100%; padding-right: 24px; font-size: 15px; font-weight: 600; text-align: left; }
+.filter-title::after {
+    content: ""; position: absolute; right: 0; top: 50%; width: 14px; height: 14px; margin-top: -7px; transform: rotate(180deg); transition: transform 0.25s;
+    background: no-repeat center / 14px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23323232' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9.5 6 6 6-6'/%3E%3C/svg%3E");
+}
+.filter-group:not(.open) .filter-title::after { transform: none; }
+.filter-body { display: none; padding-top: 12px; }
+.filter-group.open .filter-body { display: block; }
+.filter-option { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 0; font-size: 14px; text-align: left; color: var(--c-text-soft); }
+.filter-check { flex: none; width: 20px; height: 20px; border: 1px solid #cfcfcf; border-radius: 3px; transition: background 0.2s, border-color 0.2s; }
+.filter-option:hover .filter-check { border-color: #000; }
+.filter-option.active { color: var(--c-text); font-weight: 600; }
+.filter-option.active .filter-check {
+    background: #000 no-repeat center / 14px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+    border-color: #000;
+}
+
+.listing-main { min-width: 0; padding: 18px 20px 30px; background: #fff; border-radius: var(--r-md); }
+
+/* ---------- Thanh công cụ ---------- */
+.listing-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.filter-toggle { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid var(--c-line); border-radius: var(--r-sm); color: var(--c-text); transition: border-color 0.2s; }
+.filter-toggle:hover { border-color: #000; }
+.filter-toggle .icon { width: 16px; height: 16px; }
+.sort-count { font-size: 14px; color: var(--c-text-soft); }
+.toolbar-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.view-label { margin-left: 8px; font-size: 13px; color: var(--c-text-soft); }
+.view-btn { width: 22px; height: 22px; opacity: 0.35; transition: opacity 0.2s; background: no-repeat center / 20px; }
+.view-btn[data-cols="3"] { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23000'%3E%3Crect x='0' y='0' width='5.5' height='5.5'/%3E%3Crect x='7.25' y='0' width='5.5' height='5.5'/%3E%3Crect x='14.5' y='0' width='5.5' height='5.5'/%3E%3Crect x='0' y='7.25' width='5.5' height='5.5'/%3E%3Crect x='7.25' y='7.25' width='5.5' height='5.5'/%3E%3Crect x='14.5' y='7.25' width='5.5' height='5.5'/%3E%3Crect x='0' y='14.5' width='5.5' height='5.5'/%3E%3Crect x='7.25' y='14.5' width='5.5' height='5.5'/%3E%3Crect x='14.5' y='14.5' width='5.5' height='5.5'/%3E%3C/svg%3E"); }
+.view-btn[data-cols="4"] { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23000'%3E%3Crect x='0' y='0' width='9' height='9'/%3E%3Crect x='11' y='0' width='9' height='9'/%3E%3Crect x='0' y='11' width='9' height='9'/%3E%3Crect x='11' y='11' width='9' height='9'/%3E%3C/svg%3E"); }
+.view-btn.active, .view-btn:hover { opacity: 1; }
+
+/* Menu sắp xếp */
 .sort-select { position: relative; }
 .sort-button {
-    display: flex; align-items: center; justify-content: center; gap: 6px; height: 32px; min-width: 137px; padding: 8px 12px;
-    border: 1px solid rgba(67, 67, 67, 0.7); border-radius: 16px; font-size: 12px; font-weight: 500; line-height: 20px; color: var(--c-text-soft);
-    transition: background-color 0.25s, border-color 0.25s;
+    display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 1px solid var(--c-line); border-radius: var(--r-sm);
+    font-size: 13px; color: var(--c-text); transition: border-color 0.2s;
 }
-.sort-button::after { content: ""; width: 16px; height: 16px; background: no-repeat center / 16px 16px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23434343' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9.5 6 6 6-6'/%3E%3C/svg%3E"); transition: transform 0.2s; }
+.sort-button::after { content: ""; width: 14px; height: 14px; background: no-repeat center / 14px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23323232' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9.5 6 6 6-6'/%3E%3C/svg%3E"); transition: transform 0.2s; }
 .sort-select.open .sort-button::after { transform: rotate(180deg); }
-.sort-button:hover { border-color: var(--c-text); }
-.sort-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 5; display: none; min-width: 170px; padding: 6px 0; background: #fff; border-radius: 12px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14); }
+.sort-button:hover { border-color: #000; }
+.sort-menu { position: absolute; top: calc(100% + 6px); right: 0; z-index: 5; display: none; min-width: 170px; padding: 6px 0; background: #fff; border-radius: var(--r-md); box-shadow: var(--shadow-menu); }
 .sort-select.open .sort-menu { display: block; }
 .sort-menu button { display: block; width: 100%; padding: 9px 16px; font-size: 13px; text-align: left; }
 .sort-menu button:hover { background: var(--c-bg); }
 .sort-menu button.active { font-weight: 600; }
-.sort-count { margin-left: auto; font-size: 13px; color: var(--c-text-mute); }
 
-.listing-body .product-grid { padding: 32px 24px 0; }
-
-/* ---------- Phân trang: ô vuông 32px bo 8px, trang hiện tại nền xám đậm ---------- */
-.pagination { display: flex; align-items: center; justify-content: center; margin-top: 48px; }
-.page-btn {
-    display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0 3px; padding: 0 6px;
-    border-radius: 8px; font-size: 14px; line-height: 22.4px; color: #141414; transition: color 0.25s, background-color 0.25s;
+/* ---------- Màn hình nhỏ ---------- */
+@media (max-width: 991px) {
+    .listing-layout, .listing-layout.filters-hidden { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .filter-panel { display: none; position: static; }
+    .listing-layout.filters-open .filter-panel { display: block; }
+    .view-label, .view-btn { display: none; }
 }
-.page-btn:hover:not(.active):not(:disabled) { background: var(--c-bg); }
-.page-btn.active { background: var(--c-text-soft); color: #fff; }
-.page-btn:disabled { opacity: 0.38; cursor: default; }
-.page-btn .icon { width: 18px; height: 18px; }
-.page-dots { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0 3px; color: #141414; }
-
 @media (max-width: 767px) {
-    .page-title { font-size: 28px; line-height: 36px; padding: 8px 0; }
+    .page-title { font-size: 26px; padding: 8px 0; }
     .listing-head { padding: 16px 16px 0; }
-    .category-band .page-container { padding: 0 8px; }
-    .category-band { padding-bottom: 8px; }
-    .category-tabs { justify-content: flex-start; }
-    .cat-tab { min-width: 80px; font-size: 14px; }
-    .listing-body { padding: 0 8px 60px; }
-    .sort-bar { margin: 24px 0; }
-    .listing-body .product-grid { padding: 8px 0 0; }
+    .cat-hero { aspect-ratio: 4 / 3; }
+    .cat-hero-card { padding: 14px 16px; }
+    .cat-hero-card h1 { font-size: 20px; }
+    .cat-hero-card p { font-size: 12px; }
+    .listing-wrap { padding-top: 16px; padding-bottom: 40px; }
+    .cat-pill { height: 32px; padding: 0 14px; font-size: 12px; }
+    .listing-main { padding: 12px 10px 24px; }
 }

@@ -31,36 +31,59 @@
 
 <div id="site-header"></div>
 
-<main class="site-main page-plain">
-    <!-- Tiêu đề + đường dẫn -->
-    <div class="page-container listing-head">
-        <h1 class="page-title" id="listing-title">Sản phẩm</h1>
+<main class="site-main listing-page">
+    <!-- Banner danh mục: ảnh rộng hết màn hình + thẻ kính mờ góc dưới trái (vẽ bởi js/pages/products.js) -->
+    <section class="cat-hero" id="cat-hero">
+        <img class="cat-hero-img" id="cat-hero-img" src="image/lookbook/for-her.webp" alt="" width="1920" height="729" fetchpriority="high" decoding="async">
+        <div class="cat-hero-card">
+            <h1 id="listing-title">Sản phẩm</h1>
+            <p id="listing-desc">Thời trang nữ Urban Vibe: thiết kế thanh lịch, chất liệu dễ chịu, phù hợp đi làm lẫn dạo phố.</p>
+        </div>
+    </section>
+
+    <div class="container listing-wrap">
         <nav class="breadcrumb" aria-label="Đường dẫn">
             <a href="index.html">Trang chủ</a>
             <span class="breadcrumb-sep"></span>
-            <a href="pages/shop/products.html" id="breadcrumb-current">Sản phẩm</a>
+            <span class="breadcrumb-current" id="breadcrumb-current">Sản phẩm</span>
         </nav>
-    </div>
 
-    <!-- Dải tab nhóm sản phẩm (vẽ bởi js/pages/products.js) -->
-    <div class="category-band">
-        <div class="page-container"><div class="category-tabs" id="category-tabs"></div></div>
-    </div>
+        <!-- Hàng nút pill nhóm sản phẩm -->
+        <div class="cat-pills" id="category-tabs"></div>
 
-    <div class="page-container listing-body">
-        <!-- Thanh sắp xếp -->
-        <div class="sort-bar">
-            <span class="sort-icon" aria-hidden="true"></span>
-            <p>Sắp xếp theo</p>
-            <div class="sort-select" id="sort-select">
-                <button type="button" class="sort-button" id="sort-button" onclick="productsPage.toggleSort()"><span id="sort-label">Mới nhất</span></button>
-                <ul class="sort-menu" id="sort-menu"></ul>
-            </div>
-            <span class="sort-count" id="sort-count"></span>
+        <div class="listing-layout" id="listing-layout">
+            <!-- Cột lọc bên trái -->
+            <aside class="filter-panel" id="filter-panel" aria-label="Bộ lọc">
+                <div class="filter-head"><span>BỘ LỌC</span><button type="button" class="filter-close" onclick="productsPage.toggleFilters()" aria-label="Thu gọn bộ lọc"></button></div>
+                <div class="filter-group open">
+                    <button type="button" class="filter-title" onclick="productsPage.toggleGroup(this)">Nổi bật</button>
+                    <div class="filter-body" id="filter-tags"></div>
+                </div>
+                <div class="filter-group open">
+                    <button type="button" class="filter-title" onclick="productsPage.toggleGroup(this)">Khoảng giá</button>
+                    <div class="filter-body" id="filter-prices"></div>
+                </div>
+            </aside>
+
+            <!-- Khu sản phẩm -->
+            <section class="listing-main">
+                <div class="listing-toolbar">
+                    <button type="button" class="filter-toggle" onclick="productsPage.toggleFilters()" aria-label="Ẩn / hiện bộ lọc"></button>
+                    <span class="sort-count" id="sort-count"></span>
+                    <div class="toolbar-right">
+                        <div class="sort-select" id="sort-select">
+                            <button type="button" class="sort-button" onclick="productsPage.toggleSort()"><span id="sort-label">Mới nhất</span></button>
+                            <ul class="sort-menu" id="sort-menu"></ul>
+                        </div>
+                        <span class="view-label">Hiển thị</span>
+                        <button type="button" class="view-btn" data-cols="3" onclick="productsPage.setCols(3)" aria-label="Lưới 3 cột"></button>
+                        <button type="button" class="view-btn" data-cols="4" onclick="productsPage.setCols(4)" aria-label="Lưới 4 cột"></button>
+                    </div>
+                </div>
+                <div class="product-grid" id="listing-grid"></div>
+                <nav class="pagination" id="listing-pagination" aria-label="Phân trang"></nav>
+            </section>
         </div>
-
-        <div class="product-grid" id="listing-grid"></div>
-        <nav class="pagination" id="listing-pagination" aria-label="Phân trang"></nav>
     </div>
 </main>
 

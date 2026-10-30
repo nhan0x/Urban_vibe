@@ -90,3 +90,9 @@ Mỗi sprint: làm xong → kiểm tra (ảnh chụp so với owen.vn ở deskto
 - Ảnh: tạo 4 ảnh ô danh mục 640×880 trong `image/home/` từ ảnh sản phẩm có sẵn; tạo lại WebP 1920px cho banner desktop (slider, lookbook). Không lấy ảnh từ elise.vn.
 - Chuyển style thẻ blog dùng chung (`.blog-card`, `.blog-grid`) từ `home.css` cũ sang `info.css` để trang blog chi tiết không bị ảnh hưởng.
 - Test: slider chạy (mũi tên, chấm, tự chạy), không cuộn ngang ở 375px, không lỗi console. Lighthouse mobile trang chủ: LCP 5.9–6.6 s (trước redesign 5.0 s), CLS 0–0.068.
+
+### R3 (đạt)
+- Card sản phẩm kiểu owen: ảnh 3:4 nền xám bo 8px, nhãn "-x%" đỏ (hoặc NEW / HOT), nút tim tròn xám mờ, nút "Mua ngay" đen trượt lên khi rê chuột (màn hình cảm ứng luôn hiện), chấm mẫu màu, tên in hoa 16px/600, giá gốc gạch đỏ + giá bán, nhãn "Chỉ có tại Online" và "Tích lũy x điểm". Giữ nguyên API `ProductCard.html` / `renderInto`.
+- Trang danh mục: banner theo nhóm + thẻ kính mờ, đường dẫn in hoa, hàng nút pill, cột lọc (Nổi bật: hàng mới / bán chạy / đang giảm giá; Khoảng giá), thanh công cụ (thu gọn bộ lọc, số sản phẩm, sắp xếp, lưới 3/4 cột nhớ trong localStorage), phân trang 24 sản phẩm / trang.
+- Không làm bộ lọc kích cỡ như owen vì dữ liệu sản phẩm không có size riêng, lọc sẽ không đổi kết quả.
+- Test: lọc, bỏ lọc, sắp xếp giá tăng dần, lưới 4 cột, sang trang 2, ẩn / hiện bộ lọc, "Mua ngay" tăng giỏ hàng; 5 trang dùng card không cuộn ngang ở 375px; không lỗi console.

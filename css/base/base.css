@@ -80,9 +80,10 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
 .panel { padding: 24px 16px; background: var(--c-surface); border-radius: var(--r-panel); }
 
 /* Dòng điều hướng "Trang chủ > Sản phẩm" */
-.breadcrumb { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--c-text); }
+/* Dòng điều hướng kiểu owen.vn: chữ in hoa nhỏ đậm, mục cuối màu xám */
+.breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--c-text); }
 .breadcrumb a:hover { text-decoration: underline; }
-.breadcrumb svg { width: 16px; height: 16px; }
+.breadcrumb svg { width: 12px; height: 12px; }
 
 /* Ẩn chữ nhưng vẫn đọc được bằng trình đọc màn hình */
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
