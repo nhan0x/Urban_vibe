@@ -29,6 +29,9 @@ class ProductDetail {
     // Cửa hàng còn / hết hàng: giả lập cố định theo id sản phẩm và id cửa hàng.
     inStock(p, store) { return (p.id + store.id) % 5 !== 0; }
 
+    // Ảnh bộ sưu tập (…-g0.webp) có sẵn bản nhỏ: "thumb" (180px) cho cột ảnh nhỏ, "md" (1000px) cho ảnh lớn; phóng to thì dùng bản gốc.
+    sized(src, kind) { return /-g\d+\.webp$/.test(src) ? src.replace(/\.webp$/, "-" + kind + ".webp") : src; }
+
     // Danh sách ảnh của sản phẩm: bộ ảnh chi tiết nếu có, ngược lại dùng ảnh chính và ảnh thứ 2.
     photos(p) {
         if (p.gallery && p.gallery.length) return p.gallery;
@@ -75,7 +78,7 @@ class ProductDetail {
         const sizes = ["S", "M", "L", "XL"].map(s => `<button type="button" class="size-pill ${s === this.size ? "active" : ""}" onclick="productDetail.selectSize('${s}')">${s}</button>`).join("");
         const photos = this.photos(p);
         const thumbs = photos.map((src, i) =>
-            `<button type="button" class="pd-thumb ${i === 0 ? "active" : ""}" onclick="productDetail.showPhoto(${i})"><img src="${src}" alt="" loading="lazy" decoding="async"></button>`).join("");
+            `<button type="button" class="pd-thumb ${i === 0 ? "active" : ""}" onclick="productDetail.showPhoto(${i})"><img src="${this.sized(src, "thumb")}" alt="" loading="lazy" decoding="async"></button>`).join("");
         const stores = STORES.slice(0, 6).map(s => {
             const ok = this.inStock(p, s);
             return `<li class="pd-store"><span>${s.name}</span><span class="stock-pill ${ok ? "" : "out"}">${ok ? "Còn hàng" : "Hết hàng"}</span></li>`;
@@ -92,7 +95,7 @@ class ProductDetail {
                 <div class="pd-top">
                     <div class="pd-gallery">
                         <div class="pd-main-img" onclick="productDetail.openLightbox()">
-                            <img id="pd-main-photo" src="${photos[0]}" alt="${name}" fetchpriority="high" decoding="async">
+                            <img id="pd-main-photo" src="${this.sized(photos[0], "md")}" alt="${name}" fetchpriority="high" decoding="async">
                         </div>
                         <div class="pd-thumbs" id="pd-thumbs">${thumbs}</div>
                     </div>
@@ -178,7 +181,7 @@ class ProductDetail {
     // Hiện ảnh thứ index ở khung lớn và tô viền ảnh nhỏ tương ứng.
     showPhoto(index) {
         this.photoIndex = index;
-        Utils.$("pd-main-photo").src = this.photos(this.current)[index];
+        Utils.$("pd-main-photo").src = this.sized(this.photos(this.current)[index], "md");
         document.querySelectorAll(".pd-thumb").forEach((b, i) => b.classList.toggle("active", i === index));
     }
 

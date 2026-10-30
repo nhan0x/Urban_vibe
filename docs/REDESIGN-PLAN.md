@@ -107,3 +107,17 @@ Mỗi sprint: làm xong → kiểm tra (ảnh chụp so với owen.vn ở deskto
 - Trang đăng nhập / đăng ký chuyển sang bố cục owen: có header / footer, đường dẫn, form bên trái (tiêu đề "ĐĂNG NHẬP" / "ĐĂNG KÝ" in hoa, căn trái), banner ảnh trượt bên phải kèm chữ "ĐĂNG KÝ TÀI KHOẢN NGAY". Giữ nguyên logic đăng nhập / đăng ký.
 - Khung ảnh lớn (bộ sưu tập, bài blog, FAQ) bo 8px thay cho 24–32px.
 - Test: đăng nhập bằng tài khoản test → về trang chủ, ô tài khoản hiện chữ cái đầu; không lỗi console ở trang đăng nhập.
+
+### R6 (đạt một phần)
+- 20 trang: không cuộn ngang ở 375px, không ảnh hỏng, có header + footer; không lỗi console trên 19 trang mở liên tiếp + trang đăng nhập.
+- Trang chi tiết lúc đầu LCP 12.6 s vì cột thumbnail tải ảnh gốc 1500px. Đã tạo bản `-thumb.webp` (180px, ~4 KB) và `-md.webp` (1000px, ~64 KB) cho 53 ảnh gallery; phóng to vẫn dùng ảnh gốc.
+- Lighthouse mobile (3 lần, trung vị), so với số cuối trước redesign:
+
+| Trang | Điểm | LCP | CLS | Dung lượng | Trước redesign (LCP) |
+|---|---|---|---|---|---|
+| Trang chủ | 0.84 | 4.14 s | 0.068 | 1668 KB | 5.1 s |
+| Danh mục | 0.83 | 3.77 s | 0.107 | 2583 KB | 9.2 s |
+| Chi tiết | 0.77 | 5.8 s | 0–0.068 | 1015 KB | 8.7 s |
+| Giỏ hàng | 0.88 | 3.67 s | 0.068 | 372 KB | 4.2 s |
+
+- Chưa đạt: LCP vẫn trên 2.5 s; CLS trang danh mục 0.107 (vượt 0.1 một chút).
