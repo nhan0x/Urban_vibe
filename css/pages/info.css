@@ -11,11 +11,11 @@
 .blog-top-title h1 { font-size: 48px; font-weight: 800; line-height: 58px; }
 .blog-top-title p { font-size: 14px; font-weight: 500; }
 .blog-search { display: flex; align-items: center; gap: 16px; }
-.blog-search-box { display: flex; align-items: center; gap: 12px; width: 444px; height: 48px; padding: 0 16px; background: #fff; border-radius: 16px; }
+.blog-search-box { display: flex; align-items: center; gap: 12px; width: 444px; height: 48px; padding: 0 16px; background: #fff; border-radius: 2px; }
 .blog-search-icon .icon { width: 22px; height: 22px; color: #6f6f6f; }
 .blog-search-box input { flex: 1; min-width: 0; height: 100%; border: none; outline: none; background: none; font-size: 14px; }
 .blog-search-box input::placeholder { color: #b0b0b0; }
-.blog-search .btn-md { min-width: 140px; height: 46px; border-radius: 16px; }
+.blog-search .btn-md { min-width: 140px; height: 46px; border-radius: 2px; }
 .blog-cats { display: flex; align-items: center; justify-content: space-between; margin: 32px 0; }
 .blog-cats h2 { font-size: 40px; font-weight: 700; line-height: 48px; }
 .blog-cat-links { display: flex; align-items: center; }
@@ -41,7 +41,7 @@
 .article-meta { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; }
 .article-meta > .icon { width: 22px; height: 22px; color: #8a8a8a; }
 .article-tag { margin-left: auto; font-weight: 700; color: #808080; }
-.article-cover { margin: 24px 0; overflow: hidden; border-radius: 24px; aspect-ratio: 16 / 9; background: #f0f0f0; }
+.article-cover { margin: 24px 0; overflow: hidden; border-radius: 8px; aspect-ratio: 16 / 9; background: #f0f0f0; }
 .article-cover img { width: 100%; height: 100%; object-fit: cover; }
 .article-body p { margin-bottom: 20px; font-size: 16px; line-height: 28px; }
 .blog-page + .home-sections, #blog-detail .home-sections { margin-top: 32px; }
@@ -81,7 +81,7 @@
 .faq-head { margin: 56px 0 32px; text-align: center; }
 .faq-head h1 { font-size: 64px; font-weight: 800; line-height: 76px; }
 .faq-head p { margin-top: 8px; font-size: 12px; }
-.faq-panel { padding: 40px 90px 56px; background: #fff; border-radius: 32px; }
+.faq-panel { padding: 40px 90px 56px; background: #fff; border-radius: 8px; }
 .faq-group + .faq-group { margin-top: 40px; }
 .faq-group h2 { font-size: 28px; font-weight: 700; line-height: 36px; }
 .faq-item { margin-top: 28px; }
@@ -145,7 +145,7 @@
 .branch-detail { padding-bottom: 20px; }
 .branch-detail p { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 12px; font-size: 14px; line-height: 20px; }
 .branch-detail p .icon { flex: none; width: 20px; height: 20px; margin-top: 0; color: var(--c-text-soft); }
-.branch-route { width: 100%; height: 48px; margin-top: 8px; border-radius: 16px; line-height: 46px; }
+.branch-route { width: 100%; height: 48px; margin-top: 8px; border-radius: 2px; line-height: 46px; }
 .branch-route .icon { width: 18px; height: 18px; }
 .branch-map { flex: 1; min-width: 0; height: 660px; overflow: hidden; background: #e8e6e1; border-radius: 4px; }
 .branch-map iframe { width: 100%; height: 100%; border: 0; }
@@ -157,11 +157,11 @@
 .recruit-search { padding: 64px 24px 80px; text-align: center; }
 .recruit-search h1 { margin-bottom: 40px; font-size: 48px; font-weight: 700; line-height: 58px; }
 .recruit-form { display: flex; align-items: center; justify-content: center; gap: 16px; max-width: 1006px; margin: 0 auto; }
-.recruit-input { display: flex; align-items: center; flex: 1; gap: 12px; height: 48px; padding: 0 16px; background: #f1f1f1; border-radius: 16px; }
+.recruit-input { display: flex; align-items: center; flex: 1; gap: 12px; height: 48px; padding: 0 16px; background: #f1f1f1; border-radius: 2px; }
 .recruit-input-icon .icon { width: 22px; height: 22px; color: #6f6f6f; }
 .recruit-input input { flex: 1; min-width: 0; height: 100%; background: none; border: none; outline: none; font-size: 14px; }
-.recruit-select { width: 198px; height: 48px; padding: 0 16px; background: #fff; border: 1px solid var(--c-text-soft); border-radius: 16px; font-size: 14px; outline: none; }
-.recruit-btn { width: 125px; height: 48px; border-radius: 16px; }
+.recruit-select { width: 198px; height: 48px; padding: 0 16px; background: #fff; border: 1px solid var(--c-text-soft); border-radius: 2px; font-size: 14px; outline: none; }
+.recruit-btn { width: 125px; height: 48px; border-radius: 2px; }
 .recruit-list-wrap { padding: 64px 24px 100px; background: #f8f8f8; }
 .recruit-list-inner h2 { margin-bottom: 24px; font-size: 24px; font-weight: 700; }
 .job-list { display: flex; flex-direction: column; gap: 16px; }
@@ -174,7 +174,7 @@
 .job-info i { width: 1px; height: 14px; margin: 0 8px; background: #bbb; }
 .job-side { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; flex: none; }
 .job-side strong { font-size: 18px; font-weight: 700; color: var(--c-sale); }
-.job-side .btn { height: 36px; min-height: 36px; padding: 0 24px; border-radius: 16px; }
+.job-side .btn { height: 36px; min-height: 36px; padding: 0 24px; border-radius: 2px; }
 
 /* ---------- Màn hình nhỏ ---------- */
 @media (max-width: 991px) {
@@ -190,7 +190,7 @@
     .value-item { min-height: 160px; padding: 24px; }
     .value-no { font-size: 64px; width: 60px; }
     .about-split-text, .about-split-rev .about-split-text { padding: 32px 24px; }
-    .faq-panel { padding: 28px 24px; border-radius: 24px; }
+    .faq-panel { padding: 28px 24px; border-radius: 8px; }
     .faq-head h1 { font-size: 44px; line-height: 52px; }
     .member-hero-inner { flex-direction: column; padding: 40px 16px; }
     .member-hero-left { width: 100%; }

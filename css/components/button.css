@@ -1,8 +1,9 @@
 /* =====================================================================
-   NÚT DÙNG CHUNG (theo theciu.vn)
-   .btn-dark    : nút đen dạng viên thuốc, cao 44px ("Mua ngay", "Thanh toán")
-   .btn-gray    : nút xám đậm bo 16px ("Quay về trang chủ", "Đăng nhập")
-   .btn-outline : nút viền mảnh bo 16px / viên thuốc ("Xem tất cả", "Xem thêm", "Tiếp tục mua sắm")
+   NÚT + Ô NHẬP DÙNG CHUNG (theo owen.vn)
+   .btn-dark    : nút đen góc gần vuông, cao 44px ("Mua ngay", "Thanh toán", "Tiếp tục")
+   .btn-gray    : nút đen phụ ("Quay về trang chủ", "Đăng nhập")
+   .btn-outline : nút viền mảnh nền trắng ("Xem tất cả", "Tạo tài khoản", "Tiếp tục mua sắm")
+   Ô nhập: nền xám nhạt, không viền, viền đen khi đang gõ.
    ===================================================================== */
 .btn {
     position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
@@ -12,17 +13,17 @@
 .btn .icon { width: 16px; height: 16px; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
-.btn-dark { min-height: 44px; background: var(--c-dark); color: #fff; border-radius: var(--r-pill); }
-.btn-dark:hover:not(:disabled) { background: #000; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22); }
+.btn-dark { min-height: 44px; background: #070707; color: #fff; border-radius: 2px; }
+.btn-dark:hover:not(:disabled) { background: #2b2b2b; }
 .btn-dark:active:not(:disabled) { transform: scale(0.98); }
 
-.btn-gray { min-height: 40px; padding: 8px 24px; background: var(--c-text-soft); color: #fff; border-radius: 16px; font-weight: 400; }
+.btn-gray { min-height: 44px; padding: 8px 24px; background: #070707; color: #fff; border-radius: 2px; font-weight: 600; }
 .btn-gray:hover:not(:disabled) { background: #2b2b2b; }
 
-.btn-outline { height: 30px; min-height: 30px; padding: 0 12px; line-height: 28px; border: 1px solid var(--c-text-soft); color: var(--c-text-soft); border-radius: var(--r-pill); font-weight: 400; background: transparent; }
-.btn-outline:hover:not(:disabled) { background: var(--c-text-soft); color: #fff; }
-.btn-outline.btn-wide { min-width: 328px; height: 40px; border-radius: 16px; line-height: 38px; }
-.btn-outline.btn-md { height: 40px; border-radius: 16px; line-height: 38px; }
+.btn-outline { height: 34px; min-height: 34px; padding: 0 14px; line-height: 32px; border: 1px solid var(--c-text); color: var(--c-text); border-radius: 2px; font-weight: 400; background: #fff; }
+.btn-outline:hover:not(:disabled) { background: #070707; border-color: #070707; color: #fff; }
+.btn-outline.btn-wide { min-width: 328px; height: 44px; line-height: 42px; }
+.btn-outline.btn-md { height: 44px; line-height: 42px; }
 
 /* Nút tròn chứa icon (trái tim, đóng...) */
 .btn-circle {
@@ -34,11 +35,11 @@
 .btn-circle:hover { transform: scale(1.08); box-shadow: 0 5px 16px rgba(35, 28, 24, 0.16); }
 .btn-circle.active { color: var(--c-sale); }
 
-/* Ô nhập liệu dạng viên thuốc (đăng nhập, thanh toán...) */
+/* Ô nhập liệu (đăng nhập, thanh toán...): nền xám nhạt, không viền */
 .field { display: flex; flex-direction: column; gap: 8px; }
 .field > label { font-size: 14px; }
-.input-wrap { position: relative; display: flex; align-items: center; height: 44px; padding: 0 16px; background: #fff; border: 1px solid #c4c4cc; border-radius: 22px; transition: border-color 0.2s; }
-.input-wrap:focus-within { border-color: var(--c-text); }
+.input-wrap { position: relative; display: flex; align-items: center; height: 44px; padding: 0 14px; background: #f5f5f5; border: 1px solid transparent; border-radius: 2px; transition: border-color 0.2s, background 0.2s; }
+.input-wrap:focus-within { border-color: #070707; background: #fff; }
 .input-wrap > .icon { flex: none; width: 20px; height: 20px; margin-right: 12px; color: #8a8a93; }
 .input-wrap input, .input-wrap select, .input-wrap textarea { flex: 1; min-width: 0; height: 100%; background: none; border: none; outline: none; font-size: 14px; }
 .input-wrap input::placeholder { color: #b5b5bd; }

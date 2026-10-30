@@ -16,10 +16,9 @@ class SignInPage {
         if (auth.isLoggedIn()) accountModal.close();
     }
 
-    // Gắn bông hoa vào logo, biểu tượng vào đầu mỗi ô nhập (người dùng cho ô tài khoản, ổ khoá cho ô mật khẩu) và biểu tượng mắt vào nút hiện mật khẩu.
+    // Gắn biểu tượng vào đầu mỗi ô nhập (người dùng cho ô tài khoản, ổ khoá cho ô mật khẩu) và biểu tượng mắt vào nút hiện mật khẩu.
     decorateInputs() {
-        document.querySelector(".auth-logo").insertAdjacentHTML("afterbegin", Icons.get("bloom", "logo-mark"));
-        document.querySelectorAll(".input-wrap").forEach(wrap => {
+        document.querySelectorAll(".auth-form .input-wrap").forEach(wrap => {
             const isPassword = wrap.querySelector("input[type=password]");
             wrap.insertAdjacentHTML("afterbegin", Icons.get(isPassword ? "lock" : "user"));
         });

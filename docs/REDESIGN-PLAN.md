@@ -101,3 +101,9 @@ Mỗi sprint: làm xong → kiểm tra (ảnh chụp so với owen.vn ở deskto
 - Trang chi tiết theo owen: khung ~1060px, ảnh lớn 3:4 + cột ảnh nhỏ dọc cao bằng ảnh lớn (cuộn khi nhiều ảnh), tên in hoa + nút tim tròn, mã SP, giá + giá gốc đỏ, tích điểm, màu sắc, kích cỡ dạng ô xám, phiếu ưu đãi, số lượng + "Thêm vào giỏ hàng" đen + "Mua ngay" viền, accordion (Mô tả, Giao hàng / đổi hàng, Cửa hàng còn hàng), carousel "CÓ THỂ BẠN THÍCH" 4 thẻ (3 / 2 ở màn hình nhỏ) mũi tên vuông xám.
 - Giữ "Mua ngay" và chọn số lượng (owen chỉ có nút thêm giỏ) vì là chức năng sẵn có của đồ án.
 - Test: đổi ảnh, chọn size, tăng số lượng, thêm giỏ (badge tăng đúng số lượng), đóng / mở accordion, carousel trượt, tim (carousel vẽ lại không gắn sự kiện trùng), phóng to ảnh; mobile 375px không cuộn ngang.
+
+### R5 (đạt)
+- Nút và ô nhập dùng chung theo owen: nút đen góc gần vuông (bo 2px), nút viền mảnh nền trắng, ô nhập nền xám nhạt không viền (viền đen khi đang gõ). Áp dụng cho giỏ hàng, thanh toán, tài khoản, đăng nhập, blog, tuyển dụng, chi nhánh.
+- Trang đăng nhập / đăng ký chuyển sang bố cục owen: có header / footer, đường dẫn, form bên trái (tiêu đề "ĐĂNG NHẬP" / "ĐĂNG KÝ" in hoa, căn trái), banner ảnh trượt bên phải kèm chữ "ĐĂNG KÝ TÀI KHOẢN NGAY". Giữ nguyên logic đăng nhập / đăng ký.
+- Khung ảnh lớn (bộ sưu tập, bài blog, FAQ) bo 8px thay cho 24–32px.
+- Test: đăng nhập bằng tài khoản test → về trang chủ, ô tài khoản hiện chữ cái đầu; không lỗi console ở trang đăng nhập.

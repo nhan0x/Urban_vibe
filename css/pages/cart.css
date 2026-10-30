@@ -5,7 +5,7 @@
    ===================================================================== */
 .cart-main { background: var(--c-bg); }
 .cart-wrap { padding: 24px; }
-.btn-back { gap: 14px; height: 40px; padding: 0 16px 0 9px; border-radius: 16px; font-size: 12px; }
+.btn-back { gap: 14px; height: 40px; padding: 0 16px 0 9px; border-radius: 2px; font-size: 12px; }
 .back-arrow { width: 24px; height: 24px; background: no-repeat center / 20px 20px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23434343' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 12H4'/%3E%3Cpath d='m10 6-6 6 6 6'/%3E%3C/svg%3E"); }
 .btn-back:hover .back-arrow { filter: invert(1); }
 
@@ -28,7 +28,7 @@
 .cart-name:hover { text-decoration: underline; }
 .cart-options { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 8px; font-size: 12px; }
 .cart-options label { display: flex; align-items: center; gap: 8px; }
-.pill-select { position: relative; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; background: #fff; border: 1px solid #c9c9c9; border-radius: 16px; font-size: 12px; }
+.pill-select { position: relative; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; background: #fff; border: 1px solid #c9c9c9; border-radius: 2px; font-size: 12px; }
 .pill-static { min-width: 70px; padding-right: 32px; }
 .pill-static::after, .pill-select:has(select)::after { content: ""; position: absolute; right: 10px; top: 50%; width: 16px; height: 16px; margin-top: -8px; pointer-events: none; background: no-repeat center / 16px 16px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23434343' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9.5 6 6 6-6'/%3E%3C/svg%3E"); }
 .pill-select select { min-width: 46px; padding-right: 22px; background: none; border: none; outline: none; font-size: 12px; appearance: none; -webkit-appearance: none; cursor: pointer; }
@@ -37,7 +37,7 @@
 .cart-qty { display: flex; align-items: center; gap: 16px; }
 .cart-qty button { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; color: var(--c-text-soft); }
 .cart-qty .icon { width: 18px; height: 18px; }
-.cart-qty input { width: 40px; height: 24px; background: #fff; border: 1px solid var(--c-text); border-radius: 16px; text-align: center; font-size: 12px; outline: none; -moz-appearance: textfield; }
+.cart-qty input { width: 40px; height: 24px; background: #fff; border: 1px solid var(--c-text); border-radius: 2px; text-align: center; font-size: 12px; outline: none; -moz-appearance: textfield; }
 .cart-qty input::-webkit-outer-spin-button, .cart-qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .cart-price { min-width: 71px; font-size: 14px; font-weight: 700; text-align: right; }
 .cart-remove { position: absolute; top: 12px; right: 16px; display: flex; width: 16px; height: 16px; color: var(--c-text-soft); }
@@ -46,15 +46,15 @@
 
 .cart-select-all { display: flex; align-items: center; gap: 8px; width: 100%; height: 56px; margin-top: 8px; padding: 0 24px; font-size: 14px; }
 .cart-footer { display: flex; flex-direction: column; gap: 16px; }
-.btn-more-items { align-self: flex-start; width: 320px; height: 40px; border-radius: 16px; font-size: 12px; line-height: 38px; }
-.btn-pay { width: 100%; height: 40px; min-height: 40px; border-radius: 16px; font-size: 12px; font-weight: 400; }
+.btn-more-items { align-self: flex-start; width: 320px; height: 40px; border-radius: 2px; font-size: 12px; line-height: 38px; }
+.btn-pay { width: 100%; height: 40px; min-height: 40px; border-radius: 2px; font-size: 12px; font-weight: 400; }
 
 /* ---------- Trạng thái trống ---------- */
 .cart-empty { display: flex; flex-direction: column; align-items: center; padding: 24px 0 24px; text-align: center; }
 .cart-empty-art { width: 240px; height: 240px; background: #f5f5f5; }
 .cart-empty h4 { margin-top: 24px; font-size: 14px; font-weight: 700; }
 .cart-empty p { margin-top: 16px; font-size: 12px; }
-.btn-home { min-width: 200px; margin-top: 48px; border-radius: 16px; font-size: 12px; font-weight: 400; }
+.btn-home { min-width: 200px; margin-top: 48px; border-radius: 2px; font-size: 12px; font-weight: 400; }
 .cart-empty-art + h4 { margin-top: 24px; }
 .cart-empty > h4:first-child { margin-top: 0; font-size: 18px; }
 

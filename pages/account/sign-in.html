@@ -27,30 +27,23 @@
 <link rel="stylesheet" href="css/pages/auth.css">
 <link rel="stylesheet" href="css/pages/account.css">
 </head>
-<body class="auth-body">
+<body data-nav="account">
 
-<main class="auth-page">
-    <!-- Cột trái: ảnh trượt tự động + chấm tròn -->
-    <aside class="auth-visual">
-        <div class="auth-slides" id="auth-slides">
-            <img class="active" src="image/slider/slide-1-mb.webp" alt="">
-            <img src="image/slider/slide-2-mb.webp" alt="">
-            <img src="image/slider/slide-3-mb.webp" alt="">
-            <img src="image/slider/slide-4-mb.webp" alt="">
-            <img src="image/slider/slide-5-mb.webp" alt="">
-            <img src="image/slider/slide-6-mb.webp" alt="">
-        </div>
-        <div class="auth-dots" id="auth-dots"></div>
-    </aside>
+<div id="site-header"></div>
 
-    <!-- Cột phải: biểu mẫu đăng nhập / đăng ký -->
+<main class="site-main auth-main">
+  <div class="container auth-wrap">
+    <nav class="breadcrumb" aria-label="Đường dẫn">
+        <a href="index.html">Trang chủ</a><span class="breadcrumb-sep"></span><span class="breadcrumb-current">Tài khoản</span>
+    </nav>
+    <div class="auth-page">
+    <!-- Cột trái: biểu mẫu đăng nhập / đăng ký -->
     <section class="auth-form-col">
         <div class="auth-form-wrap">
-            <a class="site-logo auth-logo" href="index.html" aria-label="Urban Vibe - Trang chủ"><span class="logo-text">urban vibe</span></a>
-            <h1 class="auth-title">Welcome to Urban Vibe!</h1>
 
             <!-- ===== Đăng nhập ===== -->
             <div class="auth-pane" data-auth-pane="login">
+                <h1 class="auth-title">ĐĂNG NHẬP</h1>
                 <p class="auth-sub">Đăng nhập ngay để có trải nghiệm mua sắm tuyệt vời cùng chúng tôi.</p>
                 <p class="auth-quick-title">Đăng nhập nhanh với</p>
                 <div class="auth-social">
@@ -82,6 +75,7 @@
 
             <!-- ===== Đăng ký ===== -->
             <div class="auth-pane" data-auth-pane="register">
+                <h1 class="auth-title">ĐĂNG KÝ</h1>
                 <p class="auth-sub">Đăng kí ngay để có trải nghiệm mua sắm tuyệt vời với chúng mình.</p>
                 <ol class="auth-steps">
                     <li class="done"><span>1</span><b>Nhập thông tin</b></li>
@@ -102,20 +96,47 @@
             </div>
         </div>
     </section>
+
+    <!-- Cột phải: banner ảnh trượt + lời mời đăng ký -->
+    <aside class="auth-visual">
+        <div class="auth-slides" id="auth-slides">
+            <img class="active" src="image/slider/slide-1-mb.webp" alt="">
+            <img src="image/slider/slide-2-mb.webp" alt="" loading="lazy">
+            <img src="image/slider/slide-3-mb.webp" alt="" loading="lazy">
+            <img src="image/slider/slide-4-mb.webp" alt="" loading="lazy">
+            <img src="image/slider/slide-5-mb.webp" alt="" loading="lazy">
+            <img src="image/slider/slide-6-mb.webp" alt="" loading="lazy">
+        </div>
+        <div class="auth-visual-text">
+            <h2>ĐĂNG KÝ<br>TÀI KHOẢN NGAY</h2>
+            <p>Bằng cách cung cấp cho Urban Vibe thông tin chi tiết của bạn, quá trình mua hàng tại website sẽ là một trải nghiệm thú vị, chi tiết và nhanh chóng hơn!</p>
+        </div>
+        <div class="auth-dots" id="auth-dots"></div>
+    </aside>
+    </div>
+  </div>
 </main>
 
-<div id="toast"></div>
+<div id="site-footer"></div>
+
 
 <script defer src="js/data/products.js"></script>
+<script defer src="js/data/collections.js"></script>
+<script defer src="js/data/stores.js"></script>
 <script defer src="js/data/mock-data.js"></script>
 <script defer src="js/core/icons.js"></script>
 <script defer src="js/core/utils.js"></script>
+<script defer src="js/data/catalog.js"></script>
+<script defer src="js/core/layout.js"></script>
 <script defer src="js/core/auth.js"></script>
+<script defer src="js/core/header.js"></script>
 <script defer src="js/core/account-modal.js"></script>
 <script defer src="js/features/wishlist.js"></script>
 <script defer src="js/features/cart.js"></script>
 <script defer src="js/features/orders.js"></script>
+<script defer src="js/widgets/student-popup.js"></script>
 <script defer src="js/pages/sign-in.js"></script>
+<script defer src="js/core/app.js"></script>
 
 </body>
 </html>
