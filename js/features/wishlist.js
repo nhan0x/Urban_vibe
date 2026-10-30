@@ -23,6 +23,8 @@ class Wishlist {
     // Cập nhật con số yêu thích trên header; nếu đang ở trang yêu thích thì vẽ lại cả trang.
     updateBadge() {
         Utils.setText("wishlist-count", this.get().length);
+        const badge = Utils.$("wishlist-count");
+        if (badge) badge.classList.toggle("show", this.get().length > 0);
         if (Utils.$("wishlist-page")) this.renderPage();
     }
 

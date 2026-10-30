@@ -174,6 +174,7 @@ class Auth {
         const u = this.current();
         if (u) Utils.setText("account-label", u.name.split(" ").pop());
         else Utils.setText("account-label", "Tài Khoản");
+        Utils.setText("account-initial", u ? u.name.split(" ").pop().charAt(0).toUpperCase() : "");
         const box = document.querySelector(".header-account");
         if (box) box.classList.toggle("logged-in", !!u);
         cart.render();

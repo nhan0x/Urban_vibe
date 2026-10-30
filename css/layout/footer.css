@@ -1,57 +1,50 @@
 /* =====================================================================
-   FOOTER (theo số đo của theciu.vn ở màn hình 1440px)
-   Cột trái (logo, liên hệ, mạng xã hội, thanh toán) chiếm 5/12; 3 cột liên kết dàn đều trong 7/12 còn lại;
-   cuối cùng là dòng thông tin công ty ngăn cách bằng đường kẻ mảnh.
+   FOOTER (theo owen.vn)
+   Nền ảnh lookbook làm mờ + phủ tối, chữ trắng. 4 cột: thông tin công ty | Giới thiệu | Hỗ trợ khách hàng | Kết nối + thanh toán.
+   Tiêu đề cột in hoa, gạch chân ngắn dưới 2 chữ cái đầu. Cuối cùng là dòng bản quyền ngăn cách bằng đường kẻ mảnh.
    ===================================================================== */
-.site-footer { padding: 46px 44px 21px; background: var(--c-surface); font-size: 14px; line-height: 20px; }
-.footer-inner { display: flex; gap: 0; }
-.footer-brand { flex: 0 0 41.6667%; max-width: 563px; }
-.footer-logo { height: 29px; font-size: 27px; }
-.footer-info { display: flex; flex-direction: column; gap: 8px; margin-top: 24px; }
-.footer-info a:hover { text-decoration: underline; }
-.footer-social { display: flex; gap: 8px; margin-top: 8px; }
-/* Biểu tượng mạng xã hội: sát lề trái, rộng 17 / 18 / 17 / 22px, màu #262626 (số đo của theciu.vn) */
-.footer-social a { display: flex; align-items: center; justify-content: flex-start; height: 24px; font-size: 17px; color: #262626; transition: opacity 0.2s; }
-.footer-social a:nth-child(1) { width: 17px; }
-.footer-social a:nth-child(2) { width: 18px; }
-.footer-social a:nth-child(3) { width: 17px; }
-.footer-social a:nth-child(4) { width: 22px; }
-.footer-social a:hover { opacity: 0.6; }
-.footer-pay { margin-top: 16px; }
-.footer-pay-title { font-size: 12px; font-weight: 700; line-height: 19px; }
-.footer-pay-list { display: flex; gap: 12px; margin-top: 8px; }
+.site-footer { position: relative; overflow: hidden; color: #fff; background: #1e2633; font-size: 14px; line-height: 22px; }
+.footer-bg {
+    position: absolute; inset: -40px; z-index: 0;
+    background: url("../../image/lookbook/the-monochromes.webp") center / cover no-repeat;
+    filter: blur(18px) brightness(0.45); transform: scale(1.05);
+}
+.footer-inner, .footer-legal { position: relative; z-index: 1; }
+.footer-inner { display: grid; grid-template-columns: 1.45fr 1fr 1.25fr 1fr; gap: 40px; padding-top: 44px; padding-bottom: 40px; }
 
-/* Ba biểu tượng thanh toán vẽ bằng CSS (thẻ ATM, Mastercard, Visa) */
-.pay-chip { position: relative; display: flex; align-items: center; justify-content: center; width: 48px; height: 30px; border-radius: 4px; overflow: hidden; }
-.pay-atm { background: #1c3f7f; }
-.pay-atm i:first-child { position: absolute; left: 0; right: 0; top: 8px; height: 5px; background: #0d1f46; }
-.pay-atm i:last-child { position: absolute; left: 6px; top: 17px; width: 12px; height: 5px; background: #f5c518; }
-.pay-master { background: #000; }
-.pay-master i { position: absolute; top: 7px; width: 16px; height: 16px; border-radius: 50%; }
+.footer-logo { height: 32px; font-size: 30px; color: #fff; }
+.footer-company { margin-top: 22px; font-size: 13px; font-weight: 700; letter-spacing: 0.01em; }
+.footer-line { display: flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 13px; }
+.footer-line .icon { width: 15px; height: 15px; flex: none; }
+.footer-addr { margin-top: 12px; font-size: 13px; line-height: 20px; color: rgba(255, 255, 255, 0.9); }
+.footer-brand a:hover { text-decoration: underline; }
+
+.footer-title { position: relative; padding-bottom: 6px; font-size: 14px; font-weight: 700; text-transform: uppercase; }
+.footer-title::after { content: ""; position: absolute; left: 0; bottom: 0; width: 18px; height: 1px; background: #fff; }
+.footer-links { display: flex; flex-direction: column; gap: 6px; margin-top: 22px; }
+.footer-links a { font-size: 13.5px; color: rgba(255, 255, 255, 0.9); transition: color 0.2s, padding-left 0.2s; }
+.footer-links a:hover { color: #fff; padding-left: 4px; }
+
+.footer-social { display: flex; gap: 14px; margin-top: 22px; }
+.footer-social a { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; font-size: 22px; color: #fff; transition: transform 0.2s, opacity 0.2s; }
+.footer-social a:hover { transform: translateY(-2px); opacity: 0.8; }
+.footer-title-pay { margin-top: 34px; }
+.footer-pay-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+
+/* Biểu tượng thanh toán vẽ bằng CSS (tiền mặt, banking, Visa, Mastercard) */
+.pay-chip { position: relative; display: flex; align-items: center; justify-content: center; width: 46px; height: 28px; border-radius: 3px; overflow: hidden; background: #fff; color: #555; font-size: 7px; font-weight: 800; letter-spacing: 0.02em; }
+.pay-visa { color: #1a1f71; font-size: 12px; font-style: italic; letter-spacing: 0.04em; }
+.pay-master i { position: absolute; top: 6px; width: 16px; height: 16px; border-radius: 50%; }
 .pay-master i:first-child { left: 8px; background: #eb001b; }
 .pay-master i:last-child { right: 8px; background: #f79e1b; opacity: 0.9; }
-.pay-visa { background: #1a1f71; color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 0.06em; font-style: italic; }
 
-.footer-cols { display: flex; flex: 1; justify-content: space-between; }
-.footer-col { flex: none; }
-.footer-title { font-size: 14px; font-weight: 700; }
-.footer-links { display: flex; flex-direction: column; gap: 8px; margin-top: 24px; }
-.footer-links a { align-self: flex-start; }
-.footer-links a:hover { text-decoration: underline; }
+.footer-legal { padding: 12px 0; border-top: 1px solid rgba(255, 255, 255, 0.25); font-size: 13px; color: rgba(255, 255, 255, 0.9); }
+.footer-legal a { text-decoration: underline; }
 
-.footer-legal { display: flex; align-items: flex-start; gap: 16px; margin-top: 60px; padding-top: 18px; border-top: 1px solid #cfcfcf; }
-.legal-text { font-size: 12px; line-height: 18px; }
-.legal-text a { text-decoration: underline; }
-
-@media (max-width: 1199px) {
-    .footer-inner { flex-wrap: wrap; row-gap: 32px; }
-    .footer-brand { flex: 0 0 100%; max-width: none; }
-    .footer-cols { flex: 0 0 100%; flex-wrap: wrap; gap: 24px; }
-    .footer-col { flex: 1 1 30%; }
+@media (max-width: 1099px) {
+    .footer-inner { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 767px) {
-    .site-footer { padding: 32px 16px 20px; }
-    .footer-col { flex: 0 0 100%; }
-    .footer-links { margin-top: 12px; }
-    .footer-legal { margin-top: 32px; }
+@media (max-width: 599px) {
+    .footer-inner { grid-template-columns: 1fr; gap: 28px; padding-top: 32px; }
+    .footer-links { margin-top: 14px; }
 }

@@ -1,37 +1,43 @@
 /* =====================================================================
    NỀN TẢNG: font, biến thiết kế, reset, kiểu chữ dùng chung.
-   Thiết kế theo theciu.vn: font Poppins 14px, nền xám nhạt #f6f6f6, khối nội dung trắng bo góc,
-   nút dạng viên thuốc (pill) đen / xám đậm.
-   Font Poppins nạp từ Google Fonts bằng thẻ <link> ở <head> mỗi trang.
+   Bố cục theo owen.vn: header đen, nền trắng, chữ #323232, khung nội dung tối đa 1306px,
+   nút chính đen bo 6px, nhãn giảm giá đỏ, ảnh sản phẩm nền xám bo 8px.
+   Font Poppins nạp từ Google Fonts bằng thẻ <link> ở <head> mỗi trang (owen dùng Gilroy, là font thương mại).
    ===================================================================== */
 :root {
     /* Màu */
-    --c-bg: #f6f6f6;            /* nền trang */
+    --c-bg: #f5f5f5;            /* nền trang danh mục, nền khối xám */
     --c-surface: #ffffff;       /* nền khối nội dung / thẻ */
-    --c-text: #000000;          /* chữ chính */
-    --c-text-soft: #434343;     /* chữ phụ, mục menu, nút xám đậm */
-    --c-text-mute: #7d7d7d;     /* chữ mờ, ghi chú */
-    --c-dark: #202020;          /* nút "Mua ngay" */
-    --c-line: #e5e5e5;          /* đường kẻ mảnh */
-    --c-card-line: #ece9e9;     /* viền thẻ sản phẩm */
-    --c-badge: #85a1fc;         /* nhãn "New" */
-    --c-sale: #e50914;          /* Black Friday, giá giảm */
+    --c-text: #323232;          /* chữ chính */
+    --c-text-soft: #4f4f4f;     /* chữ phụ */
+    --c-text-mute: #8a8a8a;     /* chữ mờ, ghi chú */
+    --c-dark: #000000;          /* header, nút chính */
+    --c-mega: #2b2b2b;          /* nền mega menu */
+    --c-line: #e6e6e6;          /* đường kẻ mảnh */
+    --c-card-line: #ececec;     /* viền thẻ */
+    --c-badge: #2a4494;         /* nhãn "New", nút CTA trên banner (xanh navy) */
+    --c-accent: #2a4494;        /* xanh navy */
+    --c-sale: #db2c38;          /* giá giảm, nhãn giảm giá */
     --c-brand: #d9889b;         /* hồng của bông hoa trên logo */
-    --c-image-bg: #f0eff2;      /* nền ô ảnh khi chưa tải */
+    --c-image-bg: #f2f2f2;      /* nền ô ảnh sản phẩm */
 
     /* Bo góc */
-    --r-panel: 16px;            /* khối nội dung lớn */
-    --r-card: 20px;             /* thẻ sản phẩm */
-    --r-image: 14px;            /* ảnh trong thẻ */
+    --r-sm: 6px;                /* nút */
+    --r-md: 8px;                /* ảnh sản phẩm, ô nhập */
+    --r-lg: 12px;               /* banner, khối lớn */
+    --r-panel: 12px;            /* khối nội dung lớn */
+    --r-card: 8px;              /* thẻ sản phẩm */
+    --r-image: 8px;             /* ảnh trong thẻ */
     --r-pill: 999px;            /* nút viên thuốc */
 
     /* Đổ bóng */
-    --shadow-card: 0 8px 22px rgba(26, 20, 20, 0.08);
-    --shadow-header: 4px 20px 20px -20px rgba(16, 24, 40, 0.06);
-    --shadow-menu: 0 3px 14px rgba(0, 0, 0, 0.08);
+    --shadow-card: 0 8px 22px rgba(0, 0, 0, 0.08);
+    --shadow-header: 0 2px 12px rgba(0, 0, 0, 0.25);
+    --shadow-menu: 0 6px 24px rgba(0, 0, 0, 0.12);
 
     /* Kích thước khung */
-    --header-h: 76px;
+    --header-h: 72px;
+    --container: 1306px;
     --gutter: 24px;
 
     --font-main: 'Poppins', -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -59,7 +65,14 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
 
 /* Phần thân trang: nền xám nhạt, các khối trắng nằm trên nền này */
 .site-main { min-height: calc(100vh - var(--header-h)); background: var(--c-bg); }
-.page-wrap { width: calc(100% - 80px); max-width: 1360px; margin: 0 auto; }
+.page-wrap { width: calc(100% - 80px); max-width: var(--container); margin: 0 auto; }
+/* Khung căn giữa dùng cho header, footer và các khối trang chủ */
+.container { width: 100%; max-width: calc(var(--container) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Hiện dần khi cuộn tới (class "reveal" + "in" do js/core/app.js gắn bằng IntersectionObserver) */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
 /* Khối nội dung trắng bo góc (giống các thẻ lớn trên theciu.vn) */
 .panel { padding: 24px 16px; background: var(--c-surface); border-radius: var(--r-panel); }
@@ -73,6 +86,6 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 @media (max-width: 767px) {
-    :root { --header-h: 64px; --gutter: 16px; }
+    :root { --header-h: 56px; --gutter: 16px; }
     .page-wrap { width: calc(100% - 32px); }
 }

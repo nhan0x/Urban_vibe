@@ -1,83 +1,100 @@
 /* =====================================================================
-   HEADER GỌN (theo elise.vn) + NGĂN KÉO MENU + NGĂN KÉO TÌM KIẾM
-   - Thanh cao 76px, dính trên cùng, nền trắng, đổ bóng nhẹ phía dưới.
-   - Trái: nút hamburger + logo | phải: Gọi Ngay, Tài Khoản, giỏ hàng, yêu thích. Tìm kiếm là nút nổi ở góc phải (floating.css).
-   - Toàn bộ menu (Collections, Sản phẩm, Black Friday, Giới thiệu) nằm trong ngăn kéo mở bằng nút hamburger.
+   HEADER (theo owen.vn) + MEGA MENU + MENU TRƯỢT (mobile) + NGĂN KÉO TÌM KIẾM
+   - Thanh đen cao 72px, dính trên cùng. Logo trắng | menu ngang chữ trắng | 4 nút icon vuông bo góc.
+   - Rê vào mục có mũi tên: mega menu xám đậm phủ hết chiều ngang, cột link + ảnh banner, trượt xuống nhẹ.
+   - Dưới 992px: ẩn menu ngang, hiện nút hamburger mở menu trượt bên trái.
    ===================================================================== */
 .site-top-chrome { position: sticky; top: 0; z-index: 999; }
-.site-header { position: relative; z-index: 1; }
-.site-header-bar {
-    position: relative; display: flex; align-items: center; justify-content: space-between;
-    height: var(--header-h); padding: 0 max(var(--gutter), calc((100% - 1440px) / 2));
-    background: var(--c-surface); box-shadow: var(--shadow-header); backdrop-filter: blur(6px);
-}
+.site-header { position: relative; z-index: 1; background: var(--c-dark); color: #fff; transition: box-shadow 0.3s; }
+.site-header.scrolled { box-shadow: var(--shadow-header); }
+.site-header-bar { display: flex; align-items: center; gap: 36px; height: var(--header-h); }
 
 /* ---------- Logo: bông hoa + chữ "urban vibe" nghiêng (Playfair Display) ----------
-   Hoa và khoảng cách tính theo em nên chỉ cần đổi font-size là cả logo co giãn theo (header, menu điện thoại, footer, trang đăng nhập). */
+   Kích thước tính theo em nên chỉ cần đổi font-size là cả logo co giãn theo (header, menu điện thoại, footer, trang đăng nhập). */
 .site-logo {
     display: inline-flex; align-items: center; gap: 0.36em; flex: none; height: 34px;
     font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 26px; font-weight: 400;
     letter-spacing: 0.01em; line-height: 1; white-space: nowrap; color: var(--c-text);
 }
 .site-logo .logo-mark { flex: none; width: 1.1em; height: 1.1em; color: var(--c-brand); }
+.site-header .site-logo { color: #fff; }
 
-/* Black Friday: chữ đỏ có vệt sáng quét ngang rồi nghỉ + quầng sáng đỏ nhấp nháy (keyframes lấy từ theciu.vn) */
+/* Black Friday: chữ đỏ có vệt sáng quét ngang rồi nghỉ + quầng sáng đỏ nhấp nháy */
 .bf-text {
     display: inline-block; font-weight: 800; letter-spacing: 0.03em; line-height: 20px;
     background-image: linear-gradient(110deg, #e50914 0%, #e50914 38%, #ff4500 44%, #ffb703 48%, #ffffff 50%, #ffb703 52%, #ff4500 56%, #e50914 62%, #e50914 100%);
     background-size: 350% 100%; background-position: 100% 0;
     -webkit-background-clip: text; background-clip: text; color: transparent;
-    filter: drop-shadow(0 0 2px rgba(229, 9, 20, 0.45)) drop-shadow(0 0 6px rgba(255, 69, 0, 0.25));
-    animation: bfFlashWave 2.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite, bfTextGlow 2.8s ease-in-out infinite;
+    animation: bfFlashWave 2.8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
 }
 @keyframes bfFlashWave { 0% { background-position: 100% 0; } 60%, 100% { background-position: 0% 0; } }
-@keyframes bfTextGlow {
-    0%, 60%, 100% { filter: drop-shadow(0 0 2px rgba(229, 9, 20, 0.45)) drop-shadow(0 0 6px rgba(255, 69, 0, 0.25)); }
-    30% { filter: drop-shadow(0 0 8px rgba(229, 9, 20, 0.9)) drop-shadow(0 0 16px rgba(255, 120, 0, 0.65)); }
+
+/* ---------- Menu ngang ---------- */
+.main-nav { flex: 1; min-width: 0; height: 100%; }
+.nav-list { display: flex; align-items: center; gap: 22px; height: 100%; }
+.nav-item { height: 100%; display: flex; align-items: center; }
+.nav-link {
+    position: relative; display: flex; align-items: center; gap: 4px; height: 100%;
+    font-size: 14px; font-weight: 600; white-space: nowrap; color: #fff; transition: opacity 0.2s;
 }
+.nav-link .icon { width: 14px; height: 14px; stroke-width: 1.6; transition: transform 0.25s; }
+.nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 18px; height: 1px; background: #fff; transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+.nav-item:hover > .nav-link::after, .nav-item.active > .nav-link::after { transform: scaleX(1); }
+.nav-item.has-mega:hover > .nav-link .icon { transform: rotate(180deg); }
 
-/* ---------- Nhóm con "Chính sách & điều khoản" trong menu Giới thiệu ---------- */
-.nav-sub-toggle .icon { width: 18px; height: 18px; transition: transform 0.25s; }
-.nav-sub.open .nav-sub-toggle .icon { transform: rotate(180deg); }
-.nav-sub-list { display: none; }
-.nav-sub.open .nav-sub-list { display: block; }
-
-/* ---------- Cụm trái: hamburger + logo ---------- */
-.header-left { display: flex; align-items: center; gap: 14px; flex: none; }
-
-/* ---------- Cụm phải: Gọi Ngay, Tài Khoản, giỏ hàng, yêu thích (cách nhau 24px) ---------- */
-.header-tools { display: flex; align-items: center; gap: 24px; flex: none; margin-left: auto; }
-.header-link { display: flex; align-items: center; gap: 8px; font-size: 14px; line-height: 20px; color: #141414; transition: opacity 0.2s; }
-.header-link:hover { opacity: 0.65; }
-/* Logo nằm giữa thanh header; các nút bên phải chỉ hiện icon, không hiện chữ */
-.site-header-bar .site-logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
-/* Chưa đăng nhập: chỉ icon. Đã đăng nhập: hiện họ/tên cuối (auth.js gắn class logged-in) */
-.header-account:not(.logged-in) #account-label { display: none; }
-.header-account.logged-in #account-label { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.header-link .icon { width: 22px; height: 22px; stroke-width: 1.5px; }
-.icon-btn {
-    position: relative; display: inline-flex; align-items: center; justify-content: center;
-    width: 24px; height: 24px; color: #141414; border-radius: 50%; transition: opacity 0.2s;
+/* ---------- Mega menu: phủ hết chiều ngang, ngay dưới thanh header ---------- */
+.mega {
+    position: absolute; left: 0; right: 0; top: 100%; z-index: 5; padding: 28px 0 32px;
+    background: var(--c-mega); color: #fff;
+    opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
 }
-.icon-btn:hover { opacity: 0.65; }
-.icon-btn .icon { width: 22px; height: 22px; }
-/* Con số nhỏ chữ đen nằm góc trên bên phải biểu tượng giỏ hàng / yêu thích (luôn hiện, kể cả 0) */
-.cart-badge { position: absolute; top: -8px; right: -9px; font-size: 12px; font-weight: 400; line-height: 14px; color: #141414; pointer-events: none; }
+.nav-item.has-mega:hover > .mega, .nav-item.has-mega:focus-within > .mega { opacity: 1; visibility: visible; transform: none; }
+.mega-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 48px; }
+.mega-links { flex: 1; display: grid; grid-template-columns: repeat(2, minmax(160px, max-content)); column-gap: 72px; row-gap: 4px; padding-left: 186px; } /* thẳng cột với chữ đầu của menu ngang (sau logo) */
+.mega-links a { display: inline-block; padding: 6px 0; font-size: 14px; color: rgba(255, 255, 255, 0.85); transition: color 0.2s, transform 0.2s; }
+.mega-links a:hover { color: #fff; transform: translateX(4px); }
+.mega-banner { flex: none; width: 660px; max-width: 50%; aspect-ratio: 660 / 240; overflow: hidden; border-radius: 4px; background: #3a3a3a; }
+.mega-banner img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.mega-banner:hover img { transform: scale(1.04); }
 
-/* Hộp nhỏ xổ xuống dưới nút Tài Khoản */
-.header-account { position: relative; }
+/* ---------- Cụm phải: 4 nút icon vuông (tìm kiếm, tài khoản, yêu thích, giỏ hàng) ---------- */
+.header-tools { display: flex; align-items: center; gap: 12px; flex: none; margin-left: auto; }
+.hd-btn {
+    position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none;
+    width: 38px; height: 38px; color: #fff; border: 1px solid rgba(255, 255, 255, 0.45); border-radius: var(--r-md);
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.hd-btn:hover { background: #fff; color: #000; border-color: #fff; }
+.hd-btn .icon { width: 19px; height: 19px; }
+/* Số lượng giỏ hàng / yêu thích: chấm trắng nhỏ góc trên phải, chỉ hiện khi > 0 (class "show") */
+.cart-badge {
+    position: absolute; top: -7px; right: -7px; display: none; align-items: center; justify-content: center;
+    min-width: 18px; height: 18px; padding: 0 4px; background: #fff; color: #000; border: 1px solid #000; border-radius: var(--r-pill);
+    font-size: 11px; font-weight: 700; line-height: 1; pointer-events: none;
+}
+.cart-badge.show { display: inline-flex; }
+
+/* Tài khoản: tên người dùng (khi đã đăng nhập) + hộp nhỏ xổ xuống */
+.header-account { position: relative; display: flex; align-items: center; gap: 10px; }
+.account-name { display: none; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 600; color: #fff; }
+.header-account.logged-in .account-name { display: block; }
+/* Đã đăng nhập: ô tài khoản hiện chữ cái đầu của tên thay cho icon */
+.account-initial { display: none; font-size: 15px; font-weight: 700; line-height: 1; }
+.header-account.logged-in .btn-account { background: #fff; color: #000; border-color: #fff; }
+.header-account.logged-in .btn-account .icon { display: none; }
+.header-account.logged-in .account-initial { display: block; }
 .mini-menu {
-    position: absolute; top: calc(100% + 12px); right: 0; z-index: 6; display: none; min-width: 156px; padding: 6px 0;
-    background: var(--c-surface); border-radius: 16px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    position: absolute; top: calc(100% + 14px); right: 0; z-index: 6; min-width: 210px; padding: 6px 0;
+    background: var(--c-surface); color: var(--c-text); border-radius: var(--r-md); box-shadow: var(--shadow-menu);
+    opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
 }
-.header-account:hover .mini-menu, .header-account:focus-within .mini-menu, .mini-menu.open { display: block; }
-.header-account::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 14px; } /* cầu nối để rê chuột không bị rơi khỏi menu */
+.header-account:hover .mini-menu, .header-account:focus-within .mini-menu, .mini-menu.open { opacity: 1; visibility: visible; transform: none; }
+.header-account::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 16px; } /* cầu nối để rê chuột không bị rơi khỏi menu */
 .account-menu a, .account-menu button {
-    display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 18px; font-size: 14px; color: var(--c-text); text-align: left; white-space: nowrap;
+    display: flex; align-items: center; gap: 12px; width: 100%; padding: 11px 16px; font-size: 14px; color: var(--c-text); text-align: left; white-space: nowrap;
 }
 .account-menu a:hover, .account-menu button:hover { background: var(--c-bg); }
-.account-menu a + a, .account-menu a + button, .account-menu button + a { border-top: 1px solid var(--c-line); }
-.account-menu .icon { width: 20px; height: 20px; color: var(--c-text-soft); }
+.account-menu .icon { width: 18px; height: 18px; color: var(--c-text-soft); }
 .menu-count { margin-left: auto; color: var(--c-text-mute); font-size: 12px; }
 /* Hiện / ẩn mục theo trạng thái đăng nhập (class logged-in do auth.js gắn vào .header-account) */
 .only-logged-in { display: none !important; }
@@ -94,7 +111,7 @@
 .search-drawer.open { transform: none; }
 .search-back { display: flex; width: 24px; height: 24px; margin-bottom: 16px; color: var(--c-text); }
 .search-back .icon { width: 24px; height: 24px; }
-.search-form { position: relative; display: flex; align-items: center; height: 40px; padding: 0 16px; background: #f1f1f1; border-radius: var(--r-pill); }
+.search-form { position: relative; display: flex; align-items: center; height: 44px; padding: 0 16px; background: #f1f1f1; border-radius: var(--r-md); }
 .search-form-icon { width: 20px; height: 20px; margin-right: 12px; color: #9a9a9a; flex: none; }
 .search-form input { flex: 1; min-width: 0; height: 100%; background: none; border: none; outline: none; font-size: 14px; }
 .search-form input::placeholder { color: #9a9a9a; }
@@ -103,44 +120,57 @@
 .search-body { margin-top: 24px; }
 .search-heading { margin-bottom: 14px; font-size: 14px; font-weight: 600; }
 .search-keywords { display: flex; flex-wrap: wrap; gap: 8px; }
-.search-keywords button { padding: 6px 14px; border: 1px solid var(--c-line); border-radius: var(--r-pill); font-size: 13px; color: var(--c-text-soft); transition: border-color 0.2s; }
-.search-keywords button:hover { border-color: var(--c-text); color: var(--c-text); }
+.search-keywords button { padding: 6px 14px; border: 1px solid var(--c-line); border-radius: var(--r-pill); font-size: 13px; color: var(--c-text-soft); transition: border-color 0.2s, background 0.2s, color 0.2s; }
+.search-keywords button:hover { border-color: #000; background: #000; color: #fff; }
 .search-empty { padding: 24px 0; text-align: center; color: var(--c-text-mute); }
 .search-item { display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--c-line); }
-.search-item img { flex: none; width: 48px; height: 64px; object-fit: cover; border-radius: 8px; background: var(--c-image-bg); }
-.search-item-name { font-size: 14px; line-height: 20px; color: #141414; }
+.search-item img { flex: none; width: 48px; height: 64px; object-fit: cover; border-radius: var(--r-sm); background: var(--c-image-bg); }
+.search-item-name { font-size: 14px; line-height: 20px; color: var(--c-text); }
 .search-item-price { margin-top: 2px; font-size: 14px; font-weight: 700; }
 .search-more { margin: 20px auto 0; }
 
-/* ---------- Ngăn kéo menu bên trái (mở bằng nút hamburger) ---------- */
-.nav-toggle { display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; color: #141414; }
+/* ---------- Menu trượt bên trái (mobile, mở bằng nút hamburger) ---------- */
+.nav-toggle { display: none; width: 38px; height: 38px; align-items: center; justify-content: center; color: #fff; }
 .nav-toggle .icon { width: 24px; height: 24px; }
 .mobile-menu {
     position: fixed; top: 0; left: 0; bottom: 0; z-index: 1301; width: 320px; max-width: 85%; overflow-y: auto;
     background: var(--c-surface); transform: translateX(-100%); transition: transform 0.3s ease;
 }
 .mobile-menu.open { transform: none; }
-.mm-head { display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 16px; border-bottom: 1px solid var(--c-line); }
-.mm-head .site-logo { height: 28px; width: auto; font-size: 20px; }
-.mm-close { display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; color: var(--c-text-soft); }
+.mm-head { display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 16px; background: var(--c-dark); }
+.mm-head .site-logo { height: 28px; width: auto; font-size: 20px; color: #fff; }
+.mm-close { display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; color: #fff; }
 .mm-close .icon { width: 22px; height: 22px; }
 .mm-item { border-bottom: 1px solid var(--c-line); }
 .mm-item.active > .mm-link { font-weight: 700; }
-.mm-link { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 40px; padding: 0 16px; font-size: 14px; text-align: left; }
+.mm-link { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 48px; padding: 0 16px; font-size: 14px; font-weight: 600; text-align: left; }
 .mm-link .icon { width: 18px; height: 18px; transition: transform 0.25s; }
 .mm-item.open > .mm-link .icon { transform: rotate(180deg); }
-.mm-sub { display: none; }
+.mm-sub { display: none; background: var(--c-bg); }
 .mm-item.open > .mm-sub { display: block; }
-.mm-sub li { border-top: 1px solid var(--c-line); }
-.mm-sub a, .mm-sub .nav-sub-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 40px; padding: 0 16px 0 28px; font-size: 13px; text-transform: uppercase; text-align: left; }
-.mm-sub .nav-sub-list a { padding-left: 40px; text-transform: none; }
+.mm-sub a { display: flex; align-items: center; width: 100%; min-height: 42px; padding: 0 16px 0 28px; font-size: 13px; }
 
-/* ---------- Màn hình nhỏ: ẩn chữ "Gọi Ngay" và "Tài Khoản", chỉ còn biểu tượng ---------- */
+/* ---------- Màn hình vừa: thu khoảng cách menu ---------- */
+@media (max-width: 1279px) {
+    .site-header-bar { gap: 24px; }
+    .nav-list { gap: 16px; }
+    .nav-link { font-size: 13px; }
+    .account-name { display: none !important; }
+}
+
+/* ---------- Dưới 992px: hamburger | logo | icon ---------- */
 @media (max-width: 991px) {
     :root { --header-h: 56px; --gutter: 16px; }
+    .site-header-bar { gap: 12px; }
+    .main-nav { display: none; }
+    .nav-toggle { display: flex; }
     .site-logo { height: 28px; font-size: 20px; }
-    .header-tools { gap: 12px; }
-    .icon-btn, .header-account .header-link { width: 28px; height: 28px; justify-content: center; }
-    #account-label { display: none; }
+    .header-tools { gap: 8px; }
+    .hd-btn { width: 34px; height: 34px; }
+    .hd-btn .icon { width: 17px; height: 17px; }
     .mini-menu { right: -8px; }
+}
+@media (max-width: 479px) {
+    .site-logo .logo-text { font-size: 18px; }
+    .header-tools .wish-link { display: none; }
 }

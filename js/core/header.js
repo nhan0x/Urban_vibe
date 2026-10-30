@@ -1,18 +1,19 @@
-// Hành vi của header và các nút nổi: ngăn kéo menu, ngăn kéo tìm kiếm (mở từ nút nổi góc phải), nút liên hệ.
+// Hành vi của header: ngăn kéo menu (mobile), ngăn kéo tìm kiếm, bóng đổ khi cuộn. Mega menu chạy bằng CSS (:hover / :focus-within).
 
 class Header {
-    // Lắng nghe bấm ra ngoài để đóng các menu nhỏ đang mở (ngôn ngữ, liên hệ) và khôi phục trạng thái ẩn nút nổi.
+    // Esc đóng các ngăn kéo; cuộn khỏi đầu trang thì header có bóng đổ (class "scrolled").
     constructor() {
-        document.addEventListener("click", e => {
-            if (!e.target.closest(".float-contact-wrap")) this.closeContact();
-        });
         document.addEventListener("keydown", e => {
             if (e.key !== "Escape") return;
-            this.closeContact();
             searchDrawer.close();
             this.closeMobile();
         });
-        if (localStorage.getItem("floatHidden") === "1") this.setFloatHidden(true);
+        const bar = Utils.$("main-header");
+        if (bar) {
+            const onScroll = () => bar.classList.toggle("scrolled", window.scrollY > 4);
+            window.addEventListener("scroll", onScroll, { passive: true });
+            onScroll();
+        }
     }
 
     // Mở / đóng ngăn kéo menu bên trái (nút hamburger).
@@ -37,34 +38,6 @@ class Header {
         item.classList.toggle("open", open);
     }
 
-    // Mở / đóng một nhóm con trong menu xổ xuống (ví dụ "Chính sách & điều khoản").
-    toggleSub(btn) {
-        btn.closest(".nav-sub").classList.toggle("open");
-    }
-
-    // Mở / đóng bảng "Liên hệ" (Zalo, Messenger, Gọi điện, Chi nhánh); nút tròn đổi thành dấu × khi đang mở.
-    toggleContact() {
-        const open = Utils.$("contact-panel").classList.toggle("open");
-        Utils.$("float-fab").classList.toggle("is-open", open);
-    }
-    closeContact() {
-        const p = Utils.$("contact-panel");
-        if (!p) return;
-        p.classList.remove("open");
-        Utils.$("float-fab").classList.remove("is-open");
-    }
-
-    // Ẩn / hiện cụm nút nổi góc phải (nhớ lựa chọn trong localStorage để lần sau vẫn giữ).
-    toggleFloat() {
-        const hidden = !Utils.$("float-widget").classList.contains("hidden");
-        this.setFloatHidden(hidden);
-        localStorage.setItem("floatHidden", hidden ? "1" : "0");
-    }
-    setFloatHidden(hidden) {
-        Utils.$("float-widget").classList.toggle("hidden", hidden);
-        Utils.$("float-show").classList.toggle("show", hidden);
-        if (hidden) this.closeContact();
-    }
 }
 
 // Ngăn kéo tìm kiếm bên phải: gõ chữ thì gợi ý tối đa 5 sản phẩm, Enter hoặc "Xem thêm" sang trang kết quả.

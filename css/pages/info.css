@@ -227,6 +227,7 @@
     .blog-top-title h1 { font-size: 36px; }
     .blog-item { padding: 14px; }
     .article-title { font-size: 28px; line-height: 36px; }
+    .policy-title { margin: 24px 0 20px; font-size: 30px; line-height: 38px; overflow-wrap: anywhere; }
     .member-table th, .member-table td { padding: 0 4px; }
     .member-table tbody th { width: 120px; padding-left: 8px; font-size: 11px; }
     .policy-page { padding: 16px 12px; }
