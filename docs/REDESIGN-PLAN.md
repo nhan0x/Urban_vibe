@@ -96,3 +96,8 @@ Mỗi sprint: làm xong → kiểm tra (ảnh chụp so với owen.vn ở deskto
 - Trang danh mục: banner theo nhóm + thẻ kính mờ, đường dẫn in hoa, hàng nút pill, cột lọc (Nổi bật: hàng mới / bán chạy / đang giảm giá; Khoảng giá), thanh công cụ (thu gọn bộ lọc, số sản phẩm, sắp xếp, lưới 3/4 cột nhớ trong localStorage), phân trang 24 sản phẩm / trang.
 - Không làm bộ lọc kích cỡ như owen vì dữ liệu sản phẩm không có size riêng, lọc sẽ không đổi kết quả.
 - Test: lọc, bỏ lọc, sắp xếp giá tăng dần, lưới 4 cột, sang trang 2, ẩn / hiện bộ lọc, "Mua ngay" tăng giỏ hàng; 5 trang dùng card không cuộn ngang ở 375px; không lỗi console.
+
+### R4 (đạt)
+- Trang chi tiết theo owen: khung ~1060px, ảnh lớn 3:4 + cột ảnh nhỏ dọc cao bằng ảnh lớn (cuộn khi nhiều ảnh), tên in hoa + nút tim tròn, mã SP, giá + giá gốc đỏ, tích điểm, màu sắc, kích cỡ dạng ô xám, phiếu ưu đãi, số lượng + "Thêm vào giỏ hàng" đen + "Mua ngay" viền, accordion (Mô tả, Giao hàng / đổi hàng, Cửa hàng còn hàng), carousel "CÓ THỂ BẠN THÍCH" 4 thẻ (3 / 2 ở màn hình nhỏ) mũi tên vuông xám.
+- Giữ "Mua ngay" và chọn số lượng (owen chỉ có nút thêm giỏ) vì là chức năng sẵn có của đồ án.
+- Test: đổi ảnh, chọn size, tăng số lượng, thêm giỏ (badge tăng đúng số lượng), đóng / mở accordion, carousel trượt, tim (carousel vẽ lại không gắn sự kiện trùng), phóng to ảnh; mobile 375px không cuộn ngang.
