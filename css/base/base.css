@@ -67,7 +67,9 @@ h1, h2, h3, h4, h5, h6 { font-weight: 700; line-height: 1.2; }
 .site-main { min-height: calc(100vh - var(--header-h)); background: var(--c-bg); }
 .page-wrap { width: calc(100% - 80px); max-width: var(--container); margin: 0 auto; }
 /* Khung căn giữa dùng cho header, footer và các khối trang chủ */
-.container { width: 100%; max-width: calc(var(--container) + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+/* owen.vn chừa khoảng 130px mỗi bên ở màn hình lớn (1568px → nội dung 1306px), thu dần theo bề rộng màn hình */
+.container { width: 100%; margin: 0 auto; padding: 0 clamp(var(--gutter), 8.3vw, 130px); }
+@media (max-width: 991px) { .container { padding: 0 var(--gutter); } }
 
 /* Hiện dần khi cuộn tới (class "reveal" + "in" do js/core/app.js gắn bằng IntersectionObserver) */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }

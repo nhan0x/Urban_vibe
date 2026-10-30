@@ -82,3 +82,11 @@ Mỗi sprint: làm xong → kiểm tra (ảnh chụp so với owen.vn ở deskto
 - Footer nền ảnh mờ tối, 4 cột, tiêu đề gạch chân ngắn. Nút nổi Messenger / Zalo dạng ô vuông đen.
 - Badge giỏ hàng / yêu thích chỉ hiện khi > 0.
 - Test: 20 trang có header + footer, không cuộn ngang ở 375px (đã sửa tiêu đề Membership và toast), không lỗi console trên 7 trang đã mở, menu trượt mobile mở được.
+
+### R2 (đạt)
+- Trang chủ dựng lại theo owen.vn: slider chính (ảnh bo 8px trên dải nền xám, mũi tên tròn mờ, chấm, tự chạy 5 s, vuốt trên điện thoại) → 4 ô danh mục (Áo, Đầm, Chân váy, Quần) có tiêu đề góc trên phải và nút "TRẢI NGHIỆM NGAY" → banner lớn trong khung xám (ảnh lookbook phóng chậm thay cho video) → slider cam kết (Miễn phí vận chuyển, Đổi hàng 30 ngày, Sửa đồ miễn phí) → blog nền tối 3 thẻ viền trắng mờ → đăng ký nhận khuyến mãi với thẻ kính mờ.
+- Bỏ khối sản phẩm 3 tab cũ vì owen.vn không có khối này ở trang chủ.
+- Thêm `js/widgets/slider.js` + `css/components/slider.css` (dùng lại ở trang chi tiết). Hiệu ứng hiện dần khi cuộn (`.reveal`, xử lý trong `app.js`).
+- Ảnh: tạo 4 ảnh ô danh mục 640×880 trong `image/home/` từ ảnh sản phẩm có sẵn; tạo lại WebP 1920px cho banner desktop (slider, lookbook). Không lấy ảnh từ elise.vn.
+- Chuyển style thẻ blog dùng chung (`.blog-card`, `.blog-grid`) từ `home.css` cũ sang `info.css` để trang blog chi tiết không bị ảnh hưởng.
+- Test: slider chạy (mũi tên, chấm, tự chạy), không cuộn ngang ở 375px, không lỗi console. Lighthouse mobile trang chủ: LCP 5.9–6.6 s (trước redesign 5.0 s), CLS 0–0.068.

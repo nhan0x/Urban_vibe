@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="css/base/base.css">
 <link rel="stylesheet" href="css/components/button.css">
 <link rel="stylesheet" href="css/components/product-card.css">
+<link rel="stylesheet" href="css/components/slider.css">
 <link rel="stylesheet" href="css/layout/header.css">
 <link rel="stylesheet" href="css/layout/footer.css">
 <link rel="stylesheet" href="css/layout/floating.css">
@@ -37,58 +38,117 @@
 
 <main class="site-main home-page">
 
-    <!-- Khối trưng bày bộ sưu tập (giống theciu.vn): tiêu đề lớn, hàng người mẫu tách nền, dòng chữ viết tay -->
-    <section class="home-banner">
-        <div class="home-showcase">
-            <a class="showcase-title" href="pages/collection/collection.html">SECRET BLOOM</a>
-            <div class="showcase-row">
-                <a class="showcase-figure" href="pages/shop/product.html?id=1"><img src="image/home/cutout-1.webp" alt="Đầm trắng hoa vai chờm"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=4"><img src="image/home/cutout-4.webp" alt="Áo hồng quần short olive"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=103"><img src="image/home/cutout-103.webp" alt="Áo 2 dây ren trắng"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=137"><img src="image/home/cutout-137.webp" alt="Áo nâu vai trễ chân váy chấm bi"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=127"><img loading="lazy" decoding="async" src="image/home/cutout-127.webp" alt="Set đầm tơ hồng phối ren"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=150"><img loading="lazy" decoding="async" src="image/home/cutout-150.webp" alt="Quần ống loe đen bầu mí"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=5"><img loading="lazy" decoding="async" src="image/home/cutout-5.webp" alt="Áo satin quần ống loe"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=155"><img loading="lazy" decoding="async" src="image/home/cutout-155.webp" alt="Đầm tơ chấm bi đai eo"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=3"><img loading="lazy" decoding="async" src="image/home/cutout-3.webp" alt="Áo cổ thuyền quần suông hồng"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=169"><img loading="lazy" decoding="async" src="image/home/cutout-169.webp" alt="Chân váy be ghi đuôi cá"></a>
-                <a class="showcase-figure" href="pages/shop/product.html?id=9"><img loading="lazy" decoding="async" src="image/home/cutout-9.webp" alt="Áo sọc cam chân váy hồng"></a>
-            </div>
-            <p class="showcase-quote">"Your style, your story"</p>
-        </div>
-    </section>
-
-    <!-- Banner khuyến mãi: ảnh rộng 16:9 dẫn tới bộ sưu tập -->
-    <section class="home-promo">
-        <a href="pages/collection/collection.html">
-            <picture><source srcset="image/lookbook/for-her-mb.webp" media="(max-width: 767px)"><img fetchpriority="high" decoding="async" src="image/lookbook/for-her.webp" alt="Bộ sưu tập For Her"></picture>
-        </a>
-    </section>
-
-    <div class="home-sections">
-    <!-- Khối sản phẩm: 3 tab, lưới 4 cột, nút "Xem tất cả" -->
-    <section class="home-section">
-        <div class="home-section-inner">
-            <div class="tab-row">
-                <button type="button" class="tab-btn active" data-tab="new" onclick="homePage.setTab('new')">NEW ARRIVALS</button>
-                <button type="button" class="tab-btn" data-tab="best" onclick="homePage.setTab('best')">Best Seller</button>
-                <button type="button" class="tab-btn" data-tab="bf" onclick="homePage.setTab('bf')"><span class="bf-text">Black Friday</span></button>
-            </div>
-            <div class="product-grid" id="home-product-grid"></div>
-            <div class="home-more">
-                <a class="btn btn-outline btn-wide" id="home-more-link" href="pages/shop/products.html"><span>Xem tất cả</span></a>
+    <!-- 1. Slider chính: ảnh bo góc nằm giữa dải nền xám, mũi tên tròn hai bên, chấm bên dưới -->
+    <section class="home-hero">
+        <div class="container">
+            <div class="slider hero-slider" id="hero-slider" data-autoplay="5000">
+                <div class="slider-track">
+                <a class="slide" href="pages/collection/collection.html">
+                    <picture><source media="(max-width: 767px)" srcset="image/slider/slide-1-mb.webp"><img src="image/slider/slide-1.webp" alt="Banner Urban Vibe 1" width="1920" height="729" fetchpriority="high" decoding="async"></picture>
+                </a>
+                <a class="slide" href="pages/shop/products.html">
+                    <picture><source media="(max-width: 767px)" srcset="image/slider/slide-2-mb.webp"><img src="image/slider/slide-2.webp" alt="Banner Urban Vibe 2" width="1920" height="729" loading="lazy" decoding="async"></picture>
+                </a>
+                <a class="slide" href="pages/collection/collection.html">
+                    <picture><source media="(max-width: 767px)" srcset="image/slider/slide-3-mb.webp"><img src="image/slider/slide-3.webp" alt="Banner Urban Vibe 3" width="1920" height="729" loading="lazy" decoding="async"></picture>
+                </a>
+                <a class="slide" href="pages/shop/products.html">
+                    <picture><source media="(max-width: 767px)" srcset="image/slider/slide-4-mb.webp"><img src="image/slider/slide-4.webp" alt="Banner Urban Vibe 4" width="1920" height="729" loading="lazy" decoding="async"></picture>
+                </a>
+                <a class="slide" href="pages/collection/collection.html">
+                    <picture><source media="(max-width: 767px)" srcset="image/slider/slide-5-mb.webp"><img src="image/slider/slide-5.webp" alt="Banner Urban Vibe 5" width="1920" height="729" loading="lazy" decoding="async"></picture>
+                </a>
+                <a class="slide" href="pages/shop/products.html">
+                    <picture><source media="(max-width: 767px)" srcset="image/slider/slide-6-mb.webp"><img src="image/slider/slide-6.webp" alt="Banner Urban Vibe 6" width="1920" height="729" loading="lazy" decoding="async"></picture>
+                </a>
+                </div>
+                <button type="button" class="slider-arrow prev" aria-label="Slide trước"></button>
+                <button type="button" class="slider-arrow next" aria-label="Slide sau"></button>
+                <div class="slider-dots"></div>
             </div>
         </div>
     </section>
 
-    <!-- Khối Blog: 3 bài mới nhất -->
-    <section class="home-section is-narrow">
-        <div class="home-section-inner">
-            <h3 class="home-section-title">Blog</h3>
-            <div class="blog-grid" id="home-blog-grid"></div>
+    <!-- 2. Bốn ô danh mục dọc: tiêu đề góc trên phải, nút "TRẢI NGHIỆM NGAY" ở đáy -->
+    <section class="home-section home-cats reveal">
+        <div class="container cat-grid">
+            <a class="cat-tile" href="pages/shop/products.html?c=ao">
+                <img src="image/home/tile-ao.webp" alt="ÁO" width="640" height="880" loading="lazy" decoding="async">
+                <span class="cat-tile-title">ÁO</span>
+                <span class="cat-tile-cta">TRẢI NGHIỆM NGAY</span>
+            </a>
+            <a class="cat-tile" href="pages/shop/products.html?c=dam">
+                <img src="image/home/tile-dam.webp" alt="ĐẦM" width="640" height="880" loading="lazy" decoding="async">
+                <span class="cat-tile-title">ĐẦM</span>
+                <span class="cat-tile-cta">TRẢI NGHIỆM NGAY</span>
+            </a>
+            <a class="cat-tile" href="pages/shop/products.html?c=chan-vay">
+                <img src="image/home/tile-chan-vay.webp" alt="CHÂN VÁY" width="640" height="880" loading="lazy" decoding="async">
+                <span class="cat-tile-title">CHÂN VÁY</span>
+                <span class="cat-tile-cta">TRẢI NGHIỆM NGAY</span>
+            </a>
+            <a class="cat-tile" href="pages/shop/products.html?c=quan">
+                <img src="image/home/tile-quan.webp" alt="QUẦN" width="640" height="880" loading="lazy" decoding="async">
+                <span class="cat-tile-title">QUẦN</span>
+                <span class="cat-tile-cta">TRẢI NGHIỆM NGAY</span>
+            </a>
         </div>
     </section>
-    </div>
+
+    <!-- 3. Banner lớn trong khung viền xám (owen.vn dùng video, ở đây dùng ảnh lookbook phóng chậm) -->
+    <section class="home-section home-film reveal">
+        <div class="container">
+            <a class="film-frame" href="pages/collection/collection-detail.html?slug=modern-living">
+                <div class="film-screen">
+                    <picture><source media="(max-width: 767px)" srcset="image/lookbook/modern-living-mb.webp"><img src="image/lookbook/modern-living.webp" alt="Bộ sưu tập Modern Living" width="1920" height="729" loading="lazy" decoding="async"></picture>
+                    <div class="film-caption">
+                        <span class="film-btn">Khám phá bộ sưu tập</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 4. Slider thứ hai: cam kết mua sắm + banner bộ sưu tập -->
+    <section class="home-section home-promise reveal">
+        <div class="container">
+            <div class="slider promise-slider" data-autoplay="6000">
+                <div class="slider-track">
+                    <div class="slide promise-slide">
+                        <h2 class="promise-title"><span>MUA SẮM AN TÂM</span> CÙNG URBAN VIBE</h2>
+                        <div class="promise-list">
+                            <div class="promise-item"><span class="promise-ico" data-icon="truck"></span><span class="promise-tag">MIỄN PHÍ VẬN CHUYỂN</span><p>Đơn từ <strong>500.000Đ</strong></p></div>
+                            <div class="promise-item"><span class="promise-ico" data-icon="refresh"></span><span class="promise-tag">ĐỔI HÀNG DỄ DÀNG</span><p>Trong <strong>30 NGÀY</strong></p></div>
+                            <div class="promise-item"><span class="promise-ico" data-icon="ruler"></span><span class="promise-tag">SỬA ĐỒ</span><p><strong>MIỄN PHÍ</strong><br>Tại hệ thống cửa hàng</p></div>
+                        </div>
+                    </div>
+                    <a class="slide" href="pages/collection/collection-detail.html?slug=polka-dot-charm">
+                        <picture><source media="(max-width: 767px)" srcset="image/lookbook/polka-dot-charm-mb.webp"><img src="image/lookbook/polka-dot-charm.webp" alt="Bộ sưu tập Polka Dot Charm" width="1920" height="729" loading="lazy" decoding="async"></picture>
+                    </a>
+                </div>
+                <div class="slider-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Blog: nền tối, 3 thẻ (thẻ đầu rộng hơn), viền trắng mờ -->
+    <section class="home-blogs reveal">
+        <div class="container hb-cards" id="home-blog-grid"></div>
+    </section>
+
+    <!-- 6. Đăng ký nhận khuyến mãi: 2 nửa ảnh, thẻ kính mờ ở nửa trái -->
+    <section class="home-subscribe">
+        <div class="container subscribe-wrap">
+            <div class="subscribe-half"><img src="image/products/2-g0.webp" alt="" loading="lazy" decoding="async"></div>
+            <div class="subscribe-half"><img src="image/products/5-g1.webp" alt="" loading="lazy" decoding="async"></div>
+            <form class="subscribe-card" onsubmit="homePage.subscribe(event)" novalidate>
+                <h2>ĐĂNG KÝ NHẬN KHUYẾN MÃI</h2>
+                <p>Đừng bỏ lỡ hàng ngàn sản phẩm và chương trình siêu hấp dẫn</p>
+                <input type="email" id="subscribe-email" placeholder="Nhập email của bạn" aria-label="Email" required>
+                <button type="submit">Đăng ký</button>
+            </form>
+        </div>
+    </section>
 </main>
 
 <!-- Footer + nút nổi: vẽ bởi js/core/layout.js -->
@@ -110,9 +170,9 @@
 <script defer src="js/features/wishlist.js"></script>
 <script defer src="js/features/cart.js"></script>
 <script defer src="js/features/orders.js"></script>
-<script defer src="js/components/product-card.js"></script>
 <script defer src="js/widgets/student-popup.js"></script>
 <script defer src="js/widgets/promo-popup.js"></script>
+<script defer src="js/widgets/slider.js"></script>
 <script defer src="js/pages/home.js"></script>
 <script defer src="js/core/app.js"></script>
 

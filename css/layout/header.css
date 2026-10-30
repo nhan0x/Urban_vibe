@@ -150,12 +150,21 @@
 .mm-item.open > .mm-sub { display: block; }
 .mm-sub a { display: flex; align-items: center; width: 100%; min-height: 42px; padding: 0 16px 0 28px; font-size: 13px; }
 
-/* ---------- Màn hình vừa: thu khoảng cách menu ---------- */
-@media (max-width: 1279px) {
+/* ---------- Màn hình vừa: thu khoảng cách menu, bớt mục ít dùng ---------- */
+@media (max-width: 1439px) {
     .site-header-bar { gap: 24px; }
     .nav-list { gap: 16px; }
     .nav-link { font-size: 13px; }
     .account-name { display: none !important; }
+}
+@media (max-width: 1365px) {
+    .nav-item[data-nav-key="store"] { display: none; }
+    .site-header .site-logo { font-size: 23px; }
+    .mega-links { padding-left: 0; }
+}
+@media (max-width: 1199px) {
+    .nav-item[data-nav-key="new"] { display: none; }
+    .nav-list { gap: 14px; }
 }
 
 /* ---------- Dưới 992px: hamburger | logo | icon ---------- */

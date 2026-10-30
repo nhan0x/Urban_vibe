@@ -1,0 +1,30 @@
+/* =====================================================================
+   SLIDER DÙNG CHUNG (js/widgets/slider.js): trượt ngang bằng transform, mũi tên tròn mờ hai bên, chấm tròn ở đáy.
+   ===================================================================== */
+.slider { position: relative; overflow: hidden; }
+.slider-track { display: flex; transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); will-change: transform; }
+/* Mặc định mỗi slide rộng 100% ngay từ lần vẽ đầu (trước khi JS chạy), tránh trễ LCP và nhảy bố cục */
+.slide { position: relative; display: block; flex: 0 0 100%; min-width: 0; }
+.slide img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Mũi tên: ô tròn viền trắng, nền trắng mờ */
+.slider-arrow {
+    position: absolute; top: 50%; z-index: 3; display: flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; color: #fff; background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.85); border-radius: 50%;
+    transform: translateY(-50%); opacity: 0.85; transition: opacity 0.2s, background 0.2s, color 0.2s;
+}
+.slider-arrow:hover { opacity: 1; background: #fff; color: #000; }
+.slider-arrow .icon { width: 16px; height: 16px; }
+.slider-arrow.prev { left: 16px; }
+.slider-arrow.next { right: 16px; }
+
+/* Chấm: tròn 8px viền trắng, chấm đang chọn tô trắng */
+.slider-dots { position: absolute; left: 0; right: 0; bottom: 14px; z-index: 3; display: flex; justify-content: center; gap: 7px; }
+.slider-dots button { width: 8px; height: 8px; padding: 0; border: 1px solid #fff; border-radius: 50%; background: transparent; transition: background 0.25s, transform 0.25s; }
+.slider-dots button.active { background: #fff; transform: scale(1.15); }
+.slider-dots.dark button { border-color: #999; }
+.slider-dots.dark button.active { background: #333; border-color: #333; }
+
+@media (max-width: 767px) {
+    .slider-arrow { display: none; }
+}
