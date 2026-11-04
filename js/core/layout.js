@@ -92,21 +92,20 @@ class Layout {
         </nav>
 
         <div class="header-tools">
-            <button type="button" class="hd-btn" onclick="searchDrawer.open()" aria-label="Tìm kiếm">${Icons.get("search")}</button>
+            <button type="button" class="hd-btn" onclick="searchDrawer.open()" aria-label="Tìm kiếm">${Icons.get("searchSolid")}</button>
             <div class="header-account">
                 <span class="account-name" id="account-label">Tài Khoản</span>
-                <button type="button" class="hd-btn btn-account" id="account-btn" onclick="auth.onAccountClick()" aria-label="Tài khoản">${Icons.get("user")}<span class="account-initial" id="account-initial"></span></button>
+                <button type="button" class="hd-btn btn-account" id="account-btn" onclick="auth.onAccountClick()" aria-label="Tài khoản">${Icons.get("userSolid")}<span class="account-initial" id="account-initial"></span></button>
                 <div class="mini-menu account-menu">
                     <a href="pages/account/account.html" class="only-logged-in">${Icons.get("user")}Tài khoản của tôi</a>
-                    <a href="pages/shop/wishlist.html">${Icons.get("heart")}Danh sách yêu thích</a>
+                    <a href="pages/account/sign-in.html" class="only-guest">${Icons.get("lock")}Đăng nhập</a>
                     <a href="pages/account/tracking.html">${Icons.get("box")}Quản lý đơn hàng</a>
-                    <a href="pages/account/sign-in.html" class="only-guest">${Icons.get("power")}Đăng nhập</a>
-                    <a href="pages/account/sign-in.html?tab=register" class="only-guest">${Icons.get("user")}Tạo tài khoản</a>
+                    <a href="pages/shop/wishlist.html">${Icons.get("heart")}Danh sách yêu thích</a>
                     <button type="button" class="only-logged-in" onclick="auth.logout()">${Icons.get("power")}Đăng xuất</button>
                 </div>
             </div>
-            <a class="hd-btn wish-link" href="pages/shop/wishlist.html" title="Sản phẩm yêu thích" aria-label="Sản phẩm yêu thích">${Icons.get("heart")}<span class="cart-badge" id="wishlist-count">0</span></a>
-            <a class="hd-btn cart-link" href="pages/shop/cart.html" title="Giỏ hàng" aria-label="Giỏ hàng">${Icons.get("bag")}<span class="cart-badge" id="cart-count">0</span></a>
+            <a class="hd-btn wish-link" href="pages/shop/wishlist.html" title="Sản phẩm yêu thích" aria-label="Sản phẩm yêu thích">${Icons.get("heartSolid")}<span class="cart-badge" id="wishlist-count">0</span></a>
+            <a class="hd-btn cart-link" href="pages/shop/cart.html" title="Giỏ hàng" aria-label="Giỏ hàng">${Icons.get("bagSolid")}<span class="cart-badge" id="cart-count">0</span></a>
         </div>
     </div>
 </header>

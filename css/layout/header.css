@@ -1,6 +1,6 @@
 /* =====================================================================
    HEADER (theo owen.vn) + MEGA MENU + MENU TRƯỢT (mobile) + NGĂN KÉO TÌM KIẾM
-   - Thanh đen cao 72px, dính trên cùng. Logo trắng | menu ngang chữ trắng | 4 nút icon vuông bo góc.
+   - Thanh đen cao 72px, dính trên cùng. Logo trắng | menu ngang chữ trắng | 4 icon đặc, không viền.
    - Rê vào mục có mũi tên: mega menu xám đậm phủ hết chiều ngang, cột link + ảnh banner, trượt xuống nhẹ.
    - Dưới 992px: ẩn menu ngang, hiện nút hamburger mở menu trượt bên trái.
    ===================================================================== */
@@ -57,15 +57,14 @@
 .mega-banner img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
 .mega-banner:hover img { transform: scale(1.04); }
 
-/* ---------- Cụm phải: 4 nút icon vuông (tìm kiếm, tài khoản, yêu thích, giỏ hàng) ---------- */
-.header-tools { display: flex; align-items: center; gap: 12px; flex: none; margin-left: auto; }
+/* ---------- Cụm phải: 4 icon đặc không viền (tìm kiếm, tài khoản, yêu thích, giỏ hàng) ---------- */
+.header-tools { display: flex; align-items: center; gap: 18px; flex: none; margin-left: auto; }
 .hd-btn {
     position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none;
-    width: 38px; height: 38px; color: #fff; border: 1px solid rgba(255, 255, 255, 0.45); border-radius: var(--r-md);
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    width: 30px; height: 30px; color: #fff; transition: opacity 0.2s;
 }
-.hd-btn:hover { background: #fff; color: #000; border-color: #fff; }
-.hd-btn .icon { width: 19px; height: 19px; }
+.hd-btn:hover { opacity: 0.7; }
+.hd-btn .icon { width: 22px; height: 22px; }
 /* Số lượng giỏ hàng / yêu thích: chấm trắng nhỏ góc trên phải, chỉ hiện khi > 0 (class "show") */
 .cart-badge {
     position: absolute; top: -7px; right: -7px; display: none; align-items: center; justify-content: center;
@@ -78,9 +77,8 @@
 .header-account { position: relative; display: flex; align-items: center; gap: 10px; }
 .account-name { display: none; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 600; color: #fff; }
 .header-account.logged-in .account-name { display: block; }
-/* Đã đăng nhập: ô tài khoản hiện chữ cái đầu của tên thay cho icon */
-.account-initial { display: none; font-size: 15px; font-weight: 700; line-height: 1; }
-.header-account.logged-in .btn-account { background: #fff; color: #000; border-color: #fff; }
+/* Đã đăng nhập: nút tài khoản hiện chữ cái đầu của tên thay cho icon (chữ trắng, không nền) */
+.account-initial { display: none; font-size: 17px; font-weight: 700; line-height: 1; }
 .header-account.logged-in .btn-account .icon { display: none; }
 .header-account.logged-in .account-initial { display: block; }
 .mini-menu {
@@ -95,6 +93,7 @@
 }
 .account-menu a:hover, .account-menu button:hover { background: var(--c-bg); }
 .account-menu .icon { width: 18px; height: 18px; color: var(--c-text-soft); }
+.account-menu button.only-logged-in { border-top: 1px solid var(--c-line); margin-top: 6px; padding-top: 12px; }
 .menu-count { margin-left: auto; color: var(--c-text-mute); font-size: 12px; }
 /* Hiện / ẩn mục theo trạng thái đăng nhập (class logged-in do auth.js gắn vào .header-account) */
 .only-logged-in { display: none !important; }
@@ -175,8 +174,8 @@
     .nav-toggle { display: flex; }
     .site-logo { height: 28px; font-size: 20px; }
     .header-tools { gap: 8px; }
-    .hd-btn { width: 34px; height: 34px; }
-    .hd-btn .icon { width: 17px; height: 17px; }
+    .hd-btn { width: 26px; height: 26px; }
+    .hd-btn .icon { width: 20px; height: 20px; }
     .mini-menu { right: -8px; }
 }
 @media (max-width: 479px) {
